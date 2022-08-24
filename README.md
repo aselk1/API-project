@@ -1,8 +1,8 @@
-# `<name of application here>`
+# `SoundCloud`
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+![DB Schema](db-schema.png)
 
 ## API Documentation
 
