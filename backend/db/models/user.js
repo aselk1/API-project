@@ -12,12 +12,12 @@ module.exports = (sequelize, DataTypes) => {
       const {id, username, email} = this; //context is the user instance
       return {id, username, email};
     }
-    validatePassword() { //validate a password
+    validatePassword(password) { //validate a password
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }
     static getCurrentUserById(id) { // get the currentUser
       return User.scope("currentUser").findByPk(id);
-    }
+    };
     static async login({credential, password}) {
       const {Op} = require('sequelize');
       const user = await User.scope('loginUser').findOne({ //find a user with a matching credentials
