@@ -4,11 +4,11 @@
   "description": "## Database Schema Design",
   "main": "index.js",
   "scripts": {
-     "install": "npm --prefix backend install backend",
-     "dev:backend": "npm install --prefix backend start",
-     "sequelize": "npm run --prefix backend sequelize",
-     "sequelize-cli": "npm run --prefix backend sequelize-cli",
-     "start": "npm start --prefix backend"
+    "install": "npm --prefix backend install backend",
+    "dev:backend": "npm install --prefix backend start",
+    "sequelize": "npm run --prefix backend sequelize",
+    "sequelize-cli": "npm run --prefix backend sequelize-cli",
+    "start": "npm start --prefix backend"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/aselk1/API-project/issues"
   },
-  "homepage": "https://github.com/aselk1/API-project#readme"
+  "homepage": "https://github.com/aselk1/API-project#readme",
+  "dependencies": {
+    "pg": "^8.8.0"
+  },
+  "devDependencies": {}
 }
