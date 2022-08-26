@@ -2,16 +2,29 @@
 const express = require('express')
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
+//import validation stuff
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
+
+//middleware to check validations and handle errors
+const validateLogin = [
+    check('credential')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Please provide a valid email or username.'),
+    check('password')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide a password.'),
+    handleValidationErrors
+];
 
 // Log in
 router.post(
     '/',
+    validateLogin, // add validate login middleware to post route
     async (req, res, next) => {
         const { credential, password } = req.body;
-        console.log(req.body);
-        console.log(credential);
-        console.log(password);
 
         const user = await User.login({ credential, password });
 
@@ -53,6 +66,7 @@ router.get(
         } else return res.json({});
     }
 );
+
 
 
 module.exports = router;
