@@ -7,13 +7,22 @@ const handleValidationErrors = (req, _res, next) => {
     const validationErrors = validationResult(req);
 
     if (!validationErrors.isEmpty()) {
+        const error2 = {};
+        // const errors = validationErrors //old replaced for correct res.body
+        //     .array()
+        //     .map((error) => {
+        //         return `${error.msg}`
+        //     });
+
         const errors = validationErrors
             .array()
-            .map((error) => `${error.msg}`);
-
-        const err = Error('Bad request.');
-        err.errors = errors;
+            .forEach((error) => {
+                if (error.param === 'credential') error2.credential = "Email or username is required"
+                if (error.param === 'password') error2.password = "Password is required"
+            });
+        const err = Error('Validation error');
         err.status = 400;
+        err.errors = error2;
         err.title = 'Bad request.';
         next(err);
     }

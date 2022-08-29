@@ -56,9 +56,9 @@ const restoreUser = (req, res, next) => {// restore a user session based on JWT 
 const requireAuth = [restoreUser, function (req, _res, next) { //error for none authorized users. Include restoreUser as part of the middleware
     if (req.user) return next();
 
-    const err = new Error('Unauthorized');
-    err.title = 'Unauthorized';
-    err.errors = ['Unauthorized'];
+    const err = new Error('Authentication required');
+    // err.title = 'Unauthorized';
+    // err.errors = ['Unauthorized'];
     err.status = 401;
     return next(err);
 }]
