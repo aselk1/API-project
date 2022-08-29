@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Song.belongsTo(models.Album, { foreignKey: 'albumId' });
       Song.belongsTo(models.User, { foreignKey: 'userId' });
+      Song.belongsToMany(models.Playlist, {
+        through: 'PlaylistSong',
+        foreignKey: 'songId',
+        otherKey: 'playlistId'
+      })
     }
   }
   Song.init({
