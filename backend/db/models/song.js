@@ -23,21 +23,22 @@ module.exports = (sequelize, DataTypes) => {
   }
   Song.init({
     albumId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.INTEGER
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
     title: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     },
     description: {
       type: DataTypes.STRING
     },
     url: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     },
     imageUrl: {
       type: DataTypes.STRING

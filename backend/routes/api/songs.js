@@ -39,9 +39,6 @@ router.get(
     "/:songId",
     async (req, res, next) => {
         const song = await Song.findByPk(req.params.songId,{
-            // where: {
-            //     id: Number(req.params.songId)
-            // },
             include: [
                 { model: User, attributes: ['id', 'username', 'imageUrl'], as: 'Artist'},
                 {model: Album, attributes: ['id', 'title', 'imageUrl']}
@@ -53,6 +50,45 @@ router.get(
             return next(err);
         }
         return res.json( song );
+    }
+);
+
+router.post(
+    "/",
+    requireAuth,
+    async (req, res, next) => {
+        // find user id
+        const { token } = req.cookies;
+        const payload = jwt.decode(token);
+        const id = payload.data.id
+        const {title, description, url, imageUrl, albumId} = req.body
+        //check for title and url, error if needed
+        if (!title || !url) {
+            const err = new Error('Validation Error');
+            err.status = 400;
+            err.errors = {};
+            if (!title) err.errors.title = "Song title is required";
+            if (!url) err.errors.url = "Audio is required";
+            next(err);
+        };
+        //check for album, error if needed
+        if (albumId) {
+            let album = await Album.findByPk(albumId);
+            if (!album) {
+                const err = new Error("Album couldn't be found");
+                err.status = 400;
+                next(err);
+            }
+        };
+        let song = await Song.create({
+            title: title,
+            description: description,
+            url: url,
+            imageUrl: imageUrl,
+            albumId: albumId,
+            userId: id
+        })
+        res.json(song)
     }
 );
 
