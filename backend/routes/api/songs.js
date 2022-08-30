@@ -76,7 +76,7 @@ router.post(
             let album = await Album.findByPk(albumId);
             if (!album) {
                 const err = new Error("Album couldn't be found");
-                err.status = 400;
+                err.status = 404;
                 next(err);
             }
         };
@@ -91,6 +91,36 @@ router.post(
         res.json(song)
     }
 );
+
+router.put(
+    "/:songId",
+    requireAuth,
+    async (req, res, next) => {
+        let {title, description, url, imageUrl, albumId} = req.body;
+        let song = await Song.findByPk(req.params.songId);
+        if (!title || !url) {
+            const err = new Error('Validation Error');
+            err.status = 400;
+            err.errors = {};
+            if (!title) err.errors.title = "Song title is required";
+            if (!url) err.errors.url = "Audio is required";
+            return next(err);
+        };
+        if (!song) {
+            const err = new Error("Song couldn't be found");
+            err.status = 404;
+            return next(err);
+        };
+        song.update({
+            title: title,
+            description: description,
+            url: url,
+            imageUrl: imageUrl,
+            albumId: albumId
+        })
+        res.json(song)
+    }
+)
 
 
 
