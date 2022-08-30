@@ -3,7 +3,7 @@ const express = require('express')
 const jwt = require('jsonwebtoken');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Song } = require('../../db/models');
+const { Song, User, Album } = require('../../db/models');
 //import validation stuff
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -32,6 +32,27 @@ router.get(
             }
         });
         return res.json({ Songs });
+    }
+);
+
+router.get(
+    "/:songId",
+    async (req, res, next) => {
+        const song = await Song.findByPk(req.params.songId,{
+            // where: {
+            //     id: Number(req.params.songId)
+            // },
+            include: [
+                { model: User, attributes: ['id', 'username', 'imageUrl'], as: 'Artist'},
+                {model: Album, attributes: ['id', 'title', 'imageUrl']}
+            ]
+        });
+        if (!song) {
+            const err = new Error("Song couldn't be found");
+            err.status = 404;
+            return next(err);
+        }
+        return res.json( song );
     }
 );
 

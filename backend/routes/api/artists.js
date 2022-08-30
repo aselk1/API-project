@@ -16,7 +16,6 @@ router.get(
     async (req, res, next) => {
         const artistId = Number(req.params.artistId);
         const artist = await User.findByPk(artistId);
-        console.log(artist)
         if (!artist) {
             const err = new Error("Artist couldn't be found");
             err.status = 404;
