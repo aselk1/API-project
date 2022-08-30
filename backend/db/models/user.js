@@ -32,9 +32,9 @@ module.exports = (sequelize, DataTypes) => {
         return await User.scope('currentUser').findByPk(user.id)
       }
     }
-    static async signup({username, email, password}) {
+    static async signup({username, email, password, firstName, lastName}) {
       const hashedPassword = bcrypt.hashSync(password); //create salted/hashed password
-      const user = await User.create({username, email, hashedPassword}); // create new user in table
+      const user = await User.create({username, email, hashedPassword, firstName, lastName}); // create new user in table
       return await User.scope('currentUser').findByPk(user.id); // return that new user with the currentUser scope query
     }
     static associate(models) {

@@ -35,14 +35,16 @@ router.post(
     '/',
     validateSignup, // add validation middleware for signup
     async (req, res) => {
-        const { email, password, username } = req.body;
-        const user = await User.signup({ email, username, password });
+        const { email, password, username, firstName, lastName } = req.body;
+        const user = await User.signup({ email, username, password, firstName, lastName });
 
-        await setTokenCookie(res, user);
+        let token = await setTokenCookie(res, user); // save token
+        let send = { ...user.dataValues } // save user.dataValues
+        send.token = token; // add token to send json
 
-        return res.json({
-            user,
-        });
+        return res.json( // remove {} from response
+            send
+        );
     }
 );
 
