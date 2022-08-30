@@ -98,6 +98,7 @@ router.put(
     async (req, res, next) => {
         let {title, description, url, imageUrl, albumId} = req.body;
         let song = await Song.findByPk(req.params.songId);
+
         if (!title || !url) {
             const err = new Error('Validation Error');
             err.status = 400;
@@ -111,6 +112,11 @@ router.put(
             err.status = 404;
             return next(err);
         };
+        if (Number(req.user.dataValues.id) !== Number(song.userId)) {
+            let err = new Error('Forbidden');
+            err.status = 403;
+            return next(err);
+        };
         song.update({
             title: title,
             description: description,
@@ -119,6 +125,28 @@ router.put(
             albumId: albumId
         })
         res.json(song)
+    }
+);
+
+router.delete(
+    "/:songId",
+    async (req, res, next) => {
+        let song = await Song.findByPk(req.params.songId);
+        if (!song) {
+            const err = new Error("Song couldn't be found");
+            err.status = 404;
+            return next(err);
+        };
+        if (Number(req.user.dataValues.id) !== Number(song.userId)) {
+            let err = new Error('Forbidden');
+            err.status = 403;
+            return next(err);
+        };
+        await song.destroy();
+        res.json({
+            "message": "Successfully deleted",
+            "statusCode": 200
+        })
     }
 )
 

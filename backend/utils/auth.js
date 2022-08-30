@@ -1,7 +1,7 @@
 // backend/utils/auth.js
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config');
-const { User } = require('../db/models');
+const { User, Song } = require('../db/models');
 
 const { secret, expiresIn } = jwtConfig;
 
@@ -61,6 +61,15 @@ const requireAuth = [restoreUser, function (req, _res, next) { //error for none 
     // err.errors = ['Unauthorized'];
     err.status = 401;
     return next(err);
-}]
+}];
 
-module.exports = { setTokenCookie, restoreUser, requireAuth };
+// const requirePropAuthSong = async (req, _res, next) => {
+//     let song = await Song.findByPk(req.params.songId);
+//     if (Number(req.user.dataValues.id) !== Number(song.userId)) {
+//         let err = new Error('Forbidden');
+//         err.status = 403;
+//         return next(err);
+//     }
+// }
+
+module.exports = { setTokenCookie, restoreUser, requireAuth};
