@@ -7,6 +7,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const songsRouter = require('./songs.js');
 const artistsRouter = require('./artists.js');
+const playlistsRouter = require('./playlists.js');
 const { restoreUser, requireAuth} = require('../../utils/auth.js');
 
 router.use(restoreUser); //connect restoreUser before any other middleware
@@ -16,6 +17,7 @@ router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/songs', songsRouter);
 router.use('/artists', artistsRouter);
+router.use('/artists', playlistsRouter);
 
 // router.post('/test', function (req, res) { // test router
 //     res.json({ requestBody: req.body });

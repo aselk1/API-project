@@ -2,7 +2,7 @@
 const express = require('express')
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Song, User } = require('../../db/models');
+const { Song, User, Playlist } = require('../../db/models');
 //import validation stuff
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -27,6 +27,23 @@ router.get(
             }
         });
         return res.json({ Songs });
+    }
+);
+
+router.get(
+    "/:artistId/playlists",
+    async (req, res, next) => {
+        let Playlists = await Playlist.findAll({
+            where: {
+                userId: Number(req.params.artistId)
+            }
+        })
+        if (Playlists.length === 0) {
+            let err = new Error("Artist could'nt be found");
+            err.status = 404;
+            return next(err);
+        }
+        res.json({Playlists})
     }
 );
 
