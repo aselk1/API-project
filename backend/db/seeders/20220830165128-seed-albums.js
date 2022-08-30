@@ -24,7 +24,8 @@ module.exports = {
      title : { [Op.in]: ['Album1', 'Album2'] }
     }, { // truncate to reset autoincrement id
       truncate: true,
-      cascade: true
+      cascade: true,
+      restartIdentity: true
     });
   }
 };
