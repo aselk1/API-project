@@ -172,6 +172,36 @@ router.get(
     }
 )
 
+router.post(
+    "/:songId/comments",
+    requireAuth,
+    async (req, res, next) => {
+        let {body} = req.body;
+        let songId = Number(req.params.songId);
+        let song = await Song.findByPk(songId);
+        if (!song) {
+            const err = new Error("Song couldn't be found");
+            err.status = 404;
+            return next(err);
+        };
+        const { token } = req.cookies;
+        const payload = jwt.decode(token);
+        const id = payload.data.id
+        if (!body) {
+            let err = new Error("Validation Error")
+            err.status = 400;
+            err.errors = {"body": "Comment body text is required"};
+            return next(err);
+        }
+        let comment = await Comment.create({
+            userId: id,
+            songId: songId,
+            body: body
+        })
+        res.json(comment);
+    }
+)
+
 
 
 module.exports = router;
