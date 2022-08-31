@@ -10,6 +10,31 @@ const user = require('../../db/models/user');
 
 const router = express.Router();
 
+router.get(
+    "/:artistId",
+    async (req, res, next) => {
+        let artistId = Number(req.params.artistId);
+        let artist = await User.findByPk(artistId,{
+            attributes: ['id', 'username', 'imageUrl']
+        });
+        if (!artist) {
+            const err = new Error("Artist couldn't be found");
+            err.status = 404;
+            return next(err);
+        }
+        artist.dataValues.totalSongs = await Song.count({
+            where: {
+                userId: artistId
+            }
+        });
+        artist.dataValues.totalAlbums = await Album.count({
+            where: {
+                userId: artistId
+            }
+        });
+        res.json(artist);
+    }
+);
 
 router.get(
     "/:artistId/songs",
