@@ -21,7 +21,8 @@ module.exports = {
         onDelete: 'CASCADE'
       },
       body: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

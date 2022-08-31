@@ -2,7 +2,7 @@
 const express = require('express')
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Song, User, Playlist } = require('../../db/models');
+const { Song, User, Playlist, Album } = require('../../db/models');
 //import validation stuff
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -10,6 +10,31 @@ const user = require('../../db/models/user');
 
 const router = express.Router();
 
+router.get(
+    "/:artistId",
+    async (req, res, next) => {
+        let artistId = Number(req.params.artistId);
+        let artist = await User.findByPk(artistId,{
+            attributes: ['id', 'username', 'imageUrl']
+        });
+        if (!artist) {
+            const err = new Error("Artist couldn't be found");
+            err.status = 404;
+            return next(err);
+        }
+        artist.dataValues.totalSongs = await Song.count({
+            where: {
+                userId: artistId
+            }
+        });
+        artist.dataValues.totalAlbums = await Album.count({
+            where: {
+                userId: artistId
+            }
+        });
+        res.json(artist);
+    }
+);
 
 router.get(
     "/:artistId/songs",
@@ -46,6 +71,27 @@ router.get(
         res.json({Playlists})
     }
 );
+
+router.get(
+    "/:artistId/albums",
+    async (req, res, next) => {
+        let artistId = Number(req.params.artistId);
+        let Albums = await Album.findAll({
+            where: {
+                userId: artistId
+            }
+        })
+        if (Albums.length === 0) {
+            let err = new Error("Artist couldn't be found");
+            err.status = 404;
+            return next(err);
+        }
+        res.json({Albums})
+    }
+);
+
+
+
 
 
 

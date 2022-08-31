@@ -3,7 +3,7 @@ const express = require('express')
 const jwt = require('jsonwebtoken');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Song, User, Album } = require('../../db/models');
+const { Song, User, Album, Comment } = require('../../db/models');
 //import validation stuff
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -14,8 +14,31 @@ const router = express.Router();
 router.get(
     "/",
     async (req, res, next) => {
-        const Songs = await Song.findAll({});
-        return res.json({Songs});
+        let query = {
+            where: {},
+            include: []
+        };
+        const page = req.query.page === undefined ? 0 : parseInt(req.query.page);
+        const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
+        if(page < 0 || page > 10 || size < 0 || size > 20) {
+            let err = new Error("Validation Error");
+            err.status = 400;
+            err.errors = {};
+            if (page < 0) err.errors.page = "Page must be greater than or equal to 0";
+            if (size < 0) err.errors.size = "Size must be greater than or equal to 0";
+            if (page > 10) err.errors.page = "Page must be less than or equal to 10";
+            if (size > 20) err.errors.size = "Size must be less than or equal to 20";
+            return next(err);
+        }
+        else {
+            query.limit = size;
+            query.offset = size * (page - 1);
+        }
+        if (req.query.title) query.where.title = req.query.title;
+        if (req.query.createdAt) query.where.createdAt = req.query.createdAt;
+
+        const Songs = await Song.findAll(query);
+        return res.json({Songs, page, size});
     }
 );
 
@@ -130,6 +153,7 @@ router.put(
 
 router.delete(
     "/:songId",
+    requireAuth,
     async (req, res, next) => {
         let song = await Song.findByPk(req.params.songId);
         if (!song) {
@@ -147,6 +171,57 @@ router.delete(
             "message": "Successfully deleted",
             "statusCode": 200
         })
+    }
+);
+
+router.get(
+    "/:songId/comments",
+    async (req, res, next) => {
+        let Comments = await Comment.findAll({
+            where: {
+                songId: Number(req.params.songId)
+            },
+            include: {
+                model: User,
+                attributes: ['id', 'username']
+            }
+        });
+        if (Comments.length === 0) {
+            let err = new Error("Song couldn't be found")
+            err.status = 404;
+            return next(err);
+        }
+        res.json(Comments)
+    }
+)
+
+router.post(
+    "/:songId/comments",
+    requireAuth,
+    async (req, res, next) => {
+        let {body} = req.body;
+        let songId = Number(req.params.songId);
+        let song = await Song.findByPk(songId);
+        if (!song) {
+            const err = new Error("Song couldn't be found");
+            err.status = 404;
+            return next(err);
+        };
+        const { token } = req.cookies;
+        const payload = jwt.decode(token);
+        const id = payload.data.id
+        if (!body) {
+            let err = new Error("Validation Error")
+            err.status = 400;
+            err.errors = {"body": "Comment body text is required"};
+            return next(err);
+        }
+        let comment = await Comment.create({
+            userId: id,
+            songId: songId,
+            body: body
+        })
+        res.json(comment);
     }
 )
 
