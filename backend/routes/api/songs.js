@@ -130,6 +130,7 @@ router.put(
 
 router.delete(
     "/:songId",
+    requireAuth,
     async (req, res, next) => {
         let song = await Song.findByPk(req.params.songId);
         if (!song) {

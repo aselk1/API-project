@@ -17,7 +17,7 @@ router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/songs', songsRouter);
 router.use('/artists', artistsRouter);
-router.use('/artists', playlistsRouter);
+router.use('/playlists', playlistsRouter);
 
 // router.post('/test', function (req, res) { // test router
 //     res.json({ requestBody: req.body });
