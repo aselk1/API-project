@@ -32,9 +32,20 @@ module.exports = (sequelize, DataTypes) => {
         return await User.scope('currentUser').findByPk(user.id)
       }
     }
-    static async signup({username, email, password, firstName, lastName}) {
+    static async signup({ username, email, password, firstName, lastName }) {
       const hashedPassword = bcrypt.hashSync(password); //create salted/hashed password
-      const user = await User.create({username, email, hashedPassword, firstName, lastName}); // create new user in table
+      //new error handling for non unique users
+      let check = await User.findOne({ where: { username: username } })
+      let check2 = await User.findOne({ where: { email: email } })
+      if (check || check2) {
+        let err = new Error("User already exists")
+        err.status = 403;
+        err.errors = {};
+        if (check) err.errors.username = "User with that username already exists";
+        if (check2) err.errors.email = "User with that email already exists";
+        throw err
+      }
+      const user = await User.create({ username, email, hashedPassword, firstName, lastName }); // create new user in table
       return await User.scope('currentUser').findByPk(user.id); // return that new user with the currentUser scope query
     }
     static associate(models) {
