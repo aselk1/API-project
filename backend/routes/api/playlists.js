@@ -83,6 +83,36 @@ router.get(
         }
         res.json(playlist)
     }
+);
+
+router.put(
+    "/:playlistId",
+    requireAuth,
+    async (req, res, next) => {
+        let {name, imageUrl} = req.body
+        let playlistId = Number(req.params.playlistId);
+        let playlist = await Playlist.findByPk(playlistId);
+        if (!name) {
+            let err = new Error("Validation Error");
+            err.status = 400;
+            err.errors = {"name": "Playlist name is required"}
+            return next(err);
+        }
+        if (!playlist) {
+            let err = new Error("Playlist couldn't be found");
+            err.status = 404;
+            return next(err);
+        }
+        if (Number(req.user.dataValues.id) !== Number(playlist.userId)) {
+            let err = new Error('Forbidden');
+            err.status = 403;
+            return next(err);
+        };
+        playlist.update({
+            name, imageUrl
+        })
+        res.json(playlist)
+    }
 )
 
 
