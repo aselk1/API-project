@@ -16,6 +16,22 @@ router.get(
         let Albums = await Album.findAll({})
         res.json({Albums})
     }
+);
+
+router.get(
+    "/current",
+    requireAuth,
+    async (req, res, next) => {
+        const { token } = req.cookies;
+        const payload = jwt.decode(token);
+        const id = payload.data.id
+        const Albums = await Album.findAll({
+            where: {
+                userId: id
+            }
+        });
+        return res.json({ Albums });
+    }
 )
 
 
