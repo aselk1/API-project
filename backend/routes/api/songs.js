@@ -191,7 +191,7 @@ router.get(
             err.status = 404;
             return next(err);
         }
-        res.json(Comments)
+        res.json({Comments})
     }
 )
 
