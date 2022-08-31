@@ -70,6 +70,22 @@ router.post(
 );
 
 router.get(
+    "/current",
+    requireAuth,
+    async (req, res, next) => {
+        const { token } = req.cookies;
+        const payload = jwt.decode(token);
+        const id = payload.data.id
+        const Playlists = await Playlist.findAll({
+            where: {
+                userId: id
+            }
+        });
+        return res.json({ Playlists });
+    }
+);
+
+router.get(
     "/:playlistId",
     async (req, res, next) => {
         let playlist = await Playlist.findByPk(
@@ -139,21 +155,6 @@ router.delete(
     }
 )
 
-router.get(
-    "/current",
-    requireAuth,
-    async (req, res, next) => {
-        const { token } = req.cookies;
-        const payload = jwt.decode(token);
-        const id = payload.data.id
-        const Playlists = await Playlist.findAll({
-            where: {
-                userId: id
-            }
-        });
-        return res.json({ Playlists });
-    }
-)
 
 
 module.exports = router;
