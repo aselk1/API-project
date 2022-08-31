@@ -58,8 +58,12 @@ app.use((_req, _res, next) => {
 app.use((err, _req, _res, next) => {
     // check if error is a Sequelize error:
     if (err instanceof ValidationError) {
+        // let error2 = {}
         err.errors = err.errors.map((e) => e.message);
+        // err.errors.forEach((e) => error2[`${e.path}`] = e.message);
+        // err.errors = error2
         err.title = 'Validation error';
+        // err.message = 'Validation error';
     }
     next(err);
 });
@@ -69,10 +73,11 @@ app.use((err, _req, res, _next) => {
     res.status(err.status || 500);
     console.error(err);
     res.json({
-        title: err.title || 'Server Error',
+        // title: err.title || 'Server Error', // remove error title
         message: err.message,
         errors: err.errors,
-        stack: isProduction ? null : err.stack
+        statusCode: err.status
+        // stack: isProduction ? null : err.stack // remove stack
     });
 });
 

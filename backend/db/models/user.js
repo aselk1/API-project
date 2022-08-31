@@ -32,13 +32,17 @@ module.exports = (sequelize, DataTypes) => {
         return await User.scope('currentUser').findByPk(user.id)
       }
     }
-    static async signup({username, email, password}) {
+    static async signup({username, email, password, firstName, lastName}) {
       const hashedPassword = bcrypt.hashSync(password); //create salted/hashed password
-      const user = await User.create({username, email, hashedPassword}); // create new user in table
+      const user = await User.create({username, email, hashedPassword, firstName, lastName}); // create new user in table
       return await User.scope('currentUser').findByPk(user.id); // return that new user with the currentUser scope query
     }
     static associate(models) {
       // define association here
+      User.hasMany(models.Album, {foreignKey: 'userId'});
+      User.hasMany(models.Playlist, { foreignKey: 'userId' });
+      User.hasMany(models.Song, { foreignKey: 'userId'});
+      User.hasMany(models.Comment, { foreignKey: 'userId' });
     }
   }
   User.init({
@@ -54,6 +58,14 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull:false
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -68,6 +80,9 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [60, 60]
       }
+    },
+    imageUrl: {
+      type: DataTypes.STRING
     }
   }, {
     sequelize,
@@ -79,7 +94,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     scopes: {
       currentUser: {
-        attributes: {exclude: ["hashedPassword"]}
+        attributes: {exclude: ["hashedPassword","createdAt","updatedAt","imageUrl"]}
       },
       loginUser: {attributes: {}}
     }

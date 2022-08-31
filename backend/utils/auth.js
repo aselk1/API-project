@@ -1,7 +1,7 @@
 // backend/utils/auth.js
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config');
-const { User } = require('../db/models');
+const { User, Song } = require('../db/models');
 
 const { secret, expiresIn } = jwtConfig;
 
@@ -56,11 +56,20 @@ const restoreUser = (req, res, next) => {// restore a user session based on JWT 
 const requireAuth = [restoreUser, function (req, _res, next) { //error for none authorized users. Include restoreUser as part of the middleware
     if (req.user) return next();
 
-    const err = new Error('Unauthorized');
-    err.title = 'Unauthorized';
-    err.errors = ['Unauthorized'];
+    const err = new Error('Authentication required');
+    // err.title = 'Unauthorized';
+    // err.errors = ['Unauthorized'];
     err.status = 401;
     return next(err);
-}]
+}];
 
-module.exports = { setTokenCookie, restoreUser, requireAuth };
+// const requirePropAuthSong = async (req, _res, next) => {
+//     let song = await Song.findByPk(req.params.songId);
+//     if (Number(req.user.dataValues.id) !== Number(song.userId)) {
+//         let err = new Error('Forbidden');
+//         err.status = 403;
+//         return next(err);
+//     }
+// }
+
+module.exports = { setTokenCookie, restoreUser, requireAuth};
