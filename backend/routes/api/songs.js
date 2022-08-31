@@ -3,7 +3,7 @@ const express = require('express')
 const jwt = require('jsonwebtoken');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Song, User, Album } = require('../../db/models');
+const { Song, User, Album, Comment } = require('../../db/models');
 //import validation stuff
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -148,6 +148,27 @@ router.delete(
             "message": "Successfully deleted",
             "statusCode": 200
         })
+    }
+);
+
+router.get(
+    "/:songId/comments",
+    async (req, res, next) => {
+        let Comments = await Comment.findAll({
+            where: {
+                songId: Number(req.params.songId)
+            },
+            include: {
+                model: User,
+                attributes: ['id', 'username']
+            }
+        });
+        if (Comments.length === 0) {
+            let err = new Error("Song couldn't be found")
+            err.status = 404;
+            return next(err);
+        }
+        res.json(Comments)
     }
 )
 
