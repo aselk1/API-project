@@ -51,7 +51,25 @@ router.get(
         }
         res.json(album)
     }
-)
+);
+
+router.post(
+    "/",
+    requireAuth,
+    async (req, res, next) => {
+        let {title, description, imageUrl} = req.body;
+        const { token } = req.cookies;
+        const payload = jwt.decode(token);
+        const id = payload.data.id;
+    if (!title) {
+        let err = new Error("Validation Error");
+        err.status = 400;
+        err.errors = {"title": "Album title is required"};
+        return next(err);
+    }
+        let album = await Album.create({title, description, imageUrl, userId: id});
+        res.json(album);
+ })
 
 
 module.exports = router;
