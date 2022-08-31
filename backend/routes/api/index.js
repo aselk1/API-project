@@ -9,6 +9,7 @@ const songsRouter = require('./songs.js');
 const artistsRouter = require('./artists.js');
 const playlistsRouter = require('./playlists.js');
 const commentsRouter = require('./comments.js');
+const albumsRouter = require('./albums.js');
 const { restoreUser, requireAuth} = require('../../utils/auth.js');
 
 router.use(restoreUser); //connect restoreUser before any other middleware
@@ -20,6 +21,7 @@ router.use('/songs', songsRouter);
 router.use('/artists', artistsRouter);
 router.use('/playlists', playlistsRouter);
 router.use('/comments', commentsRouter);
+router.use('/albums', albumsRouter);
 
 // router.post('/test', function (req, res) { // test router
 //     res.json({ requestBody: req.body });
