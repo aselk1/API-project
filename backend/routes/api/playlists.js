@@ -67,6 +67,22 @@ router.post(
         let add2 = await PlaylistSong.findByPk(add.id);//default scope will remove updatedAt, and createdAt
         res.json(add2);
     }
+);
+
+router.get(
+    "/:playlistId",
+    async (req, res, next) => {
+        let playlist = await Playlist.findByPk(
+            req.params.playlistId,
+            {include: {model: Song, through: {attributes: []}}}
+        )
+        if (!playlist) {
+            let err = new Error("Playlist couldn't be found");
+            err.status = 404;
+            return next(err);
+        }
+        res.json(playlist)
+    }
 )
 
 
