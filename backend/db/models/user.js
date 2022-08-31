@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     }
     static async signup({ username, email, password, firstName, lastName }) {
       const hashedPassword = bcrypt.hashSync(password); //create salted/hashed password
+      //new error handling for non unique users
       let check = await User.findOne({ where: { username: username } })
       let check2 = await User.findOne({ where: { email: email } })
       if (check || check2) {
@@ -41,8 +42,8 @@ module.exports = (sequelize, DataTypes) => {
         err.status = 403;
         err.errors = {};
         if (check) err.errors.username = "User with that username already exists";
-        if (check2) err.errors.username = "User with that email already exists";
-        return err
+        if (check2) err.errors.email = "User with that email already exists";
+        throw err
       }
       const user = await User.create({ username, email, hashedPassword, firstName, lastName }); // create new user in table
       return await User.scope('currentUser').findByPk(user.id); // return that new user with the currentUser scope query
