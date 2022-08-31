@@ -18,13 +18,13 @@ router.get(
             where: {},
             include: []
         };
-        const page = req.query.page === undefined ? 0 : parseInt(req.query.page);
+        const page = req.query.page === undefined ? 1 : parseInt(req.query.page);
         const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
-        if(page < 0 || page > 10 || size < 0 || size > 20) {
+        if(page < 1 || page > 10 || size < 0 || size > 20) {
             let err = new Error("Validation Error");
             err.status = 400;
             err.errors = {};
-            if (page < 0) err.errors.page = "Page must be greater than or equal to 0";
+            if (page < 1) err.errors.page = "Page must be greater than or equal to 1";
             if (size < 0) err.errors.size = "Size must be greater than or equal to 0";
             if (page > 10) err.errors.page = "Page must be less than or equal to 10";
             if (size > 20) err.errors.size = "Size must be less than or equal to 20";
