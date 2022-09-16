@@ -6,8 +6,12 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 
+import sessionReducer from "./session";
+
 //combine all reducers
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  session: sessionReducer,
+});
 
 //set up enhancer for production vs. development
 let enhancer;
