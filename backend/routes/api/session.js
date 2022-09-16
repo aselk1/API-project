@@ -58,7 +58,7 @@ router.delete(
 // Restore session user
 router.get(
     '/',
-    requireAuth, //use require auth instead of restore User sop you get the error for a non-authorized user
+    requireAuth, //use require auth instead of restore User so you get the error for a non-authorized user
     (req, res) => {
         const { user } = req;
         if (user) {
