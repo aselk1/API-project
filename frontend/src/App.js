@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Route, Switch, useHistory } from "react-router-dom";
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
+import Navigation from "./components/Navigation";
 import * as sessionActions from "./store/session";
 
 
@@ -11,18 +12,6 @@ function App() {
   const history = useHistory()
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const login = () => {
-    history.push('/login')
-  }
-  const signup = () => {
-    history.push("/signup");
-  };
-
-  const logoutUser = (e) => {
-    e.preventDefault();
-    dispatch(sessionActions.logout());
-  };
-
 
   useEffect(() => {
     //async with .then chains
@@ -30,14 +19,12 @@ function App() {
   }, [dispatch]);
 
   return (
-    isLoaded && (
+    <div>
+      <Navigation isLoaded={isLoaded} />
+    {isLoaded && (
       <Switch>
         <Route exact path="/">
           <div>Welcome Page</div>
-          <button onClick={login}>Login</button>
-          <button onClick={signup}>Sign Up</button>
-          <button onClick={logoutUser}>Logout</button>
-          <div>Query for stuff</div>
         </Route>
         <Route path="/login">
           <LoginFormPage />
@@ -46,7 +33,8 @@ function App() {
           <SignupFormPage />
         </Route>
       </Switch>
-    )
+    )}
+    </div>
   );
 }
 
