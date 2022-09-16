@@ -48,10 +48,6 @@ function SignupFormPage() {
     }
   };
 
-  const home = () => {
-    history.push("/");
-  };
-
   return (
     <div>
     <form onSubmit={handleSubmit}>
@@ -116,7 +112,6 @@ function SignupFormPage() {
       </label>
       <button type="submit">Sign Up</button>
     </form>
-    <button onClick={home}>Home</button>
     </div>
   );
 }

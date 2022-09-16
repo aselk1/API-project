@@ -24,9 +24,6 @@ function LoginFormPage() {
       }
     );
   };
-  const home = () => {
-    history.push('/')
-  }
 
   return (
     <div>
@@ -56,7 +53,6 @@ function LoginFormPage() {
         </label>
         <button type="submit">Log In</button>
       </form>
-      <button onClick={home}>Home</button>
     </div>
   );
 }
