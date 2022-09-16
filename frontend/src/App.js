@@ -5,6 +5,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 
+
 function App() {
   const dispatch = useDispatch();
   const history = useHistory()
@@ -16,6 +17,12 @@ function App() {
   const signup = () => {
     history.push("/signup");
   };
+
+  const logoutUser = (e) => {
+    e.preventDefault();
+    dispatch(sessionActions.logout());
+  };
+
 
   useEffect(() => {
     //async with .then chains
@@ -29,6 +36,7 @@ function App() {
           <div>Welcome Page</div>
           <button onClick={login}>Login</button>
           <button onClick={signup}>Sign Up</button>
+          <button onClick={logoutUser}>Logout</button>
           <div>Query for stuff</div>
         </Route>
         <Route path="/login">
