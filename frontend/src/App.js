@@ -14,6 +14,7 @@ function App() {
   }
 
   useEffect(() => {
+    //async with .then chains
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
