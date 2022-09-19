@@ -5,6 +5,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import * as sessionActions from "./store/session";
+import HomePage from "./components/HomePage";
 
 
 function App() {
@@ -20,18 +21,18 @@ function App() {
 
   return (
     <div>
-      <Navigation isLoaded={isLoaded} />
+      {/* <Navigation isLoaded={isLoaded} /> */}
     {isLoaded && (
       <Switch>
         <Route exact path="/">
-          <div>Welcome Page</div>
+          <HomePage isLoaded={isLoaded}/>
         </Route>
         {/* <Route path="/login">
           <LoginFormPage />
         </Route> */}
-        <Route path="/signup">
+        {/* <Route path="/signup">
           <SignupFormPage />
-        </Route>
+        </Route> */}
       </Switch>
     )}
     </div>

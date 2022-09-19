@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import "./LoginForm.css";
 
-function LoginForm() {
+function LoginForm({setShowModal}) {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
@@ -24,16 +24,20 @@ function LoginForm() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="formContainer">
+      <button onClick={() => setShowModal(false)} className="close">
+        <i className="fa-duotone fa-x"></i>
+      </button>
+      <form onSubmit={handleSubmit} className="signIn">
+        <h2>Welcome Back</h2>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
         <label>
-          Username or Email
           <input
+            placeholder="Your email address or username"
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
@@ -41,15 +45,17 @@ function LoginForm() {
           />
         </label>
         <label>
-          Password
           <input
+            placeholder="Your Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        <button type="submit">Log In</button>
+        <button type="submit" className="submit">
+          Sign In
+        </button>
       </form>
     </div>
   );
