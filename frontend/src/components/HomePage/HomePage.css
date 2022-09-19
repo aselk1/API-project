@@ -1,0 +1,32 @@
+.topBar {
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+    margin-left: 10%;
+    margin-right: 10%;
+    justify-content: space-between;
+}
+
+.logo {
+    height: 60px;
+    width: 70px;
+}
+
+.logoText {
+    color: white;
+}
+
+.logoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.nav {
+    width: auto;
+}

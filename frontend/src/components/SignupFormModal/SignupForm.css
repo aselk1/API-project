@@ -47,3 +47,13 @@ input {
 i {
     width: 50px;
 }
+
+#openSignup {
+    background-color: orangered;
+    color: white;
+    border-radius: 4px;
+    border: orangered solid 3px;
+    height: 35px;
+    width: 130px;
+}
+

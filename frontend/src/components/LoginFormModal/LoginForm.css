@@ -47,3 +47,17 @@ input {
 i {
     width: 50px;
 }
+
+#openLogin {
+    background-color: black;
+    color: white;
+    border-radius: 4px;
+    border: lightgray solid 1px;
+    height: 35px;
+    width: 75px;
+
+}
+
+#openLogin:hover {
+    border-color: white;
+}

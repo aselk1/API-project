@@ -11,10 +11,10 @@ function Navigation({ isLoaded }) {
 
   let sessionLinks;
   if (sessionUser) {
-    sessionLinks = <ProfileButton user={sessionUser} />;
+    sessionLinks = <ul><ProfileButton user={sessionUser} /></ul>;
   } else {
     sessionLinks = (
-      <>
+      <ul>
         <li>
           {/* <NavLink to="/login">Log In</NavLink> */}
           <LoginFormModal />
@@ -22,13 +22,13 @@ function Navigation({ isLoaded }) {
         <li>
           <SignupFormModal />
         </li>
-      </>
+      </ul>
     );
   }
   return (
-    <ul>
+    <div>
         {isLoaded && sessionLinks}
-    </ul>
+    </div>
   );
 }
 
