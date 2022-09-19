@@ -1,4 +1,4 @@
-ul {
+ul.links {
     list-style: none;
     display: flex;
     flex-direction: row;

@@ -5,7 +5,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import * as sessionActions from "./store/session";
-import HomePage from "./components/HomePage";
+import Home from "./components/HomePage";
 
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
     {isLoaded && (
       <Switch>
         <Route exact path="/">
-          <HomePage isLoaded={isLoaded}/>
+          <Home isLoaded={isLoaded}/>
         </Route>
         <Route>404 Page Not Found</Route>
         {/* <Route path="/login">

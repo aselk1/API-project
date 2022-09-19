@@ -13,7 +13,8 @@ li {
     padding: 0px;
     position: absolute;
     top: 7%;
-    right:10.5%
+    right:10.5%;
+    list-style: none;
 }
 #menu {
     width: fit-content;

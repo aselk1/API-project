@@ -3,7 +3,7 @@ import Navigation from "../Navigation";
 import Songs from "../Songs";
 import "./HomePage.css";
 
-function Home({ isLoaded }) {
+function HomePage({ isLoaded }) {
   return (
     <div>
       <div className="pageContainer">
@@ -34,4 +34,4 @@ function Home({ isLoaded }) {
   );
 }
 
-export default Home;
+export default HomePage;

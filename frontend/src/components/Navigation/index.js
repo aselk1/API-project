@@ -14,7 +14,7 @@ function Navigation({ isLoaded }) {
     sessionLinks = <ul><ProfileButton user={sessionUser} /></ul>;
   } else {
     sessionLinks = (
-      <ul>
+      <ul className="links">
         <li>
           {/* <NavLink to="/login">Log In</NavLink> */}
           <LoginFormModal />
