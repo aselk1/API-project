@@ -27,6 +27,7 @@ function App() {
         <Route exact path="/">
           <HomePage isLoaded={isLoaded}/>
         </Route>
+        <Route>404 Page Not Found</Route>
         {/* <Route path="/login">
           <LoginFormPage />
         </Route> */}
