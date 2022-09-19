@@ -31,6 +31,7 @@ router.post(
 
         if (!user) {
             const err = new Error('Invalid credentials');
+            // err.errors = 'Invalid credentials'
             err.status = 401;
             return next(err);
         }
