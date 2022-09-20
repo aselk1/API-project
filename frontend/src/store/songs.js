@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const GET_SONGS = '/songs/getSongs';
+// const GET_USER_SONGS = '/songs/getUserSongs'
 
 const getSongs = (songsObj) => {
     return {
@@ -8,6 +9,13 @@ const getSongs = (songsObj) => {
         payload: songsObj
     }
 }
+
+// const getUserSongs = (songsObj) => {
+//   return {
+//     type: GET_USER_SONGS,
+//     payload: songsObj,
+//   };
+// };
 
 export const fetchAllSongs = () => async (dispatch) => {
     const response = await csrfFetch("/api/songs", {
@@ -23,6 +31,20 @@ export const fetchAllSongs = () => async (dispatch) => {
     return response;
 }
 
+export const fetchUserSongs = (id) => async (dispatch) => {
+  const response = await csrfFetch(`/api/songs/current`, {
+    method: "GET",
+  });
+  const data = await response.json();
+  const songs = data.Songs;
+  const songsObj = {};
+  songs.forEach((el) => {
+    songsObj[el.id] = el;
+  });
+  dispatch(getSongs(songsObj));
+  return response;
+};
+
 const initialState = {};
 
 const songsReducer = (state = initialState, action) => {
@@ -32,7 +54,7 @@ const songsReducer = (state = initialState, action) => {
       newState = Object.assign({}, state);
       newState = action.payload;
       return newState;
-    // case REMOVE_USER:
+    // case GET_USER_SONGS:
     //   newState = Object.assign({}, state);
     //   newState.user = null;
     //   return newState;

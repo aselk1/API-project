@@ -3,10 +3,11 @@
     flex-direction: row;
     background-color: black;
     justify-content: space-between;
+    height: 50px;
 }
 
 .logo {
-    height: 60px;
+    height: 50px;
     width: 70px;
 }
 
@@ -21,15 +22,26 @@
     align-items: center;
 }
 
+.logoContainer:hover {
+    cursor: pointer;
+}
+
 .button:hover {
     cursor: pointer;
 }
 
 .nav {
     width: auto;
+    display: flex;
+    align-items: center;
 }
 
 .pageContainer {
     margin-left: 10%;
     margin-right: 10%;
+}
+
+#bar {
+    height: 3px;
+    background-color: orangered;
 }

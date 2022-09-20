@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Redirect, useHistory} from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import './ProfileButton.css'
 
 function ProfileButton({user}) {
+  const history = useHistory();
   const dispatch = useDispatch();
   //set up showMenu state
   const [showMenu, setShowMenu] = useState(false);
@@ -35,20 +37,29 @@ function ProfileButton({user}) {
     dispatch(sessionActions.logout());
   };
 
+  const profile = (e) => {
+    e.preventDefault();
+    history.push('/profile')
+  };
+
+
   return (
-    <div id='menuContainer'>
+    <div id="menuContainer">
       <button className="menuButton" onClick={openMenu}>
         <i id="menu" className="fa-solid fa-ellipsis"></i>
       </button>
       {showMenu && (
         // <div className="menu">
-          <ul className="profile-dropdown">
-            <li>{user.username}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={logout}>Log Out</button>
-            </li>
-          </ul>
+        <ul className="profile-dropdown">
+          <li>{user.username}</li>
+          <li>{user.email}</li>
+          <li>
+            <button onClick={profile}>Profile</button>
+          </li>
+          <li>
+            <button onClick={logout}>Log Out</button>
+          </li>
+        </ul>
         // </div>
       )}
     </div>

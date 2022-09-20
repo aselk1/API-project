@@ -1,19 +1,19 @@
 import { Switch, Route, useHistory } from "react-router-dom";
 import Navigation from "../Navigation";
 import Songs from "../Songs";
-import "./HomePage.css";
+import UserSongs from "../Songs/MySongs";
 
-function Home({ isLoaded }) {
-  const history = useHistory();
-  const home = (e) => {
-    e.preventDefault();
-    history.push("/");
-  };
+function Profile({isLoaded}) {
+    const history=useHistory()
+    const home = (e) => {
+      e.preventDefault();
+      history.push("/");
+    };
 
   return (
     <div>
       <div className="pageContainer">
-      <div id='bar'></div>
+        <div id="bar"></div>
         <div className="topBar">
           <div>
             <div className="logoContainer" onClick={home}>
@@ -28,17 +28,10 @@ function Home({ isLoaded }) {
             <Navigation isLoaded={isLoaded} />
           </div>
         </div>
-        <Songs />
+        <UserSongs />
       </div>
-      {isLoaded && (
-        <Switch>
-          {/* <Route path="/signup">
-            <SignupFormPage />
-          </Route> */}
-        </Switch>
-      )}
     </div>
   );
 }
 
-export default Home;
+export default Profile;

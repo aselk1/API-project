@@ -11,7 +11,7 @@ function Navigation({ isLoaded }) {
 
   let sessionLinks;
   if (sessionUser) {
-    sessionLinks = <ul><ProfileButton user={sessionUser} /></ul>;
+    sessionLinks = <ul className="links"><ProfileButton user={sessionUser} /></ul>;
   } else {
     sessionLinks = (
       <ul className="links">

@@ -4,15 +4,14 @@ import { Route, Switch, useHistory } from "react-router-dom";
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
+import Profile from "./components/ProfilePage";
 import * as sessionActions from "./store/session";
 import Home from "./components/HomePage";
 
-
 function App() {
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
-
 
   useEffect(() => {
     //async with .then chains
@@ -22,20 +21,21 @@ function App() {
   return (
     <div>
       {/* <Navigation isLoaded={isLoaded} /> */}
-    {isLoaded && (
-      <Switch>
-        <Route exact path="/">
-          <Home isLoaded={isLoaded}/>
-        </Route>
-        <Route>404 Page Not Found</Route>
-        {/* <Route path="/login">
-          <LoginFormPage />
-        </Route> */}
-        {/* <Route path="/signup">
+      {isLoaded && (
+        <Switch>
+          <Route exact path="/">
+            <Home isLoaded={isLoaded} />
+          </Route>
+          <Route path="/profile">
+            <Profile isLoaded={isLoaded} />
+          </Route>
+
+          <Route>404 Page Not Found</Route>
+          {/* <Route path="/signup">
           <SignupFormPage />
         </Route> */}
-      </Switch>
-    )}
+        </Switch>
+      )}
     </div>
   );
 }
