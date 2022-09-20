@@ -42,7 +42,7 @@ function EditSongForm({setShowModal}) {
         <i className="fa-duotone fa-x"></i>
       </button>
       <form onSubmit={handleSubmit} className="signIn">
-        <h2>Add a New Song</h2>
+        <h2>Edit Song</h2>
         <ul>
           {errors.map((error, idx) => {
           return (
