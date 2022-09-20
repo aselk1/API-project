@@ -1,21 +1,29 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
-import * as songDetailsActions from '../../store/songDetails';
+import { Redirect, useHistory } from "react-router-dom";
+import * as songActions from '../../store/songs';
 import './Details.css'
 
 
 function Details() {
+    const dispatch = useDispatch();
+    const history = useHistory();
     const song = useSelector((state) => state.songDetails);
-    console.log(song)
     if (!song.id) return <Redirect to='/profile'/>
-    const {id, title, description, imageUrl, url, userId, Album, Artist, albumId } = song
+    const {id, title, description, imageUrl, url, userId, Album, Artist, albumId } = song;
+
+    const deleteSong = async (id) => {
+        console.log(id)
+        dispatch(songActions.fetchDeleteSong(id))
+        history.push('/profile')
+        return
+    }
 
     return (
       <div>
         <div id="songDetails">
           <h2>Song Details</h2>
-          <button className="button" id="delete">
+          <button className="button" id="delete" onClick={()=> deleteSong(id)}>
             <i className="fa-duotone fa-x"></i>
           </button>
         </div>

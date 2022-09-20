@@ -1,25 +1,34 @@
-import { Switch, Route, useHistory, useLocation } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  useHistory,
+  useLocation,
+  Redirect,
+} from "react-router-dom";
+import { useSelector } from "react-redux";
 import Navigation from "../Navigation";
 import Songs from "../Songs";
 import UserSongs from "../Songs/MySongs";
 import SongDetails from "../SongDetails";
 
 function Profile({ isLoaded, id }) {
+  const sessionUser = useSelector((state) => state.session.user);
   const history = useHistory();
   const location = useLocation();
-  const path = location.pathname.split('/')
+  const path = location.pathname.split("/");
 
-let page;
-if (path[2] === 'songDetails') {
-  page = <SongDetails isLoaded={isLoaded} id={id}/>
-} else {
-  page = <UserSongs isLoaded={isLoaded} />;
-}
+  if (!sessionUser) return <Redirect to="/" />;
+
+  let page;
+  if (path[2] === "songDetails") {
+    page = <SongDetails isLoaded={isLoaded} id={id} />;
+  } else {
+    page = <UserSongs isLoaded={isLoaded} />;
+  }
   const home = (e) => {
     e.preventDefault();
     history.push("/");
   };
-
 
 
   return (
@@ -44,11 +53,7 @@ if (path[2] === 'songDetails') {
           {page}
         </div>
       </div>
-      {isLoaded && (
-        <Switch>
-
-        </Switch>
-      )}
+      {isLoaded && <Switch></Switch>}
     </div>
   );
 }
