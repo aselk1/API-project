@@ -12,3 +12,7 @@
 li.songs {
     width: auto;
 }
+
+#mysongs {
+    display: flex;
+}
