@@ -5,6 +5,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import Profile from "./components/ProfilePage";
+import SongDetails from './components/SongDetails'
 import * as sessionActions from "./store/session";
 import Home from "./components/HomePage";
 
@@ -29,11 +30,10 @@ function App() {
           <Route path="/profile">
             <Profile isLoaded={isLoaded} />
           </Route>
-
+          {/* <Route exact path="/profile/songDetails">
+            <SongDetails isLoaded={isLoaded} />
+          </Route> */}
           <Route>404 Page Not Found</Route>
-          {/* <Route path="/signup">
-          <SignupFormPage />
-        </Route> */}
         </Switch>
       )}
     </div>

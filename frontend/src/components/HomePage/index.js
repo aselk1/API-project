@@ -11,7 +11,8 @@ function Home({ isLoaded }) {
   };
 
   return (
-    <div>
+    <div className="extraContainer">
+      <div className="bodyContainer">
       <div className="pageContainer">
       <div id='bar'></div>
         <div className="topBar">
@@ -29,6 +30,7 @@ function Home({ isLoaded }) {
           </div>
         </div>
         <Songs />
+      </div>
       </div>
       {isLoaded && (
         <Switch>

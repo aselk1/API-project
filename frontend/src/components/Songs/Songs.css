@@ -1,8 +1,8 @@
 #songsList {
     list-style: none;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     padding: none;
     justify-content: space-between;
     margin-block-start: 0px;
@@ -11,8 +11,35 @@
 
 li.songs {
     width: auto;
+    border: solid black 2px;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 30px;
 }
 
-#mysongs {
+li.songs:hover {
+    border-color: orangered;
+}
+
+#mySongs {
     display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#addSongButton {
+    height: fit-content;
+    width: fit-content;
+    padding: 0px;
+    margin-left: 15px;
+    background:none;
+    border: none
+}
+
+#addSongButton:hover {
+    color: orangered;
+}
+
+i.fa-solid.fa-plus {
+    font-size: 25px;
 }

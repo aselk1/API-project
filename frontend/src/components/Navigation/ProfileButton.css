@@ -12,8 +12,8 @@ li {
     margin: auto;
     padding: 0px;
     position: absolute;
-    top: 5.3%;
-    right:10.5%;
+    top: 41px;
+    right: 0px;
     list-style: none;
 }
 #menu {
@@ -49,6 +49,7 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    position: relative;
 }
 
 .links{

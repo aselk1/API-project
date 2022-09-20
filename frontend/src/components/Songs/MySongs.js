@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Switch, Route, useHistory } from "react-router-dom";
 import * as songsActions from "../../store/songs";
+import * as songDetailsActions from '../../store/songDetails';
+import AddSongFormModal from "../AddSongFormModal";
+import SongDetails from "../SongDetails";
 
-function UserSongs() {
+import './Songs.css'
+
+function UserSongs({isLoaded}) {
+  const history = useHistory()
   const user = useSelector((state) => state.session.user);
   const songs = useSelector((state) => state.songs);
   const songsArray = Object.values(songs);
@@ -10,20 +17,23 @@ function UserSongs() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(songsActions.fetchUserSongs(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
+
+  const songDetails = async (id) => {
+    await dispatch(songDetailsActions.fetchSongDetails(id))
+    history.push(`/profile/songDetails`)
+  };
 
   return (
     <div>
       <div>
-        <div id='mySongs'>
+        <div id="mySongs">
           <h2>My Songs</h2>
-          <button>
-            <i className="fa-solid fa-plus"></i>
-          </button>
+          <AddSongFormModal />
         </div>
         <ul id="songsList">
           {songsArray.map((el) => (
-            <li className="songs">
+            <li className="songs" onClick={() => songDetails(el.id)}>
               <div>{el.title}</div>
               <div>{el.imageUrl}</div>
               <div>{el.url}</div>
@@ -31,6 +41,11 @@ function UserSongs() {
           ))}
         </ul>
       </div>
+      {isLoaded && (
+        <Switch>
+
+        </Switch>
+      )}
     </div>
   );
 }

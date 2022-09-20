@@ -44,7 +44,7 @@ input {
     cursor: pointer;
 }
 
-i {
+i.fa-duotone.fa-x {
     width: 50px;
 }
 
@@ -56,4 +56,3 @@ i {
     height: 35px;
     width: 130px;
 }
-
