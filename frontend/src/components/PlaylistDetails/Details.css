@@ -1,0 +1,26 @@
+#delete {
+  height: fit-content;
+  width: fit-content;
+  padding: 0px;
+  margin-left: 15px;
+  background: none;
+  border: none;
+}
+
+#delete:hover {
+    color: orangered;
+}
+
+i.fa-duotone.fa-x {
+    font-size: 20px;
+}
+
+i.fa-regular.fa-pen-to-square {
+    font-size: 20px;
+}
+
+#songDetails {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

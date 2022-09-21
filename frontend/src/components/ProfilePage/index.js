@@ -10,9 +10,10 @@ import Navigation from "../Navigation";
 import Songs from "../Songs";
 import UserSongs from "../Songs/MySongs";
 import SongDetails from "../SongDetails";
+import PlaylistDetails from '../PlaylistDetails'
 import Playlists from "../Playlists";
 
-function Profile({ isLoaded, id }) {
+function Profile({ isLoaded, songId }) {
   const sessionUser = useSelector((state) => state.session.user);
   const history = useHistory();
   const location = useLocation();
@@ -23,7 +24,9 @@ function Profile({ isLoaded, id }) {
   let songs;
   let playlists;
   if (path[2] === "songDetails") {
-    songs = <SongDetails isLoaded={isLoaded} id={id} />;
+    songs = <SongDetails isLoaded={isLoaded} id={songId} />;
+  } else if (path[2] === "playlistDetails") {
+    playlists = <PlaylistDetails isLoaded={isLoaded}  />
   } else {
     songs = <UserSongs isLoaded={isLoaded}></UserSongs>;
     playlists = <Playlists isLoaded={isLoaded}></Playlists>
