@@ -19,7 +19,7 @@ function Songs({isLoaded}) {
         <h2>Songs</h2>
         <ul id="songsList">
           {songsArray.map((el) => (
-            <li className="songs">
+            <li className="songs" key={el.id}>
               <div>{el.title}</div>
               <div>{el.imageUrl}</div>
               <div>{el.url}</div>
@@ -29,7 +29,7 @@ function Songs({isLoaded}) {
       </div>
       {isLoaded && (
         <Switch>
-          
+
         </Switch>
       )}
     </div>

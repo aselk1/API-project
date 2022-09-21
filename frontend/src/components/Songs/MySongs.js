@@ -33,7 +33,7 @@ function UserSongs({isLoaded}) {
         </div>
         <ul id="songsList">
           {songsArray.map((el) => (
-            <li className="songs" onClick={() => songDetails(el.id)}>
+            <li className="songs" onClick={() => songDetails(el.id)} key={el.id}>
               <div>{el.title}</div>
               <div>{el.imageUrl}</div>
               <div>{el.url}</div>

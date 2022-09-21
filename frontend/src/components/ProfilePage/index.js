@@ -10,6 +10,7 @@ import Navigation from "../Navigation";
 import Songs from "../Songs";
 import UserSongs from "../Songs/MySongs";
 import SongDetails from "../SongDetails";
+import Playlists from "../Playlists";
 
 function Profile({ isLoaded, id }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -19,17 +20,18 @@ function Profile({ isLoaded, id }) {
 
   if (!sessionUser) return <Redirect to="/" />;
 
-  let page;
+  let songs;
+  let playlists;
   if (path[2] === "songDetails") {
-    page = <SongDetails isLoaded={isLoaded} id={id} />;
+    songs = <SongDetails isLoaded={isLoaded} id={id} />;
   } else {
-    page = <UserSongs isLoaded={isLoaded} />;
+    songs = <UserSongs isLoaded={isLoaded}></UserSongs>;
+    playlists = <Playlists isLoaded={isLoaded}></Playlists>
   }
   const home = (e) => {
     e.preventDefault();
     history.push("/");
   };
-
 
   return (
     <div className="extraContainer">
@@ -50,7 +52,8 @@ function Profile({ isLoaded, id }) {
               <Navigation isLoaded={isLoaded} />
             </div>
           </div>
-          {page}
+          {songs}
+          {playlists}
         </div>
       </div>
       {isLoaded && <Switch></Switch>}
