@@ -47,13 +47,13 @@ export const fetchDeleteSong = (songId) => async (dispatch) => {
     method: "DELETE",
   });
   if (response.ok) {
-    const data = await response.json();
+    // const data = await response.json();
     dispatch(deleteSong(songId));
     return response;
   }
 };
 
-export const fetchUserSongs = (id) => async (dispatch) => {
+export const fetchUserSongs = () => async (dispatch) => {
   const response = await csrfFetch(`/api/songs/current`, {
     method: "GET",
   });

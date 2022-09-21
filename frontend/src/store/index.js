@@ -9,12 +9,14 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import songsDetailsReducer from "./songDetails";
 import songsReducer from "./songs";
+import playlistsReducer from "./playlists";
 
 //combine all reducers
 const rootReducer = combineReducers({
   session: sessionReducer,
   songs: songsReducer,
-  songDetails: songsDetailsReducer
+  songDetails: songsDetailsReducer,
+  playlists: playlistsReducer
 });
 
 //set up enhancer for production vs. development
