@@ -34,10 +34,10 @@ function App() {
       )}
       <div className="audioPlayerContainer">
         <ReactAudioPlayer
-          src="https://www.bensound.com/bensound-music/bensound-dreams.mp3"
+          src="https://www.bensound.com/bensound-music/bensound-creativeminds.mp3"
           className="audioPlayer"
           controlsList="nodownload"
-          autoplay
+          controls
         />
       </div>
     </div>

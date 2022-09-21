@@ -4,6 +4,7 @@ import { Redirect, useHistory } from "react-router-dom";
 
 import EditSongFormModal from "../EditSongFormModal";
 import './Details.css'
+import * as playlistsActions from '../../store/playlists'
 
 
 function Details() {
@@ -14,10 +15,10 @@ function Details() {
     const {id, title, description, imageUrl, url, userId, Album, Artist, albumId } = playlist;
     const songs = playlist.Songs;
 
-    // const deleteSong = async (id) => {
-    //     await dispatch(songActions.fetchDeleteSong(id))
-    //     return history.push('/profile')
-    // }
+    const deletePlaylist = async (id) => {
+        await dispatch(playlistsActions.fetchDeletePlaylist(id))
+        return history.push('/profile')
+    }
 
 
 
@@ -25,7 +26,7 @@ function Details() {
       <div>
         <div id="songDetails">
           <h2>Playlist Details</h2>
-          <button className="button" id="delete">
+          <button className="button" id="delete" onClick={() => deletePlaylist(playlist.id)}>
             <i className="fa-duotone fa-x"></i>
           </button>
           <EditSongFormModal />

@@ -4,6 +4,7 @@ import { Switch, useHistory } from "react-router-dom";
 
 import * as playlistsActions from "../../store/playlists";
 import * as playlistDetailsActions from "../../store/playlistDetails";
+import AddPlaylistFormModal from "../AddPlaylistFormModal";
 
 function Playlists({ isLoaded }) {
   const history = useHistory();
@@ -22,7 +23,10 @@ function Playlists({ isLoaded }) {
   return (
     <div>
       <div>
+        <div id="mySongs">
         <h2>Playlists</h2>
+        <AddPlaylistFormModal />
+        </div>
         <ul id="songsList">
           {playlistsArray.map((el) => (
             <li

@@ -1,17 +1,14 @@
 import React, { useState } from "react";
-import * as songActions from "../../store/songs";
+import * as playlistsActions from "../../store/playlists";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
-import "./AddSongForm.css";
+import "./AddPlaylistForm.css";
 
-function AddSongForm({setShowModal}) {
+function AddPlaylistForm({setShowModal}) {
   const dispatch = useDispatch();
   // const sessionUser = useSelector((state) => state.session.user);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [url, setUrl] = useState("");
+  const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [album, setAlbum] = useState("");
   const [errors, setErrors] = useState([]);
 
   // if (sessionUser) return <Redirect to="/" />;
@@ -25,10 +22,8 @@ function AddSongForm({setShowModal}) {
       //return dispatch of addSong thunk
       return (
         dispatch(
-          songActions.fetchAddSong({
-            title,
-            description,
-            url,
+          playlistsActions.fetchAddPlaylist({
+            name,
             imageUrl,
           })
         )
@@ -48,7 +43,7 @@ function AddSongForm({setShowModal}) {
         <i className="fa-duotone fa-x"></i>
       </button>
       <form onSubmit={handleSubmit} className="signIn">
-        <h2>Add a New Song</h2>
+        <h2>Add a New Playlist</h2>
         <ul>
           {errors.map((error, idx) => {
           return (
@@ -57,28 +52,10 @@ function AddSongForm({setShowModal}) {
         </ul>
         <label>
           <input
-            placeholder="Title"
+            placeholder="Playlist Name"
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          <input
-            placeholder="Description"
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            // required
-          />
-        </label>
-        <label>
-          <input
-            placeholder="Song URL"
-            type="text"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
           />
         </label>
@@ -91,21 +68,12 @@ function AddSongForm({setShowModal}) {
             // required
           />
         </label>
-        <label>
-          <input
-            placeholder="Album"
-            type="text"
-            value={album}
-            onChange={(e) => setAlbum(e.target.value)}
-            // required
-          />
-        </label>
         <button type="submit" className="submit">
-          Add Song
+          Add Playlist
         </button>
       </form>
     </div>
   );
 }
 
-export default AddSongForm;
+export default AddPlaylistForm;
