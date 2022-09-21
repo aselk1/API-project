@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch, useHistory } from "react-router-dom";
+import ReactAudioPlayer from 'react-audio-player';
 import Navigation from "./components/Navigation";
 import Profile from "./components/ProfilePage";
 import SongDetails from './components/SongDetails'
@@ -28,12 +29,17 @@ function App() {
           <Route path="/profile">
             <Profile isLoaded={isLoaded} />
           </Route>
-          {/* <Route exact path="/profile/songDetails">
-            <SongDetails isLoaded={isLoaded} />
-          </Route> */}
           <Route>404 Page Not Found</Route>
         </Switch>
       )}
+      <div className="audioPlayerContainer">
+        <ReactAudioPlayer
+          src="https://www.bensound.com/bensound-music/bensound-dreams.mp3"
+          className="audioPlayer"
+          controlsList="nodownload"
+          autoplay
+        />
+      </div>
     </div>
   );
 }

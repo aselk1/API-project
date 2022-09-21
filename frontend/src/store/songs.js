@@ -11,9 +11,10 @@ const getSongs = (songsObj) => {
     }
 }
 
-const deleteSong = () => {
+const deleteSong = (songId) => {
   return {
-    type: DELETE_SONG
+    type: DELETE_SONG,
+    payload: songId
   };
 };
 
@@ -47,7 +48,7 @@ export const fetchDeleteSong = (songId) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(deleteSong());
+    dispatch(deleteSong(songId));
     return response;
   }
 };
@@ -101,6 +102,7 @@ const songsReducer = (state = initialState, action) => {
       return newState;
     case DELETE_SONG:
       newState = Object.assign({}, state);
+      delete newState[action.payload]
       return newState;
     default:
       return state;
