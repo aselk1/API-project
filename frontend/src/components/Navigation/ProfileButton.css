@@ -27,10 +27,10 @@ li {
     color: orange
 }
 
-.menu {
+/* .menu {
     width: fit-content;
-    position: fixed;
-}
+    position: absolute;
+} */
 
 .menuButton {
     width: auto;

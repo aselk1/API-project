@@ -67,7 +67,7 @@ i.fa-solid.fa-plus {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    position: fixed;
+    position: absolute;
     width: 180px;
     padding: 2px
 }

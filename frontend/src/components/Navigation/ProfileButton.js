@@ -49,7 +49,6 @@ function ProfileButton({user}) {
         <i id="menu" className="fa-solid fa-ellipsis"></i>
       </button>
       {showMenu && (
-        // <div className="menu">
         <ul className="profile-dropdown">
           <li>{user.username}</li>
           <li>{user.email}</li>
@@ -60,7 +59,6 @@ function ProfileButton({user}) {
             <button onClick={logout}>Log Out</button>
           </li>
         </ul>
-        // </div>
       )}
     </div>
   );
