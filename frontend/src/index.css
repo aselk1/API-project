@@ -21,3 +21,11 @@ body {
 li {
     list-style-type: none;
 }
+
+button {
+    font-family: 'Open Sans', sans-serif;
+}
+
+input {
+    font-family: 'Open Sans', sans-serif;
+}

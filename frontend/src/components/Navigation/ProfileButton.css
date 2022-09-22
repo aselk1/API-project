@@ -23,6 +23,10 @@ li {
 
 }
 
+#menu:hover {
+    color: orange
+}
+
 .menu {
     width: fit-content;
     position: fixed;

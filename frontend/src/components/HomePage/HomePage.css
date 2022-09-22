@@ -11,8 +11,16 @@
     width: 70px;
 }
 
+.logo:hover + .logoText {
+    color: orange;
+}
+
 .logoText {
     color: white;
+}
+
+.logoText:hover {
+    color: orange
 }
 
 .logoContainer {
@@ -54,4 +62,8 @@
 #bar {
     height: 3px;
     background-color: orangered;
+}
+
+.extraLogoContainer {
+
 }

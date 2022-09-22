@@ -52,7 +52,7 @@ input {
     margin-left: 15px;
     background: none;
     border: none;
-    background-color: orangered;
+    background-color: orange;
 }
 
 #openAddSongToPlaylist:hover {
@@ -96,6 +96,7 @@ i.fa-solid.fa-plus {
     display: flex;
     justify-content: center;
 }
+
 
 
 .choosePlaylistContainer {

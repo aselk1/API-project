@@ -8,7 +8,7 @@ function HomePage({ isLoaded }) {
     <div>
       <div className="pageContainer">
         <div className="topBar">
-          <div>
+          <div className="extraLogoContainer">
             <div className="logoContainer">
               <img
                 className="logo"

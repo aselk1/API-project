@@ -25,7 +25,7 @@ function Home({ isLoaded }) {
       <div className="pageContainer">
       <div id='bar'></div>
         <div className="topBar">
-          <div>
+          <div className="extraLogoContainer">
             <div className="logoContainer" onClick={home}>
               <img
                 className="logo"
