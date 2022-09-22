@@ -1,6 +1,7 @@
 /* TODO Add site wide styles */
 body {
     margin-top: 0px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .audioPlayer {
