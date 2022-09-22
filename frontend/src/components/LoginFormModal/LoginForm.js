@@ -25,6 +25,23 @@ function LoginForm({setShowModal}) {
     );
   };
 
+  const signInDemo = (e) => {
+    // e.preventDefault()
+    setErrors([]);
+    const user = {
+      credential: "Demo-lition",
+      password: "password"
+    }
+    return dispatch(sessionActions.login(user)).catch(
+      async (res) => {
+        const data = await res.json();
+        // if (data && data.errors) {
+        //   setErrors(Object.values(data.errors));
+        // }
+      }
+    );
+  }
+
   return (
     <div className="formContainer">
       <button onClick={() => setShowModal(false)} className="close">
@@ -57,6 +74,9 @@ function LoginForm({setShowModal}) {
         </label>
         <button type="submit" className="submit">
           Sign In
+        </button>
+        <button className="demo" onClick={signInDemo}>
+          Demo User
         </button>
       </form>
     </div>
