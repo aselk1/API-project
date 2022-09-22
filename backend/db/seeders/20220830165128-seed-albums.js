@@ -15,12 +15,12 @@ module.exports = {
         description: "This is an album of songs.",
         imageUrl: null
       },
-      // {
-      //   userId: 3,
-      //   title: "Album3",
-      //   description: "This is an album of songs.",
-      //   imageUrl: null
-      // }
+      {
+        userId: 3,
+        title: "Album3",
+        description: "This is an album of songs.",
+        imageUrl: null
+      }
     ], {})
   },
 
