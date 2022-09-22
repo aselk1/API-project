@@ -8,9 +8,13 @@ import AddSongToPlaylistFormModal from "../AddSongToPlaylistFormModal";
 import './Songs.css'
 
 function Songs({isLoaded}) {
+  let link;
     const dispatch = useDispatch();
     const songs = useSelector(state => state.songs)
+    const user = useSelector((state) => state.session.user);
     const songsArray = Object.values(songs);
+
+    // if (user) link = <AddSongToPlaylistFormModal songId={el.id} />;
     useEffect(() => {
        dispatch(songsActions.fetchAllSongs());
     },[dispatch]);
@@ -26,7 +30,7 @@ function Songs({isLoaded}) {
         <ul id="songsList">
           {songsArray.map((el) => (
             <li className="songs" key={el.id}>
-              <AddSongToPlaylistFormModal songId={el.id}/>
+              {user && <AddSongToPlaylistFormModal songId={el.id} />}
               <img src={el.imageUrl} onClick={() => playSong(el.id)} />
               <div>{el.title}</div>
               {/* <div>{el.imageUrl}</div>
