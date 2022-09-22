@@ -32,7 +32,6 @@ function Details() {
         </div>
         <div id="songDetails">
         <h3>{playlist.name}</h3>
-        <AddSongToPlaylistFormModal />
         </div>
         <ul>
           {songs.map((el) => (

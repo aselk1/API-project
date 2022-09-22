@@ -45,19 +45,53 @@ input {
 }
 
 
-#openAddSong {
+#openAddSongToPlaylist {
     height: fit-content;
     width: fit-content;
     padding: 0px;
     margin-left: 15px;
     background: none;
-    border: none
+    border: none;
+    background-color: orangered;
 }
 
-#openAddSong:hover {
-    color: orangered;
+#openAddSongToPlaylist:hover {
+    color: white;
 }
 
 i.fa-solid.fa-plus {
     font-size: 25px;
+}
+
+.addContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    position: fixed;
+    width: 180px;
+    padding: 2px
+}
+
+.choosePlaylist {
+    height: 400px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid grey;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+}
+
+.choosePlaylist > li {
+    border: 1px solid grey;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+
+}
+
+
+.choosePlaylist > li:hover {
+    border-color: orangered;
 }

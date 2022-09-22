@@ -1,14 +1,22 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Switch, Route, useHistory } from "react-router-dom";
 import Navigation from "../Navigation";
 import Songs from "../Songs";
+import * as playlistsActions from '../../store/playlists';
 import "./HomePage.css";
 
 function Home({ isLoaded }) {
+  const dispatch = useDispatch()
   const history = useHistory();
   const home = (e) => {
     e.preventDefault();
     history.push("/");
   };
+
+  useEffect(()=> {
+    dispatch(playlistsActions.fetchUserPlaylists());
+  },[])
 
   return (
     <div className="extraContainer">

@@ -4,25 +4,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import "./AddSongToPlaylistForm.css";
 
-function AddSongToPlaylistForm({ setShowModal, playlistId }) {
+function AddSongToPlaylistForm({ setShowModal, songId }) {
   const dispatch = useDispatch();
   const playlist = useSelector((state) => state.playlistDetails);
-  const [songId, setSongId] = useState("");
+  const playlists = Object.values(useSelector((state) => state.playlists));
+  console.log(useSelector((state) => state.playlists));
+  console.log(playlists)
   const [errors, setErrors] = useState([]);
 
   // if (sessionUser) return <Redirect to="/" />;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (playlistId) => {
+    // e.preventDefault();
     setShowModal(false);
     //reset errors array
     setErrors([]);
     //return dispatch of addSong thunk
     return (
       dispatch(
-        playlistDetailsActions.fetchAddSong({
+        playlistDetailsActions.fetchAddSong(
           songId
-        }, playlist.id)
+        , playlistId)
       )
         //catch res and or errors
         .catch(async (res) => {
@@ -39,14 +41,23 @@ function AddSongToPlaylistForm({ setShowModal, playlistId }) {
       <button onClick={() => setShowModal(false)} className="close">
         <i className="fa-duotone fa-x"></i>
       </button>
-      <form onSubmit={handleSubmit} className="signIn">
-        <h2>Add Song to Playlist</h2>
+      <div className="signIn">
+        <h2>Choose Playlist</h2>
         <ul>
           {errors.map((error, idx) => {
             return <li key={idx}>{error}</li>;
           })}
         </ul>
-        <label>
+        <ul className='choosePlaylist'>
+          {playlists.map((el) => (
+            <li className="choosePlaylistContainer" onClick={() => handleSubmit(el.id)}>
+              <div>
+              {el.name}
+              </div>
+            </li>
+          ))}
+        </ul>
+        {/* <label>
           <input
             placeholder="Song Id"
             type="text"
@@ -54,11 +65,11 @@ function AddSongToPlaylistForm({ setShowModal, playlistId }) {
             onChange={(e) => setSongId(e.target.value)}
             required
           />
-        </label>
-        <button type="submit" className="submit">
+        </label> */}
+        {/* <button type="submit" className="submit">
           Add Song to Playlist
-        </button>
-      </form>
+        </button> */}
+      </div>
     </div>
   );
 }

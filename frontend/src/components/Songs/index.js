@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import * as songsActions from "../../store/songs";
 import * as songDetailsActions from '../../store/songDetails';
 import SongDetails from "../SongDetails";
+import AddSongToPlaylistFormModal from "../AddSongToPlaylistFormModal";
 import './Songs.css'
 
 function Songs({isLoaded}) {
@@ -24,8 +25,9 @@ function Songs({isLoaded}) {
         <h2>Songs</h2>
         <ul id="songsList">
           {songsArray.map((el) => (
-            <li className="songs" key={el.id} onClick={() => playSong(el.id)}>
-              <img src={el.imageUrl} />
+            <li className="songs" key={el.id}>
+              <AddSongToPlaylistFormModal songId={el.id}/>
+              <img src={el.imageUrl} onClick={() => playSong(el.id)} />
               <div>{el.title}</div>
               {/* <div>{el.imageUrl}</div>
               <div>{el.url}</div> */}
@@ -33,11 +35,7 @@ function Songs({isLoaded}) {
           ))}
         </ul>
       </div>
-      {isLoaded && (
-        <Switch>
-
-        </Switch>
-      )}
+      {isLoaded && <Switch></Switch>}
     </div>
   );
 }

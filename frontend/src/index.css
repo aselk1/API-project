@@ -16,3 +16,7 @@ body {
     align-items: center;
     z-index: 10;
 }
+
+li {
+    list-style-type: none;
+}
