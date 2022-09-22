@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/aselk1/API-project#readme",
   "dependencies": {
-    "pg": "^8.8.0"
-  },
-  "devDependencies": {}
+    "pg": "^8.8.0",
+    "react-h5-audio-player": "^3.8.5"
+  }
 }

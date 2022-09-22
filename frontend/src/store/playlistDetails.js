@@ -79,10 +79,7 @@ export const fetchAddSong = (song, playlistId) => async (dispatch) => {
     body: JSON.stringify(song),
   });
   if (response.ok) {
-    // const val = await fetchPlaylistDetails(playlistId)
-    // const details = await csrfFetch(`/api/playlists/${playlistId}`);
-    // const data = await response.json();
-    // dispatch(addSong(data));
+    dispatch(fetchPlaylistDetails(playlistId))
     return response;
   }
 };

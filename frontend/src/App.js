@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch, useHistory } from "react-router-dom";
-import ReactAudioPlayer from 'react-audio-player';
+import AudioPlayer from 'react-h5-audio-player';
 import Navigation from "./components/Navigation";
 import Profile from "./components/ProfilePage";
 import SongDetails from './components/SongDetails'
 import * as sessionActions from "./store/session";
 import Home from "./components/HomePage";
+import "react-h5-audio-player/lib/styles.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,11 +34,11 @@ function App() {
         </Switch>
       )}
       <div className="audioPlayerContainer">
-        <ReactAudioPlayer
+        <AudioPlayer
           src="https://www.bensound.com/bensound-music/bensound-creativeminds.mp3"
           className="audioPlayer"
-          controlsList="nodownload"
-          controls
+          // controlsList="nodownload"
+          // controls
         />
       </div>
     </div>
