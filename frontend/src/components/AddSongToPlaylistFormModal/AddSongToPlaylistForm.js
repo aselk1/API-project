@@ -52,6 +52,7 @@ function AddSongToPlaylistForm({ setShowModal, songId }) {
               <li
                 className="choosePlaylistContainer"
                 onClick={() => handleSubmit(el.id)}
+                key={el.id}
               >
                 <div>{el.name}</div>
               </li>

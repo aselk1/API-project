@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route, useHistory } from "react-router-dom";
 import Navigation from "../Navigation";
 import Songs from "../Songs";
@@ -9,6 +9,7 @@ import "./HomePage.css";
 function Home({ isLoaded }) {
   const dispatch = useDispatch()
   const history = useHistory();
+  const user = useSelector((state) => state.session.user)
   const home = (e) => {
     e.preventDefault();
     history.push("/");
@@ -16,7 +17,7 @@ function Home({ isLoaded }) {
 
   useEffect(()=> {
     dispatch(playlistsActions.fetchUserPlaylists());
-  },[])
+  },[dispatch,user])
 
   return (
     <div className="extraContainer">
