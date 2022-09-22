@@ -6,10 +6,8 @@ import "./AddSongToPlaylistForm.css";
 
 function AddSongToPlaylistForm({ setShowModal, songId }) {
   const dispatch = useDispatch();
-  const playlist = useSelector((state) => state.playlistDetails);
+  // const playlist = useSelector((state) => state.playlistDetails);
   const playlists = Object.values(useSelector((state) => state.playlists));
-  console.log(useSelector((state) => state.playlists));
-  console.log(playlists)
   const [errors, setErrors] = useState([]);
 
   // if (sessionUser) return <Redirect to="/" />;
@@ -48,15 +46,18 @@ function AddSongToPlaylistForm({ setShowModal, songId }) {
             return <li key={idx}>{error}</li>;
           })}
         </ul>
-        <ul className='choosePlaylist'>
-          {playlists.map((el) => (
-            <li className="choosePlaylistContainer" onClick={() => handleSubmit(el.id)}>
-              <div>
-              {el.name}
-              </div>
-            </li>
-          ))}
-        </ul>
+        <div className="choosePlaylist">
+          <ul className='choosePlaylistList'>
+            {playlists.map((el) => (
+              <li
+                className="choosePlaylistContainer"
+                onClick={() => handleSubmit(el.id)}
+              >
+                <div>{el.name}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
         {/* <label>
           <input
             placeholder="Song Id"

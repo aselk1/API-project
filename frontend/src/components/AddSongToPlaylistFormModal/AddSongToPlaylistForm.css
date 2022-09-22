@@ -78,9 +78,16 @@ i.fa-solid.fa-plus {
     display: flex;
     flex-direction: column;
     border: 2px solid grey;
-    justify-content: center;
-    align-items: center;
     padding: 0px;
+}
+
+.choosePlaylistList {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 0px;
+    margin: 0px;
 }
 
 .choosePlaylist > li {
@@ -88,10 +95,16 @@ i.fa-solid.fa-plus {
     width: 300px;
     display: flex;
     justify-content: center;
-
 }
 
 
-.choosePlaylist > li:hover {
+.choosePlaylistContainer {
+    display: flex;
+    justify-content: center;
+    width: 300px;
+    border: 1px solid grey;
+}
+
+.choosePlaylistContainer:hover {
     border-color: orangered;
 }
