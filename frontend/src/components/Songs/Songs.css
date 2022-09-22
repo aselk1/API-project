@@ -2,7 +2,7 @@
     list-style: none;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
     padding: none;
     justify-content: space-between;
     margin-block-start: 0px;
@@ -10,15 +10,22 @@
 }
 
 li.songs {
-    width: auto;
-    border: solid black 2px;
     width: 200px;
     height: 200px;
     margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
-li.songs:hover {
+li.songs > img:hover {
     border-color: orangered;
+}
+
+li.songs > img {
+    border: solid black 2px;
+    width: 180px;
+    height: 180px;
 }
 
 #mySongs {

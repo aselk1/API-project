@@ -34,9 +34,10 @@ function Playlists({ isLoaded }) {
               key={el.id}
               onClick={() => playlistDetails(el.id)}
             >
+              <img src={el.imageUrl}></img>
               <div>{el.name}</div>
-              <div>{el.imageUrl}</div>
-              <div>{el.userId}</div>
+              {/* <div>{el.imageUrl}</div>
+              <div>{el.userId}</div> */}
             </li>
           ))}
         </ul>
