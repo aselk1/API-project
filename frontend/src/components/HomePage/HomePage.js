@@ -13,6 +13,7 @@ function HomePage({ isLoaded }) {
               <img
                 className="logo"
                 src="https://d21buns5ku92am.cloudfront.net/26628/images/419679-1x1_SoundCloudLogo_cloudmark-f5912b-medium-1645807040.jpg"
+                alt='logo'
               ></img>
               <div className="logoText">SHOUNDCLOUD</div>
             </div>
