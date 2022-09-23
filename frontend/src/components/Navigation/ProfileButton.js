@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Redirect, useHistory} from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
-import './ProfileButton.css'
+import "./ProfileButton.css";
 
-function ProfileButton({user}) {
+function ProfileButton({ user }) {
   const history = useHistory();
   const dispatch = useDispatch();
   //set up showMenu state
@@ -39,9 +39,8 @@ function ProfileButton({user}) {
 
   const profile = (e) => {
     e.preventDefault();
-    history.push('/profile')
+    history.push("/profile");
   };
-
 
   return (
     <div id="menuContainer">
@@ -50,13 +49,17 @@ function ProfileButton({user}) {
       </button>
       {showMenu && (
         <ul className="profile-dropdown">
-          <li>{user.username}</li>
-          <li>{user.email}</li>
-          <li>
-            <button onClick={profile}>Profile</button>
+          {/* <li>{user.username}</li>
+          <li>{user.email}</li> */}
+          <li className="profileButtonContainer">
+            <button className="profileButton" onClick={profile}>
+              Profile
+            </button>
           </li>
-          <li>
-            <button onClick={logout}>Log Out</button>
+          <li className="profileButtonContainer">
+            <button className="profileButton" onClick={logout}>
+              Log Out
+            </button>
           </li>
         </ul>
       )}
