@@ -24,8 +24,8 @@ function Playlists({ isLoaded }) {
     <div>
       <div>
         <div id="mySongs">
-        <h2>Playlists</h2>
-        <AddPlaylistFormModal />
+          <h2>Playlists</h2>
+          <AddPlaylistFormModal />
         </div>
         <ul id="songsList">
           {playlistsArray.map((el) => (
@@ -34,7 +34,9 @@ function Playlists({ isLoaded }) {
               key={el.id}
               onClick={() => playlistDetails(el.id)}
             >
-              <img src={el.imageUrl}></img>
+              <div className="outerContainer">
+                <img src={el.imageUrl}></img>
+              </div>
               <div>{el.name}</div>
               {/* <div>{el.imageUrl}</div>
               <div>{el.userId}</div> */}

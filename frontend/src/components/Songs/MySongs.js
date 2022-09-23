@@ -35,8 +35,10 @@ function UserSongs({ isLoaded }) {
         <ul id="songsList">
           {songsArray.map((el) => (
             <li className="songs" key={el.id}>
+              <div className="outerContainer">
               <AddSongToPlaylistFormModal />
               <img src={el.imageUrl} onClick={() => songDetails(el.id)}></img>
+              </div>
               <div>{el.title}</div>
               {/* <div>{el.imageUrl}</div>
               <div>{el.url}</div> */}

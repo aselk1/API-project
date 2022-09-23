@@ -18,11 +18,25 @@ li.songs {
     flex-direction: column;
 }
 
-li.songs > img:hover {
+div.outerContainer > img:hover {
     border-color: orangered;
+    cursor: pointer;
 }
 
-li.songs > img {
+/* .addContainer:hover + .songImage {
+    border-color: orangered;
+} */
+
+/* .outerContainer:hover > .songImage {
+    border-color: orangered; */
+/* } */
+
+/* .outerContainer:hover {
+    cursor: pointer;;
+} */
+
+
+div.outerContainer > img {
     border: solid black 2px;
     width: 180px;
     height: 180px;

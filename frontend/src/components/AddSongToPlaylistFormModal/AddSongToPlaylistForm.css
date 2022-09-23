@@ -68,8 +68,9 @@ i.fa-solid.fa-plus {
     justify-content: flex-end;
     align-items: flex-end;
     position: absolute;
-    width: 180px;
-    padding: 2px
+    width: 25px;
+    padding-top: 2px;
+    
 }
 
 .choosePlaylist {
