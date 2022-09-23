@@ -2,6 +2,7 @@
 body {
     margin-top: 0px;
     font-family: 'Open Sans', sans-serif;
+    margin: 0px;
 }
 
 .audioPlayer {
@@ -28,4 +29,20 @@ button {
 
 input {
     font-family: 'Open Sans', sans-serif;
+}
+
+.bodyContainer {
+    background-color: white;
+}
+
+.extraContainer {
+    display: flex;
+    justify-content: center;
+    background-color: lightgrey;
+    height: auto;
+    min-height: 1000px;
+}
+
+#modal {
+    z-index: 2;
 }

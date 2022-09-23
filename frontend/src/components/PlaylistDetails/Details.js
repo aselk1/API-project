@@ -59,6 +59,9 @@ function Details() {
                 src={el.imageUrl}
                 onClick={() => playSong(el.id)}
               />
+              <div className="overlay" onClick={() => playSong(el.id)}>
+                <i class="fa-sharp fa-solid fa-circle-play"></i>
+              </div>
             </div>
             <div>{el.title}</div>
           </li>

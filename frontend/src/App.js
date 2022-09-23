@@ -59,8 +59,7 @@ function App() {
         <AudioPlayer
           src={state.songDetails.url}
           className="audioPlayer"
-          showSkipControls
-          autoPlay='false'
+          // showSkipControls
           // onClickNext={next}
           // onClickPrevious={prev}
         />

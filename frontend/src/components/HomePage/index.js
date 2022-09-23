@@ -23,6 +23,7 @@ function Home({ isLoaded }) {
     <div className="extraContainer">
       <div className="bodyContainer">
       <div className="pageContainer">
+        <div className="barContainer">
       <div id='bar'></div>
         <div className="topBar">
           <div className="extraLogoContainer">
@@ -37,6 +38,7 @@ function Home({ isLoaded }) {
           <div className="nav">
             <Navigation isLoaded={isLoaded} />
           </div>
+        </div>
         </div>
         <Songs />
       </div>

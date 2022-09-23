@@ -23,17 +23,17 @@ div.outerContainer > img:hover {
     cursor: pointer;
 }
 
-/* .addContainer:hover + .songImage {
-    border-color: orangered;
-} */
+.addContainer {
+    z-index: 1;
+}
 
 /* .outerContainer:hover > .songImage {
     border-color: orangered; */
 /* } */
 
-/* .outerContainer:hover {
-    cursor: pointer;;
-} */
+.outerContainer {
+    display: flex;
+}
 
 
 div.outerContainer > img {
@@ -63,4 +63,39 @@ div.outerContainer > img {
 
 i.fa-solid.fa-plus {
     font-size: 25px;
+}
+
+i.fa-sharp.fa-solid.fa-circle-play {
+    font-size: 60px;
+    color: orange;
+    background-color: white;
+    border-radius: 50%;
+    border: 0px;
+    display: none;
+}
+
+i.fa-sharp.fa-solid.fa-circle-play:hover {
+    color: orangered;
+}
+
+
+
+.overlay {
+    position: absolute;
+    display: flex;
+    height: 180px;
+    width: 180px;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    border: solid black 2px;
+}
+
+.overlay:hover {
+    border-color: orangered;
+    cursor: pointer;
+}
+
+.overlay:hover > i.fa-solid.fa-circle-play {
+    display: block;
 }
