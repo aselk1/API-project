@@ -7,7 +7,7 @@ li {
     background-color: white;
     display: flex;
     flex-direction: column;
-    border: solid gray 2px;
+    border: solid lightgrey 1px;
     z-index: 1;
     margin: auto;
     padding: 0px;
@@ -15,7 +15,8 @@ li {
     top: 41px;
     right: 0px;
     list-style: none;
-    width: 200px;
+    width: 168px;
+    border-radius: 3px;
 }
 #menu {
     width: fit-content;
@@ -67,11 +68,17 @@ button:hover {
 .profileButton {
     background-color: white;
     border: none;
-    width: 200px;
-    /* padding: 0px; */
+    width: 168px;
+    font-weight:900;
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+    height: 32.8px;
+    padding-left: 10px;
+    font-size: 12px;
+
 }
 
 .profileButton:hover {
-    background-color: lightgrey;
+    background-color: #f2f2f2;
 }
-
