@@ -21,24 +21,18 @@ function Details() {
 
 
     return (
-      <div>
-        <div id="songDetails">
-          <h2 className = 'pageTitle'>Song Details</h2>
-          <button className="button" id="delete" onClick={() => deleteSong(id)}>
+      <div className= 'detailsContainer'>
+        <div id="songDetailsPage">
+          <div>
+          <h2 className="songTitle">{title}</h2>
+          <h3 className='songArtist'>{Artist.username}</h3>
+          </div>
+          <button className="button" id="delete1" onClick={() => deleteSong(id)}>
             <i className="fa-duotone fa-x"></i>
           </button>
           <EditSongFormModal />
         </div>
-        <ul>
-          <li>{id}</li>
-          <li>{title}</li>
-          <li>{description}</li>
-          <li>{imageUrl}</li>
-          <li>{url}</li>
-          <li>{userId}</li>
-          {/* <li>{Album && Album.title}</li>
-          <li>{Artist && Artist.username}</li> */}
-        </ul>
+        <img className = 'songDetailsImage' src={imageUrl}/>
       </div>
     );
 }

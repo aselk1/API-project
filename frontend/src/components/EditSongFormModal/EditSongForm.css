@@ -45,13 +45,23 @@ input {
 }
 
 
+#openEditSong1 {
+    height: fit-content;
+    width: fit-content;
+    padding: 0px;
+    margin-left: 15px;
+    background: none;
+    border: none;
+    color: white;
+}
+
 #openEditSong {
     height: fit-content;
     width: fit-content;
     padding: 0px;
     margin-left: 15px;
     background: none;
-    border: none
+    border: none;
 }
 
 #openEditSong:hover {

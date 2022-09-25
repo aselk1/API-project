@@ -7,6 +7,16 @@
   border: none;
 }
 
+#delete1 {
+  height: fit-content;
+  width: fit-content;
+  padding: 0px;
+  margin-left: 15px;
+  background: none;
+  border: none;
+  color: white;
+}
+
 #delete:hover {
     color: orangered;
 }
@@ -19,8 +29,37 @@ i.fa-regular.fa-pen-to-square {
     font-size: 20px;
 }
 
-#songDetails {
-    display: flex;
+#songDetailsPage {
+    align-items: flex-start;
     flex-direction: row;
-    align-items: center;
+    width: 725px;
+    height: 340px;
+    top: 20px;
+    position: relative;
+    margin-left: 50px;
+}
+
+.detailsContainer {
+    background-color: #333;
+    display: flex;
+    height: 380px;
+    justify-content: space-between;
+}
+
+.songDetailsImage {
+    width: 340px;
+    height: 340px;
+    position: relative;
+    right: 20px;
+    top: 20px;
+}
+
+.songTitle {
+    color:white;
+    font-size: 40px;
+}
+
+.songArtist {
+    color:white;
+    font-size: 20px;
 }

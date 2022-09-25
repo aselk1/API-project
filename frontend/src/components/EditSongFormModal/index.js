@@ -10,7 +10,7 @@ function EditSongFormModal() {
     <>
       <button
         className="button"
-        id="openEditSong"
+        id="openEditSong1"
         onClick={() => setShowModal(true)}
       >
         <i className="fa-regular fa-pen-to-square"></i>
