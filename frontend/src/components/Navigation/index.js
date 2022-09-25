@@ -15,11 +15,11 @@ function Navigation({ isLoaded }) {
   } else {
     sessionLinks = (
       <ul className="links">
-        <li>
+        <li className= 'loginButtonContainer'>
           {/* <NavLink to="/login">Log In</NavLink> */}
           <LoginFormModal />
         </li>
-        <li>
+        <li className= 'loginButtonContainer'>
           <SignupFormModal />
         </li>
       </ul>

@@ -24,7 +24,7 @@ function Playlists({ isLoaded }) {
     <div>
       <div>
         <div id="mySongs">
-          <h2>Playlists</h2>
+          <h2 className="pageTitle">Playlists</h2>
           <AddPlaylistFormModal />
         </div>
         <ul id="songsList">

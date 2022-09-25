@@ -23,7 +23,7 @@ function Details() {
     return (
       <div>
         <div id="songDetails">
-          <h2>Song Details</h2>
+          <h2 className = 'pageTitle'>Song Details</h2>
           <button className="button" id="delete" onClick={() => deleteSong(id)}>
             <i className="fa-duotone fa-x"></i>
           </button>

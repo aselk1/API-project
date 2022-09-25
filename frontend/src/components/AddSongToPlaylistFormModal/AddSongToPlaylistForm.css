@@ -70,7 +70,7 @@ i.fa-solid.fa-plus {
     position: absolute;
     width: 25px;
     padding-top: 2px;
-    
+
 }
 
 .choosePlaylist {
@@ -78,7 +78,6 @@ i.fa-solid.fa-plus {
     width: 300px;
     display: flex;
     flex-direction: column;
-    border: 2px solid grey;
     padding: 0px;
 }
 
@@ -92,7 +91,6 @@ i.fa-solid.fa-plus {
 }
 
 .choosePlaylist > li {
-    border: 1px solid grey;
     width: 300px;
     display: flex;
     justify-content: center;
@@ -103,10 +101,19 @@ i.fa-solid.fa-plus {
 .choosePlaylistContainer {
     display: flex;
     justify-content: center;
-    width: 300px;
-    border: 1px solid grey;
+    width: 410px;
+    height: 40px;
+    font-size: 15px;
+    text-align: center;
+    align-items: center;
+    background-color: white;
+    margin-bottom: 10px;
+    color: orangered;
+    border: 2px solid orangered;
 }
 
 .choosePlaylistContainer:hover {
     border-color: orangered;
+    background-color: orangered;
+    color: white;
 }

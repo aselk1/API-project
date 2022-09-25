@@ -37,7 +37,7 @@ function Details() {
   return (
     <div>
       <div id="songDetails">
-        <h2>Playlist Details</h2>
+        <h2 className= 'pageTitle'>Playlist Details</h2>
         <button
           className="button"
           id="delete"
@@ -48,7 +48,7 @@ function Details() {
         <EditPlaylistFormModal />
       </div>
       <div id="songDetails">
-        <h3>{playlist.name}</h3>
+        <h3 className = 'pageTitle'>{playlist.name}</h3>
       </div>
       <ul id="songsList">
         {songs.map((el) => (

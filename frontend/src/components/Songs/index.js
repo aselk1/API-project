@@ -24,7 +24,7 @@ function Songs({ isLoaded }) {
   return (
     <div>
       <div>
-        <h2>Songs</h2>
+        <h2 className= 'pageTitle'>Songs</h2>
         <ul id="songsList">
           {songsArray.map((el) => (
             <li className="songs" key={el.id}>

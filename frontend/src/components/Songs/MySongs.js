@@ -29,7 +29,7 @@ function UserSongs({ isLoaded }) {
     <div>
       <div>
         <div id="mySongs">
-          <h2>My Songs</h2>
+          <h2 className= 'pageTitle'>My Songs</h2>
           <AddSongFormModal />
         </div>
         <ul id="songsList">

@@ -49,13 +49,13 @@ function AddSongToPlaylistForm({ setShowModal, songId }) {
         <div className="choosePlaylist">
           <ul className='choosePlaylistList'>
             {playlists.map((el) => (
-              <li
+              <button
                 className="choosePlaylistContainer"
                 onClick={() => handleSubmit(el.id)}
                 key={el.id}
               >
-                <div>{el.name}</div>
-              </li>
+                {el.name}
+              </button>
             ))}
           </ul>
         </div>

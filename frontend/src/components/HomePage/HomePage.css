@@ -63,3 +63,7 @@
     height: 3px;
     background-color: orangered;
 }
+
+.pageTitle {
+    padding-left: 45px;
+}
