@@ -35,8 +35,9 @@ export const fetchEditSong = (song, id) => async (dispatch) => {
     body: JSON.stringify(song),
   });
   if (response.ok) {
-    const data = await response.json();
-    dispatch(editSong(data));
+    dispatch(fetchSongDetails(id))
+    // const data = await response.json();
+    // dispatch(editSong(data));
     return response;
   }
 };
