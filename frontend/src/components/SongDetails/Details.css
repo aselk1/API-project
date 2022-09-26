@@ -21,6 +21,10 @@
     color: orangered;
 }
 
+#delete1:hover {
+    color: orangered;
+}
+
 i.fa-duotone.fa-x {
     font-size: 20px;
 }

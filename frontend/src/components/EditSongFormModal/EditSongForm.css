@@ -68,6 +68,10 @@ input {
     color: orangered;
 }
 
+#openEditSong1:hover {
+    color: orangered;
+}
+
 i.fa-regular.fa-pen-to-square {
     font-size: 25px;
 }
