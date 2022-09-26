@@ -23,7 +23,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 <!-- [![Issues][issues-shield]][issues-url] -->
-[![LinkedIn][linkedin-shield]][linkedin-url]
+<!-- [![LinkedIn][linkedin-shield]][linkedin-url] -->
 
 
 
@@ -31,7 +31,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/aselk1/SoundCloud-project">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://d21buns5ku92am.cloudfront.net/26628/images/419679-1x1_SoundCloudLogo_cloudmark-f5912b-medium-1645807040.jpg" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Shound Cloud</h3>
@@ -85,28 +85,42 @@
 
 
 <!-- ABOUT THE PROJECT -->
-<!-- ## About The Project
+## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+Shound Cloud is a user friendly website where you can listen to music and create playlists from from a library of user uploaded tunes. Make your own personal account and start uploading music for the world to hear.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
-<!-- ### Built With
+### Technologies
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* React
+* Redux
+* Sequelize
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+<img src="./images/site.png" alt="Site">
+
+
+### Launch Application
+
+1) Go to the Git Hub Repository for this project.
+2) Clone the project and npm install in both the "frontend" and "backend" directories.
+3) Run "npm start" in two separate terminals. One for the frontend and one for the backend.
+4) Navigate to localhost:3000 to use the application locally.
+
+<!-- * [![Next][Next.js]][Next-url] -->
+<!-- * [![React][React.js]][React-url] -->
+<!-- * [![Vue][Vue.js]][Vue-url] -->
+<!-- * [![Angular][Angular.io]][Angular-url] -->
+<!-- * [![Svelte][Svelte.dev]][Svelte-url] -->
+<!-- * [![Laravel][Laravel.com]][Laravel-url] -->
+<!-- * [![Bootstrap][Bootstrap.com]][Bootstrap-url] -->
+<!-- * [![JQuery][JQuery.com]][JQuery-url] -->
+
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
