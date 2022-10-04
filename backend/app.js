@@ -17,6 +17,7 @@ const app = express(); // initialize express
 app.use(morgan('dev'));// connect morgan middleware for logging info about req and res
 
 app.use(cookieParser());// middleware for parsing cookies
+app.use(express.urlencoded({ extended: false })); //for AWS set up
 app.use(express.json());// middleware for parsing JSON bodies of requests with content-type of application/json
 
 // Security Middleware
