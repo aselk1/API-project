@@ -9,7 +9,7 @@ function AddSongForm({setShowModal}) {
   // const sessionUser = useSelector((state) => state.session.user);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const [album, setAlbum] = useState("");
   const [errors, setErrors] = useState([]);
@@ -41,6 +41,11 @@ function AddSongForm({setShowModal}) {
           })
       );
   };
+
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) setUrl(file);
+  }
 
   return (
     <div className="formContainer">
@@ -75,15 +80,6 @@ function AddSongForm({setShowModal}) {
         </label>
         <label>
           <input
-            placeholder="Song URL"
-            type="text"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          <input
             placeholder="Image URL"
             type="text"
             value={imageUrl}
@@ -98,6 +94,15 @@ function AddSongForm({setShowModal}) {
             value={album}
             onChange={(e) => setAlbum(e.target.value)}
             // required
+          />
+        </label>
+        <label>
+          <input
+            // placeholder="Drag Song Here"
+            type="file"
+            // value={url}
+            onChange={updateFile}
+            required
           />
         </label>
         <button type="submit" className="submit">

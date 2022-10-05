@@ -8,6 +8,11 @@ const { Song, User, Album, Comment } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
+//AWS uploading
+const {singleMulterUpload, singlePublicFileUpload} = require('../../awsS3')
+// import { singlePublicFileUpload } from '../../awsS3';
+// import { singleMulterUpload } from '../../awsS3';
+
 const router = express.Router();
 
 
@@ -79,12 +84,14 @@ router.get(
 router.post(
     "/",
     requireAuth,
+    singleMulterUpload("url"),
     async (req, res, next) => {
         // find user id
         const { token } = req.cookies;
         const payload = jwt.decode(token);
         const id = payload.data.id
-        const {title, description, url, imageUrl, albumId} = req.body
+        const url = await singlePublicFileUpload(req.file);//AWS
+        const {title, description, imageUrl, albumId} = req.body
         //check for title and url, error if needed
         if (!title || !url) {
             const err = new Error('Validation Error');

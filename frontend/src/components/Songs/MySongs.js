@@ -39,7 +39,7 @@ function UserSongs({ isLoaded }) {
                 <AddSongToPlaylistFormModal songId={el.id} />
                 <img src={el.imageUrl} onClick={() => songDetails(el.id)}></img>
                 <div className="overlay" onClick={() => songDetails(el.id)}>
-                  <i class="fa-sharp fa-solid fa-circle-play"></i>
+                  <i className="fa-sharp fa-solid fa-circle-play"></i>
                 </div>
               </div>
               <div>{el.title}</div>
