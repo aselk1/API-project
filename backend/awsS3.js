@@ -38,7 +38,7 @@ const multiplePublicFileUpload = async (files) => {
   );
 };
 
-// --------------------------- Prviate UPLOAD ------------------------
+// --------------------------- Private UPLOAD ------------------------
 
 const singlePrivateFileUpload = async (file) => {
   const { originalname, mimetype, buffer } = await file;
@@ -75,6 +75,21 @@ const retrievePrivateFile = (key) => {
   return fileUrl || key;
 };
 
+// --------------------------- Delete ------------------------
+
+const singlePublicFileDelete = async (Key) => {
+  // name of the file in your S3 bucket will be the date in ms plus the extension name
+  const deleteParams = {
+    Bucket: NAME_OF_BUCKET,
+    Key
+  };
+  await s3.deleteObject(deleteParams).promise();
+
+  // save the name of the file in your bucket as the key in your database to retrieve for later
+  // return result.Location;
+};
+
+
 // --------------------------- Storage ------------------------
 
 const storage = multer.memoryStorage({
@@ -97,4 +112,5 @@ module.exports = {
   retrievePrivateFile,
   singleMulterUpload,
   multipleMulterUpload,
+  singlePublicFileDelete,
 };

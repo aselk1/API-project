@@ -9,9 +9,8 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 //AWS uploading
-const {singleMulterUpload, singlePublicFileUpload} = require('../../awsS3')
-// import { singlePublicFileUpload } from '../../awsS3';
-// import { singleMulterUpload } from '../../awsS3';
+const {singleMulterUpload, singlePublicFileUpload, singlePublicFileDelete} = require('../../awsS3')
+
 
 const router = express.Router();
 
@@ -173,6 +172,7 @@ router.delete(
             err.status = 403;
             return next(err);
         };
+        await singlePublicFileDelete(song.url.split(".com/")[1]);
         await song.destroy();
         res.json({
             "message": "Successfully deleted",
