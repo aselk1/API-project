@@ -22,7 +22,7 @@ function UserSongs({ isLoaded }) {
 
   const songDetails = async (id) => {
     await dispatch(songDetailsActions.fetchSongDetails(id));
-    history.push(`/profile/songDetails`);
+    history.push(`/profile/songDetails/${id}`);
   };
 
   return (
