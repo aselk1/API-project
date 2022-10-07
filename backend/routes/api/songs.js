@@ -89,6 +89,11 @@ router.post(
         const { token } = req.cookies;
         const payload = jwt.decode(token);
         const id = payload.data.id
+        if (Number(req.file.size)/1000000 > 5) {
+            const err = new Error("File must be 5MB or less.");
+            err.status = 400;
+            next(err);
+        }
         const url = await singlePublicFileUpload(req.file);//AWS
         const {title, description, imageUrl, albumId} = req.body
         //check for title and url, error if needed

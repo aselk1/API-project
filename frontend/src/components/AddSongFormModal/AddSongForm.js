@@ -3,8 +3,9 @@ import * as songActions from "../../store/songs";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import "./AddSongForm.css";
+import { $CombinedState } from "redux";
 
-function AddSongForm({setShowModal}) {
+function AddSongForm({ setShowModal }) {
   const dispatch = useDispatch();
   // const sessionUser = useSelector((state) => state.session.user);
   const [title, setTitle] = useState("");
@@ -16,36 +17,43 @@ function AddSongForm({setShowModal}) {
 
   // if (sessionUser) return <Redirect to="/" />;
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowModal(false);
-      //reset errors array
-      setErrors([]);
-      //return dispatch of addSong thunk
-      return (
-        dispatch(
-          songActions.fetchAddSong({
-            title,
-            description,
-            url,
-            imageUrl,
-          })
-        )
-          //catch res and or errors
-          .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) {
-              setErrors(Object.values(data.errors));
-            }
-          })
-      );
+    //reset errors array
+    setErrors([]);
+    //return dispatch of addSong thunk
+    return (
+      dispatch(
+        songActions.fetchAddSong({
+          title,
+          description,
+          url,
+          imageUrl,
+        })
+      )
+        //catch res and or errors
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) {
+            setErrors(Object.values(data.errors));
+          }
+        })
+    );
   };
 
   const updateFile = (e) => {
     const file = e.target.files[0];
-    if (file) setUrl(file);
-  }
+    if (file) {
+      if(file.size/1000000 <= 5) setUrl(file);
+      else {
+        e.target.value = ('')
+        alert ("File size must be 5MB or less.")
+        return false
+      }
+    }
+    console.log(file.size);
+  };
 
   return (
     <div className="formContainer">
@@ -56,9 +64,8 @@ function AddSongForm({setShowModal}) {
         <h2>Add a New Song</h2>
         <ul>
           {errors.map((error, idx) => {
-          return (
-            <li key={idx}>{error}</li>
-          )})}
+            return <li key={idx}>{error}</li>;
+          })}
         </ul>
         <label>
           <input
