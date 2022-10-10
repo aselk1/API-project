@@ -11,6 +11,10 @@ const { handleValidationErrors } = require('../../utils/validation');
 //AWS uploading
 const {singleMulterUpload, singlePublicFileUpload, singlePublicFileDelete} = require('../../awsS3')
 
+const AWS = require("aws-sdk");
+const NAME_OF_BUCKET = "shound-cloud";
+const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
+
 
 const router = express.Router();
 
@@ -92,7 +96,22 @@ router.post(
         if (Number(req.file.size)/1000000 > 5) {
             const err = new Error("File must be 5MB or less.");
             err.status = 400;
-            next(err);
+            return next(err);
+        }
+        let objects = await s3
+          .listObjects({ Bucket: NAME_OF_BUCKET })
+          .promise();
+        let array = objects.Contents;
+        let size =
+          (array.reduce(function (acc, el) {
+            return acc + el.Size;
+          }, 0) +
+            req.file.size) /
+          1000000;
+        if (size > 4900) {
+          const err = new Error("Sorry, the database is full.");
+          err.status = 400;
+          return next(err);
         }
         const url = await singlePublicFileUpload(req.file);//AWS
         const {title, description, imageUrl, albumId} = req.body

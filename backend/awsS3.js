@@ -14,6 +14,16 @@ const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 // --------------------------- Public UPLOAD ------------------------
 
 const singlePublicFileUpload = async (file) => {
+  // let objects = await s3.listObjects({Bucket: NAME_OF_BUCKET}).promise();
+  // let array = objects.Contents
+  // let size = (array.reduce(function(acc, el) {
+  //   return acc + el.Size
+  // }, 0) + file.size)/1000000;
+  // if (size > 4.9) {
+  //   const err = new Error("Sorry, the database is full.");
+  //   err.status = 400;
+  //   next(err);
+  // }
   const { originalname, mimetype, buffer } = await file;
   const path = require("path");
   // name of the file in your S3 bucket will be the date in ms plus the extension name
