@@ -108,7 +108,7 @@ router.post(
           }, 0) +
             req.file.size) /
           1000000;
-        if (size > 1) {
+        if (size > 4900) {
           const err = new Error("Sorry, the database is full.");
           err.status = 400;
           return next(err);
