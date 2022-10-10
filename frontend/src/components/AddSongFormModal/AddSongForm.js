@@ -52,7 +52,6 @@ function AddSongForm({ setShowModal }) {
         return false
       }
     }
-    console.log(file.size);
   };
 
   return (

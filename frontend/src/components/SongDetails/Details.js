@@ -11,7 +11,6 @@ function Details() {
     const dispatch = useDispatch();
     const history = useHistory();
     const song = useSelector((state) => state.songDetails);
-    console.log(song);
     const urlId = Number(useLocation().pathname.split('/')[3]);
 
 
