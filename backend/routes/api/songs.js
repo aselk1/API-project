@@ -108,12 +108,11 @@ router.post(
           }, 0) +
             req.file.size) /
           1000000;
-        if (size > 4900) {
+        if (size > 1) {
           const err = new Error("Sorry, the database is full.");
           err.status = 400;
           return next(err);
         }
-        const url = await singlePublicFileUpload(req.file);//AWS
         const {title, description, imageUrl, albumId} = req.body
         //check for title and url, error if needed
         if (!title || !url) {
@@ -122,7 +121,7 @@ router.post(
             err.errors = {};
             if (!title) err.errors.title = "Song title is required";
             if (!url) err.errors.url = "Audio is required";
-            next(err);
+            return next(err);
         };
         //check for album, error if needed
         if (albumId) {
@@ -130,9 +129,10 @@ router.post(
             if (!album) {
                 const err = new Error("Album couldn't be found");
                 err.status = 404;
-                next(err);
+                return next(err);
             }
         };
+        const url = await singlePublicFileUpload(req.file);//AWS
         let song = await Song.create({
             title: title,
             description: description,
