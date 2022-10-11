@@ -3,7 +3,6 @@ import * as songActions from "../../store/songs";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import "./AddSongForm.css";
-import { $CombinedState } from "redux";
 
 function AddSongForm({ setShowModal }) {
   const dispatch = useDispatch();

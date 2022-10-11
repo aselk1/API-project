@@ -9,9 +9,9 @@ function EditSongForm({setShowModal}) {
   const song = useSelector((state) => state.songDetails);
   const [title, setTitle] = useState(song.title);
   const [description, setDescription] = useState(song.description);
-  const [url, setUrl] = useState(song.url);
+  const [url, setUrl] = useState(null);
   const [imageUrl, setImageUrl] = useState(song.imageUrl);
-  const [album, setAlbum] = useState(song.albumId);
+  const [album, setAlbum] = useState(song.albumId ? song.albumId : '');
   const [errors, setErrors] = useState([]);
 
   // if (sessionUser) return <Redirect to="/" />;
@@ -36,6 +36,18 @@ function EditSongForm({setShowModal}) {
       );
   };
 
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if(file.size/1000000 <= 5) setUrl(file);
+      else {
+        e.target.value = ('')
+        alert ("File size must be 5MB or less.")
+        return false
+      }
+    }
+  };
+
   return (
     <div className="formContainer">
       <button onClick={() => setShowModal(false)} className="close">
@@ -45,9 +57,8 @@ function EditSongForm({setShowModal}) {
         <h2>Edit Song</h2>
         <ul>
           {errors.map((error, idx) => {
-          return (
-            <li key={idx}>{error}</li>
-          )})}
+            return <li key={idx}>{error}</li>;
+          })}
         </ul>
         <label>
           <input
@@ -67,7 +78,7 @@ function EditSongForm({setShowModal}) {
             // required
           />
         </label>
-        <label>
+        {/* <label>
           <input
             placeholder="Song URL"
             type="text"
@@ -75,7 +86,7 @@ function EditSongForm({setShowModal}) {
             onChange={(e) => setUrl(e.target.value)}
             required
           />
-        </label>
+        </label> */}
         <label>
           <input
             placeholder="Image URL"
@@ -92,6 +103,15 @@ function EditSongForm({setShowModal}) {
             value={album}
             onChange={(e) => setAlbum(e.target.value)}
             // required
+          />
+        </label>
+        <label>
+          <input
+            // placeholder="Drag Song Here"
+            type="file"
+            // value={url}
+            onChange={updateFile}
+            required
           />
         </label>
         <button type="submit" className="submit">
