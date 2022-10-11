@@ -5,6 +5,7 @@ import AudioPlayer from 'react-h5-audio-player';
 import Navigation from "./components/Navigation";
 import Profile from "./components/ProfilePage";
 import SongDetails from './components/SongDetails'
+import SongPlayer from "./components/AudioPlayer";
 import * as sessionActions from "./store/session";
 import * as songDetailsActions from './store/songDetails';
 import Home from "./components/HomePage";
@@ -56,13 +57,14 @@ function App() {
         </Switch>
       )}
       <div className="audioPlayerContainer">
-        <AudioPlayer
+        {/* <AudioPlayer
           src={state.songDetails.url}
           className="audioPlayer"
           // showSkipControls
           // onClickNext={next}
           // onClickPrevious={prev}
-        />
+        /> */}
+        <SongPlayer />
       </div>
     </div>
   );

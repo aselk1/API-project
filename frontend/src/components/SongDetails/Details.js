@@ -22,7 +22,8 @@ function Details() {
     const {id, title, description, imageUrl, url, userId, Album, Artist, albumId } = song;
 
     const deleteSong = async (id) => {
-        await dispatch(songActions.fetchDeleteSong(id))
+        await dispatch(songActions.fetchDeleteSong(id));
+        if (id === song.id) await dispatch(songDetailsActions.deleteSong(id));
         return history.push('/profile')
     }
 
