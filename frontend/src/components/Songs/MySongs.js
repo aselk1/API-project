@@ -15,7 +15,10 @@ function UserSongs({ isLoaded }) {
   const user = useSelector((state) => state.session.user);
   const songs = useSelector((state) => state.songs);
   const songsArray = Object.values(songs);
-  const id = Number(user.id);
+  let id;
+  if (user) {
+    id = Number(user.id);
+  }
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(songsActions.fetchUserSongs(id));

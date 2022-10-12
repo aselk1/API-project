@@ -12,7 +12,11 @@ function Details({id2}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const song = useSelector((state) => state.currentSong);
-    const sessionId = useSelector((state) => state.session.user.id)
+    const user = useSelector((state) => state.session.user)
+    let sessionId;
+    if (user) {
+      sessionId = user.id
+    }
     const urlId = Number(useLocation().pathname.split('/')[3]);
 
 
