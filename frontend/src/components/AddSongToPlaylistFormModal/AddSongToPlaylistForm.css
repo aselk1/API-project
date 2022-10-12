@@ -64,15 +64,15 @@ i.fa-solid.fa-plus {
     font-size: 25px;
 }
 
-.addContainer {
+/* .addContainer {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
     position: absolute;
     width: 25px;
     padding-top: 2px;
-
-}
+    z-index: 1;
+} */
 
 .choosePlaylist {
     height: 400px;

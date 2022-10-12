@@ -29,14 +29,17 @@ function UserSongs({ isLoaded }) {
     <div>
       <div>
         <div id="mySongs">
-          <h2 className= 'pageTitle'>My Songs</h2>
+          <h2 className="pageTitle">My Songs</h2>
           <AddSongFormModal />
         </div>
         <ul id="songsList">
           {songsArray.map((el) => (
             <li className="songs" key={el.id}>
               <div className="outerContainer">
-                <AddSongToPlaylistFormModal songId={el.id} />
+                <div className="addContainer2">
+                  <AddSongToPlaylistFormModal songId={el.id} />
+                  <i class="fa-solid fa-circle-info"></i>
+                </div>
                 <img src={el.imageUrl} onClick={() => songDetails(el.id)}></img>
                 <div className="overlay" onClick={() => songDetails(el.id)}>
                   <i className="fa-sharp fa-solid fa-circle-play"></i>
