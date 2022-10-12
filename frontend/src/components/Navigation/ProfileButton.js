@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
+import * as songsActions from '../../store/songs';
 import "./ProfileButton.css";
 
 function ProfileButton({ user }) {
@@ -39,6 +40,7 @@ function ProfileButton({ user }) {
 
   const profile = (e) => {
     e.preventDefault();
+    dispatch(songsActions.fetchUserSongs(Number(user.id)));
     history.push("/profile");
   };
 

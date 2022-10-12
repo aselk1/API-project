@@ -37,7 +37,10 @@ function App() {
 
   useEffect(() => {
     //async with .then chains
-    if (user) dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(sessionActions.restoreUser())
+    .then(() => {
+      if (user) setIsLoaded(true)
+    });
   }, [dispatch]);
 
 

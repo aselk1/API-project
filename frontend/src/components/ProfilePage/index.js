@@ -26,7 +26,7 @@ function Profile({ isLoaded }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (urlId !== 'undefined') dispatch(currentSongActions.fetchCurrentSong(Number(urlId)));
+    if (urlId !== 'undefined' && urlId !== undefined) dispatch(currentSongActions.fetchCurrentSong(Number(urlId)));
   }, [dispatch, urlId]);
 
   // if (!sessionUser) return <Redirect to={`/profile/songDetails/${songId}`} />;
