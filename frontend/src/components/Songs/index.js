@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, useHistory } from "react-router-dom";
 import * as songsActions from "../../store/songs";
 import * as songDetailsActions from "../../store/songDetails";
+import * as currentSongActions from '../../store/currentSong';
 import SongDetails from "../SongDetails";
 import AddSongToPlaylistFormModal from "../AddSongToPlaylistFormModal";
 import "./Songs.css";
@@ -19,6 +20,7 @@ function Songs({ isLoaded }) {
   }, [dispatch]);
 
   const songDetails = async (id) => {
+    await dispatch(currentSongActions.fetchCurrentSong(id));
     history.push(`/profile/songDetails/${id}`);
   };
 

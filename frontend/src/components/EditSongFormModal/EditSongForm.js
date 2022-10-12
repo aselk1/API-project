@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import * as songDetailsActions from "../../store/songDetails";
+import * as currentSongActions from '../../store/currentSong';
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import "./EditSongForm.css";
 
 function EditSongForm({setShowModal}) {
   const dispatch = useDispatch();
-  const song = useSelector((state) => state.songDetails);
+  const song = useSelector((state) => state.currentSong);
   const [title, setTitle] = useState(song.title);
   const [description, setDescription] = useState(song.description);
-  const [url, setUrl] = useState(null);
+  const [file, setFile] = useState(null);
+  const [oldUrl, setOldUrl] = useState(song.url)
   const [imageUrl, setImageUrl] = useState(song.imageUrl);
   const [album, setAlbum] = useState(song.albumId ? song.albumId : '');
   const [errors, setErrors] = useState([]);
@@ -23,9 +25,9 @@ function EditSongForm({setShowModal}) {
       //reset errors array
       setErrors([]);
       //return dispatch of addSong thunk
-      const songObj = {title, description, url, imageUrl}
+      const songObj = {title, description, file, imageUrl, oldUrl}
       return (
-        dispatch(songDetailsActions.fetchEditSong(songObj, song.id))
+        dispatch(currentSongActions.fetchEditCurrentSong(songObj, song.id))
           //catch res and or errors
           .catch(async (res) => {
             const data = await res.json();
@@ -39,7 +41,7 @@ function EditSongForm({setShowModal}) {
   const updateFile = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if(file.size/1000000 <= 5) setUrl(file);
+      if(file.size/1000000 <= 5) setFile(file);
       else {
         e.target.value = ('')
         alert ("File size must be 5MB or less.")
@@ -66,7 +68,6 @@ function EditSongForm({setShowModal}) {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            required
           />
         </label>
         <label>
@@ -111,7 +112,6 @@ function EditSongForm({setShowModal}) {
             type="file"
             // value={url}
             onChange={updateFile}
-            required
           />
         </label>
         <button type="submit" className="submit">

@@ -40,27 +40,30 @@ export const fetchSongDetails = (songId) => async (dispatch) => {
 // };
 
 
-export const fetchEditSong = (song, id) => async (dispatch) => {
-  const { title, description, imageUrl, url } = song;
-  const formData = new FormData();
-  formData.append("title", title);
-  formData.append("description", description);
-  formData.append("url", url);
-  formData.append("imageUrl", imageUrl);
-  const response = await csrfFetch(`/api/songs/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-    body: formData,
-  });
-  if (response.ok) {
-    dispatch(fetchSongDetails(id))
-    // const data = await response.json();
-    // dispatch(editSong(data));
-    return response;
-  }
-};
+// export const fetchEditSong = (song, id) => async (dispatch) => {
+//   const { title, description, imageUrl} = song;
+//   const formData = new FormData();
+//   if (song.file !=null) {
+//     const {file} = song
+//     formData.append("url", file);
+//   }
+//   formData.append("title", title);
+//   formData.append("description", description);
+//   formData.append("imageUrl", imageUrl);
+//   const response = await csrfFetch(`/api/songs/${id}`, {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "multipart/form-data",
+//     },
+//     body: formData,
+//   });
+//   if (response.ok) {
+//     dispatch(fetchSongDetails(id))
+//     // const data = await response.json();
+//     // dispatch(editSong(data));
+//     return response;
+//   }
+// };
 
 
 const initialState = {};

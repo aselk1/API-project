@@ -145,31 +145,8 @@ router.put(
       err.status = 404;
       return next(err);
     }
-    if (Number(req.file.size) / 1000000 > 5) {
-      const err = new Error("File must be 5MB or less.");
-      err.status = 400;
-      return next(err);
-    }
-    let objects = await s3.listObjects({ Bucket: NAME_OF_BUCKET }).promise();
-    let oldSong = await s3.getObjectAttributes({
-      Bucket: NAME_OF_BUCKET,
-      Key: song.url.split(".com/")[1],
-      ObjectAttributes: ['ObjectSize']
-    }).promise();
-    let oldSongSize = Number(oldSong.ObjectSize);
-    let array = objects.Contents;
-    let size =
-      (array.reduce(function (acc, el) {
-        return acc + el.Size;
-      }, 0) +
-        req.file.size - oldSongSize) /
-      1000000;
-    if (size > 4900) {
-      const err = new Error("Sorry, the database is full.");
-      err.status = 400;
-      return next(err);
-    }
-    let { title, description, imageUrl, albumId } = req.body;
+    let { title, description, imageUrl, albumId, oldUrl } = req.body;
+    let url = oldUrl
 
     if (!title) {
       const err = new Error("Validation Error");
@@ -184,8 +161,34 @@ router.put(
       err.status = 403;
       return next(err);
     }
-    await singlePublicFileDelete(song.url.split(".com/")[1]);
-    const url = await singlePublicFileUpload(req.file);
+    if (req.file) {
+      if (Number(req.file.size) / 1000000 > 5) {
+        const err = new Error("File must be 5MB or less.");
+        err.status = 400;
+        return next(err);
+      }
+      let objects = await s3.listObjects({ Bucket: NAME_OF_BUCKET }).promise();
+      let oldSong = await s3.getObjectAttributes({
+        Bucket: NAME_OF_BUCKET,
+        Key: song.url.split(".com/")[1],
+        ObjectAttributes: ['ObjectSize']
+      }).promise();
+      let oldSongSize = Number(oldSong.ObjectSize);
+      let array = objects.Contents;
+      let size =
+        (array.reduce(function (acc, el) {
+          return acc + el.Size;
+        }, 0) +
+          req.file.size - oldSongSize) /
+        1000000;
+      if (size > 4900) {
+        const err = new Error("Sorry, the database is full.");
+        err.status = 400;
+        return next(err);
+      }
+      await singlePublicFileDelete(song.url.split(".com/")[1]);
+      url = await singlePublicFileUpload(req.file);
+    }
     song.update({
       title: title,
       description: description,
