@@ -12,7 +12,7 @@ import Home from "./components/HomePage";
 import "react-h5-audio-player/lib/styles.css";
 
 function App() {
-  const state = useSelector((state) => state)
+  const user = useSelector((state) => state.session.user)
   // const pageUrl = useLocation().pathname;
   // let songs;
   // if (state.playlistDetails.Songs) {
@@ -37,7 +37,7 @@ function App() {
 
   useEffect(() => {
     //async with .then chains
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    if (user) dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
 
@@ -45,7 +45,6 @@ function App() {
   return (
     <div>
       {/* <Navigation isLoaded={isLoaded} /> */}
-      {isLoaded && (
         <Switch>
           <Route exact path="/">
             <Home isLoaded={isLoaded} />
@@ -55,7 +54,6 @@ function App() {
           </Route>
           <Route>404 Page Not Found</Route>
         </Switch>
-      )}
       <div className="audioPlayerContainer">
         {/* <AudioPlayer
           src={state.songDetails.url}

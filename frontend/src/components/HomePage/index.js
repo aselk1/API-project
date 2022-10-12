@@ -16,7 +16,7 @@ function Home({ isLoaded }) {
   };
 
   useEffect(()=> {
-    dispatch(playlistsActions.fetchUserPlaylists());
+    if (user) dispatch(playlistsActions.fetchUserPlaylists());
   },[dispatch,user])
 
   return (
