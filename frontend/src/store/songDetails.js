@@ -11,13 +11,6 @@ const getSong = (song) => {
   };
 };
 
-const editSong = (songObj) => {
-  return {
-    type: EDIT_SONG,
-    payload: songObj,
-  };
-};
-
 export const deleteSong = (id) => {
   return {
     type: DELETE_SONG
@@ -33,37 +26,6 @@ export const fetchSongDetails = (songId) => async (dispatch) => {
     return response;
   }
 };
-
-// export const fetchDeleteSongDetails = (id) => async (dispatch) => {
-//   if (id = )
-
-// };
-
-
-// export const fetchEditSong = (song, id) => async (dispatch) => {
-//   const { title, description, imageUrl} = song;
-//   const formData = new FormData();
-//   if (song.file !=null) {
-//     const {file} = song
-//     formData.append("url", file);
-//   }
-//   formData.append("title", title);
-//   formData.append("description", description);
-//   formData.append("imageUrl", imageUrl);
-//   const response = await csrfFetch(`/api/songs/${id}`, {
-//     method: "PUT",
-//     headers: {
-//       "Content-Type": "multipart/form-data",
-//     },
-//     body: formData,
-//   });
-//   if (response.ok) {
-//     dispatch(fetchSongDetails(id))
-//     // const data = await response.json();
-//     // dispatch(editSong(data));
-//     return response;
-//   }
-// };
 
 
 const initialState = {};
