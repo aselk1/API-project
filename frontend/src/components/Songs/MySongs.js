@@ -21,8 +21,11 @@ function UserSongs({ isLoaded }) {
   }, [dispatch, id]);
 
   const songDetails = async (id) => {
-    await dispatch(songDetailsActions.fetchSongDetails(id));
     history.push(`/profile/songDetails/${id}`);
+  };
+
+  const playSong = async (id) => {
+    await dispatch(songDetailsActions.fetchSongDetails(id));
   };
 
   return (
@@ -38,10 +41,13 @@ function UserSongs({ isLoaded }) {
               <div className="outerContainer">
                 <div className="addContainer2">
                   <AddSongToPlaylistFormModal songId={el.id} />
-                  <i class="fa-solid fa-circle-info"></i>
+                  <i
+                    className="fa-solid fa-circle-info"
+                    onClick={() => songDetails(el.id)}
+                  ></i>
                 </div>
-                <img src={el.imageUrl} onClick={() => songDetails(el.id)}></img>
-                <div className="overlay" onClick={() => songDetails(el.id)}>
+                <img src={el.imageUrl}></img>
+                <div className="overlay" onClick={() => playSong(el.id)}>
                   <i className="fa-sharp fa-solid fa-circle-play"></i>
                 </div>
               </div>

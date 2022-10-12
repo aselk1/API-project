@@ -3,19 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useLocation } from "react-router-dom";
 import * as songActions from '../../store/songs';
 import * as songDetailsActions from '../../store/songDetails';
+import * as currentSongActions from "../../store/currentSong";
 import EditSongFormModal from "../EditSongFormModal";
 import './Details.css'
 
 
-function Details() {
+function Details({id2}) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const song = useSelector((state) => state.songDetails);
+    const song = useSelector((state) => state.currentSong);
+    const sessionId = useSelector((state) => state.session.user.id)
     const urlId = Number(useLocation().pathname.split('/')[3]);
 
 
+
     useEffect(() => {
-      dispatch(songDetailsActions.fetchSongDetails(urlId));
+      dispatch(currentSongActions.fetchCurrentSong(urlId));
     }, [dispatch, urlId]);
 
     // if (!song.id) return <Redirect to='/profile'/>
@@ -34,12 +37,12 @@ function Details() {
           <h2 className="songTitle">{title}</h2>
           <h3 className='songArtist'>{Artist?.username}</h3>
           </div>
-          <button className="button" id="delete1" onClick={() => deleteSong(id)}>
+          {sessionId === userId && <button className="button" id="delete1" onClick={() => deleteSong(id)}>
             <i className="fa-duotone fa-x"></i>
-          </button>
-          <EditSongFormModal />
+          </button>}
+          {sessionId === userId && <EditSongFormModal />}
         </div>
-        <img className = 'songDetailsImage' src={imageUrl}/>
+        <img className = 'songDetailsImage' src={imageUrl} alt={title}/>
       </div>
     );
 }

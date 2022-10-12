@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import * as songsActions from "../../store/songs";
 import * as songDetailsActions from "../../store/songDetails";
 import SongDetails from "../SongDetails";
@@ -12,10 +12,15 @@ function Songs({ isLoaded }) {
   const songs = useSelector((state) => state.songs);
   const user = useSelector((state) => state.session.user);
   const songsArray = Object.values(songs);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(songsActions.fetchAllSongs());
   }, [dispatch]);
+
+  const songDetails = async (id) => {
+    history.push(`/profile/songDetails/${id}`);
+  };
 
   const playSong = async (id) => {
     await dispatch(songDetailsActions.fetchSongDetails(id));
@@ -31,7 +36,10 @@ function Songs({ isLoaded }) {
               <div className="outerContainer">
                 <div className="addContainer2">
                   {user && <AddSongToPlaylistFormModal songId={el.id} />}
-                  <i class="fa-solid fa-circle-info"></i>
+                  <i
+                    className="fa-solid fa-circle-info"
+                    onClick={() => songDetails(el.id)}
+                  ></i>
                 </div>
                 <img
                   className="songImage"

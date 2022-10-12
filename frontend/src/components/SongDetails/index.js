@@ -1,9 +1,8 @@
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory, useLocation } from "react-router-dom";
 import Navigation from "../Navigation";
 import Details from './Details'
 
-function SongDetails({ isLoaded, id }) {
-
+function SongDetails({ isLoaded}) {
   const history = useHistory();
   const home = (e) => {
     e.preventDefault();
@@ -29,7 +28,7 @@ function SongDetails({ isLoaded, id }) {
               <Navigation isLoaded={isLoaded} />
             </div> */}
           {/* </div> */}
-          <Details id={id}/>
+          <Details/>
         </div>
       </div>
     </div>
