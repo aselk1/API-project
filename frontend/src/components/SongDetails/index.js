@@ -1,6 +1,7 @@
 import { Switch, Route, useHistory, useLocation } from "react-router-dom";
 import Navigation from "../Navigation";
-import Details from './Details'
+import Details from './Details';
+import Comments from '../Comments';
 
 function SongDetails({ isLoaded}) {
   const history = useHistory();
@@ -29,6 +30,7 @@ function SongDetails({ isLoaded}) {
             </div> */}
           {/* </div> */}
           <Details/>
+          <Comments />
         </div>
       </div>
     </div>

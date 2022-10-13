@@ -12,6 +12,7 @@ import songsReducer from "./songs";
 import playlistsReducer from "./playlists";
 import playlistDetailsReducer from "./playlistDetails";
 import currentSongReducer from "./currentSong";
+import commentsReducer from "./comments";
 
 //combine all reducers
 const rootReducer = combineReducers({
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   songDetails: songsDetailsReducer,
   playlists: playlistsReducer,
   playlistDetails: playlistDetailsReducer,
-  currentSong: currentSongReducer
+  currentSong: currentSongReducer,
+  comments: commentsReducer
 });
 
 //set up enhancer for production vs. development

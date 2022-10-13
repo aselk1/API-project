@@ -1,7 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const GET_PLAYLISTS = "/playlists/getPlaylists";
-const ADD_PLAYLIST = '/playlists/addPlaylist'
+const ADD_PLAYLIST = '/playlists/addPlaylist';
 const DELETE_PLAYLIST = "/playlists/deletePlaylist";
 
 
