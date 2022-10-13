@@ -36,7 +36,7 @@ function Songs({ isLoaded }) {
           {songsArray.map((el) => (
             <li className="songs" key={el.id}>
               <div className="outerContainer">
-                <div className="addContainer2">
+                <div className={isLoaded? "addContainer2" : "addContainer3"}>
                   {user && <AddSongToPlaylistFormModal songId={el.id} />}
                   <i
                     className="fa-solid fa-circle-info"

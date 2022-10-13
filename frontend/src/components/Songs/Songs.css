@@ -112,3 +112,15 @@ i.fa-sharp.fa-solid.fa-circle-play:hover {
     padding-right: 2px;
     z-index: 1;
 }
+
+.addContainer3 {
+    display: flex;
+    justify-content:flex-end;
+    align-items: flex-start;
+    position: absolute;
+    width: 180px;
+    padding-top: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    z-index: 1;
+}

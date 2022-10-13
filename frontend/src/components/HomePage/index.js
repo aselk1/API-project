@@ -40,7 +40,7 @@ function Home({ isLoaded }) {
           </div>
         </div>
         </div>
-        <Songs />
+        <Songs isLoaded={isLoaded}/>
       </div>
       </div>
       {isLoaded && (

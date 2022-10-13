@@ -43,6 +43,11 @@ function App() {
     });
   }, [dispatch]);
 
+  useEffect(() => {
+    if (user) setIsLoaded(true);
+    else setIsLoaded(false);
+  }, [dispatch, user]);
+
 
 
   return (
