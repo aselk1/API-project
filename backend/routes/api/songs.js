@@ -89,6 +89,11 @@ router.post(
       err.status = 400;
       return next(err);
     }
+    // if (req.file.type.split("/")[0] !== "audio") {
+    //   const err = new Error("File must be an audio file.");
+    //   err.status = 400;
+    //   return next(err);
+    // }
     let objects = await s3.listObjects({ Bucket: NAME_OF_BUCKET }).promise();
     let array = objects.Contents;
     let size =
@@ -167,10 +172,15 @@ router.put(
         err.status = 400;
         return next(err);
       }
+      // if (req.file.type.split("/")[0] !== "audio") {
+      //   const err = new Error("File must be an audio file.");
+      //   err.status = 400;
+      //   return next(err);
+      // }
       let objects = await s3.listObjects({ Bucket: NAME_OF_BUCKET }).promise();
       let oldSong;
       try {
-        let oldSong = await s3.getObjectAttributes({
+        oldSong = await s3.getObjectAttributes({
           Bucket: NAME_OF_BUCKET,
           Key: song.url.split(".com/")[1],
           ObjectAttributes: ['ObjectSize']

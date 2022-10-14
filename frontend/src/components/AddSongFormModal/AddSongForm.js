@@ -50,6 +50,11 @@ function AddSongForm({ setShowModal }) {
         alert ("File size must be 10MB or less.")
         return false
       }
+      if (file.type.split("/")[0] !== "audio") {
+        e.target.value = "";
+        alert("File must be an audio file.");
+        return false;
+      }
     }
   };
 

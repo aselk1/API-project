@@ -1,51 +1,55 @@
 import React, { useState } from "react";
 import * as songDetailsActions from "../../store/songDetails";
-import * as currentSongActions from '../../store/currentSong';
+import * as currentSongActions from "../../store/currentSong";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import "./EditSongForm.css";
 
-function EditSongForm({setShowModal}) {
+function EditSongForm({ setShowModal }) {
   const dispatch = useDispatch();
   const song = useSelector((state) => state.currentSong);
   const [title, setTitle] = useState(song.title);
   const [description, setDescription] = useState(song.description);
   const [file, setFile] = useState(null);
-  const [oldUrl, setOldUrl] = useState(song.url)
+  const [oldUrl, setOldUrl] = useState(song.url);
   const [imageUrl, setImageUrl] = useState(song.imageUrl);
-  const [album, setAlbum] = useState(song.albumId ? song.albumId : '');
+  const [album, setAlbum] = useState(song.albumId ? song.albumId : "");
   const [errors, setErrors] = useState([]);
 
   // if (sessionUser) return <Redirect to="/" />;
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowModal(false);
-      //reset errors array
-      setErrors([]);
-      //return dispatch of addSong thunk
-      const songObj = {title, description, file, imageUrl, oldUrl}
-      return (
-        dispatch(currentSongActions.fetchEditCurrentSong(songObj, song.id))
-          //catch res and or errors
-          .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) {
-              setErrors(Object.values(data.errors));
-            }
-          })
-      );
+    //reset errors array
+    setErrors([]);
+    //return dispatch of addSong thunk
+    const songObj = { title, description, file, imageUrl, oldUrl };
+    return (
+      dispatch(currentSongActions.fetchEditCurrentSong(songObj, song.id))
+        //catch res and or errors
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) {
+            setErrors(Object.values(data.errors));
+          }
+        })
+    );
   };
 
   const updateFile = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if(file.size/1000000 <= 10) setFile(file);
+      if (file.size / 1000000 <= 10) setFile(file);
       else {
-        e.target.value = ('')
-        alert ("File size must be 10MB or less.")
-        return false
+        e.target.value = "";
+        alert("File size must be 10MB or less.");
+        return false;
+      }
+      if (file.type.split("/")[0] !== "audio") {
+        e.target.value = "";
+        alert("File must be an audio file.");
+        return false;
       }
     }
   };
