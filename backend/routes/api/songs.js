@@ -168,12 +168,16 @@ router.put(
         return next(err);
       }
       let objects = await s3.listObjects({ Bucket: NAME_OF_BUCKET }).promise();
-      let oldSong = await s3.getObjectAttributes({
-        Bucket: NAME_OF_BUCKET,
-        Key: song.url.split(".com/")[1],
-        ObjectAttributes: ['ObjectSize']
-      }).promise();
-      let oldSongSize = Number(oldSong.ObjectSize);
+      let oldSong;
+      try {
+        let oldSong = await s3.getObjectAttributes({
+          Bucket: NAME_OF_BUCKET,
+          Key: song.url.split(".com/")[1],
+          ObjectAttributes: ['ObjectSize']
+        }).promise();
+      } catch (error) {
+      }
+      let oldSongSize = Number(oldSong?.ObjectSize);
       let array = objects.Contents;
       let size =
         (array.reduce(function (acc, el) {
@@ -186,7 +190,7 @@ router.put(
         err.status = 400;
         return next(err);
       }
-      await singlePublicFileDelete(song.url.split(".com/")[1]);
+      if (oldSong) await singlePublicFileDelete(song.url.split(".com/")[1]);
       url = await singlePublicFileUpload(req.file);
     }
     song.update({
