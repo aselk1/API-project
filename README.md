@@ -46,7 +46,7 @@
     .
     <a href="https://github.com/aselk1/SoundCloud-project/wiki">GitHub Wiki</a>
     .
-    <a href="https://docs.google.com/spreadsheets/d/1JisXrQJhxIYjSMA9LAHF9BW9_gKdX5VCDCrewTK7HyQ/edit?usp=sharing">ScoreCard</a>
+    <a href="https://docs.google.com/spreadsheets/d/13zjIEH8vrJIIxmOU_dz3l0UtyHJK9SHgNhMn_F6LEAg/edit?usp=sharing">ScoreCard</a>
     <!-- ·
     <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
     ·
