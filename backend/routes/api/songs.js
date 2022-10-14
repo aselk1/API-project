@@ -84,8 +84,8 @@ router.post(
     const { token } = req.cookies;
     const payload = jwt.decode(token);
     const id = payload.data.id;
-    if (Number(req.file.size) / 1000000 > 5) {
-      const err = new Error("File must be 5MB or less.");
+    if (Number(req.file.size) / 1000000 > 10) {
+      const err = new Error("File must be 10MB or less.");
       err.status = 400;
       return next(err);
     }
@@ -162,8 +162,8 @@ router.put(
       return next(err);
     }
     if (req.file) {
-      if (Number(req.file.size) / 1000000 > 5) {
-        const err = new Error("File must be 5MB or less.");
+      if (Number(req.file.size) / 1000000 > 10) {
+        const err = new Error("File must be 10MB or less.");
         err.status = 400;
         return next(err);
       }

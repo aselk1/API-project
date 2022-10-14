@@ -41,10 +41,10 @@ function EditSongForm({setShowModal}) {
   const updateFile = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if(file.size/1000000 <= 5) setFile(file);
+      if(file.size/1000000 <= 10) setFile(file);
       else {
         e.target.value = ('')
-        alert ("File size must be 5MB or less.")
+        alert ("File size must be 10MB or less.")
         return false
       }
     }
