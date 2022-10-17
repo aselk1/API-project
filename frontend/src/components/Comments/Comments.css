@@ -1,0 +1,26 @@
+.commentsTitle {
+    border-bottom: solid lightgrey;
+    color: #999999;
+    margin-right: 40px;
+    margin-left: 40px;
+    font-size: 14px;
+}
+
+.commentsList {
+    padding-right: 60px;
+    padding-left: 60px;
+}
+
+.commentUser {
+    color: #999999;
+    font-size: 12px;
+}
+
+.comment {
+    color: #333333;
+    font-size: 12px;
+}
+
+.commentContainer {
+    padding: 10px;
+}
