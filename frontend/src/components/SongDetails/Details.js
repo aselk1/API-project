@@ -4,6 +4,7 @@ import { Redirect, useHistory, useLocation } from "react-router-dom";
 import * as songActions from '../../store/songs';
 import * as songDetailsActions from '../../store/songDetails';
 import * as currentSongActions from "../../store/currentSong";
+import * as commentsActions from '../../store/comments';
 import EditSongFormModal from "../EditSongFormModal";
 import './Details.css'
 
@@ -23,6 +24,7 @@ function Details({id2}) {
 
     useEffect(() => {
       dispatch(currentSongActions.fetchCurrentSong(urlId));
+      dispatch(commentsActions.fetchComments(urlId));
     }, [dispatch, urlId]);
 
     // if (!song.id) return <Redirect to='/profile'/>

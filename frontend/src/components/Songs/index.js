@@ -4,6 +4,7 @@ import { Route, Switch, useHistory } from "react-router-dom";
 import * as songsActions from "../../store/songs";
 import * as songDetailsActions from "../../store/songDetails";
 import * as currentSongActions from '../../store/currentSong';
+import * as commentsActions from "../../store/comments";
 import SongDetails from "../SongDetails";
 import AddSongToPlaylistFormModal from "../AddSongToPlaylistFormModal";
 import "./Songs.css";
@@ -21,6 +22,7 @@ function Songs({ isLoaded }) {
 
   const songDetails = async (id) => {
     await dispatch(currentSongActions.fetchCurrentSong(id));
+    await dispatch(commentsActions.fetchComments(id));
     history.push(`/profile/songDetails/${id}`);
   };
 

@@ -10,11 +10,17 @@ const getComments = (commentsObj) => {
 };
 
 export const fetchComments = (songId) => async (dispatch) => {
-    const res = fetch(`/${songId}/comments`);
+    const res = await csrfFetch(`/api/songs/${songId}/comments`);
     if (res.ok) {
-        const comments = await res.json();
-        await dispatch(getComments(comments));
-        return comments;
+        const data = await res.json();
+        const comments = data.Comments;
+        let commentsObj = {};
+        comments.forEach((el) => {
+          commentsObj[el.id] = el;
+        });
+        console.log(commentsObj)
+        await dispatch(getComments(commentsObj));
+        return commentsObj;
     }
 }
 

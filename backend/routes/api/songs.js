@@ -89,11 +89,11 @@ router.post(
       err.status = 400;
       return next(err);
     }
-    // if (req.file.type.split("/")[0] !== "audio") {
-    //   const err = new Error("File must be an audio file.");
-    //   err.status = 400;
-    //   return next(err);
-    // }
+    if (req.file.type.split("/")[0] !== "audio") {
+      const err = new Error("File must be an audio file.");
+      err.status = 400;
+      return next(err);
+    }
     let objects = await s3.listObjects({ Bucket: NAME_OF_BUCKET }).promise();
     let array = objects.Contents;
     let size =
@@ -172,11 +172,11 @@ router.put(
         err.status = 400;
         return next(err);
       }
-      // if (req.file.type.split("/")[0] !== "audio") {
-      //   const err = new Error("File must be an audio file.");
-      //   err.status = 400;
-      //   return next(err);
-      // }
+      if (req.file.type.split("/")[0] !== "audio") {
+        const err = new Error("File must be an audio file.");
+        err.status = 400;
+        return next(err);
+      }
       let objects = await s3.listObjects({ Bucket: NAME_OF_BUCKET }).promise();
       let oldSong;
       try {
@@ -235,6 +235,12 @@ router.delete("/:songId", requireAuth, async (req, res, next) => {
 });
 
 router.get("/:songId/comments", async (req, res, next) => {
+  let song = await Song.findByPk(req.params.songId);
+  if (!song) {
+    const err = new Error("Song couldn't be found");
+    err.status = 404;
+    return next(err);
+  }
   let Comments = await Comment.findAll({
     where: {
       songId: Number(req.params.songId),
@@ -244,11 +250,11 @@ router.get("/:songId/comments", async (req, res, next) => {
       attributes: ["id", "username"],
     },
   });
-  if (Comments.length === 0) {
-    let err = new Error("Song couldn't be found");
-    err.status = 404;
-    return next(err);
-  }
+  // if (Comments.length === 0) {
+  //   let err = new Error("Song couldn't be found");
+  //   err.status = 404;
+  //   return next(err);
+  // }
   res.json({ Comments });
 });
 
