@@ -11,8 +11,11 @@ function Comments() {
       <ul className="commentsList">
         {commentsArray.map((el) => (
           <li className="commentContainer" key={el.id}>
-            <div className="commentUser">{el.User.username}</div>
-            <div className="comment">{el.body}</div>
+            <img className='profilePhoto' src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile Img"></img>
+            <div className="commentContainer2">
+              <div className="commentUser">{el.User.username}</div>
+              <div className="comment">{el.body}</div>
+            </div>
           </li>
         ))}
       </ul>

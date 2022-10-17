@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import AudioPlayer from 'react-h5-audio-player';
@@ -47,6 +47,7 @@ function App() {
     if (user) setIsLoaded(true);
     else setIsLoaded(false);
   }, [dispatch, user]);
+
 
 
 

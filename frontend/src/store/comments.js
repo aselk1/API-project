@@ -18,7 +18,6 @@ export const fetchComments = (songId) => async (dispatch) => {
         comments.forEach((el) => {
           commentsObj[el.id] = el;
         });
-        console.log(commentsObj)
         await dispatch(getComments(commentsObj));
         return commentsObj;
     }
