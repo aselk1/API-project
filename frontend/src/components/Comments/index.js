@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import './Comments.css'
 
 function Comments() {
   const comments = useSelector((state) => state.comments);
@@ -6,7 +7,7 @@ function Comments() {
 
   return (
     <div>
-      <ul>COMMENTS:
+      <ul>Comments:
         {commentsArray.map((el) => (
           <li key={el.id}>
             {el.User.username}: {el.body}
