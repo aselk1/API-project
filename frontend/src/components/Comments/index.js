@@ -3,15 +3,20 @@ import "./Comments.css";
 
 function Comments() {
   const comments = useSelector((state) => state.comments);
+  const user = useSelector((state) => state.session.user);
   const commentsArray = Object.values(comments);
 
   return (
     <div>
+      <div className="createComment">
+        <img className="profilePhotoSquare" src={user?.imageUrl} alt='Profile'></img>
+        <input className="inputComment" type='text' placeholder="Write a comment"></input>
+      </div>
       <div className="commentsTitle">comments</div>
       <ul className="commentsList">
         {commentsArray.map((el) => (
           <li className="commentContainer" key={el.id}>
-            <img className='profilePhoto' src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile Img"></img>
+            <img className='profilePhoto' src={el.User.imageUrl} alt="Profile Img"></img>
             <div className="commentContainer2">
               <div className="commentUser">{el.User.username}</div>
               <div className="comment">{el.body}</div>

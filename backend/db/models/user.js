@@ -93,7 +93,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     imageUrl: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     }
   }, {
     sequelize,
@@ -105,7 +106,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     scopes: {
       currentUser: {
-        attributes: {exclude: ["hashedPassword","createdAt","updatedAt","imageUrl"]}
+        attributes: {exclude: ["hashedPassword","createdAt","updatedAt"]}
       },
       loginUser: {attributes: {}}
     }

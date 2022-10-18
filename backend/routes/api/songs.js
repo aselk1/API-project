@@ -247,7 +247,7 @@ router.get("/:songId/comments", async (req, res, next) => {
     },
     include: {
       model: User,
-      attributes: ["id", "username"],
+      attributes: ["id", "username", 'imageUrl'],
     },
   });
   // if (Comments.length === 0) {

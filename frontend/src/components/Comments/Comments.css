@@ -3,8 +3,9 @@
     color: #999999;
     margin-right: 40px;
     margin-left: 40px;
-    margin-top: 40px;
+    margin-top: 25px;
     font-size: 14px;
+    width: 652px;
 }
 
 .commentsList {
@@ -34,4 +35,33 @@
     width: 40px;
     margin-right: 20px;
     border-radius: 50%;
+}
+
+.profilePhotoSquare {
+    width: 40px;
+    margin-right: 5px;
+}
+
+.createComment {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #f2f2f2;
+    width: 650px;
+    height: 40px;
+    margin-left: 40px;
+    margin-top: 20px;
+    border: solid 1px lightgray;
+    border-radius: 2px;
+
+}
+
+.inputComment {
+    height: 24px;
+    padding: 0px 0px 0px 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    width: 595px;
+    font-size: 15px;
 }
