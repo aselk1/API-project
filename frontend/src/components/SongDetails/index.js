@@ -30,7 +30,7 @@ function SongDetails({ isLoaded}) {
             </div> */}
           {/* </div> */}
           <Details/>
-          <Comments />
+          <Comments isLoaded={isLoaded}/>
         </div>
       </div>
     </div>

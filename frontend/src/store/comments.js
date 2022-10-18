@@ -10,19 +10,32 @@ const getComments = (commentsObj) => {
 };
 
 export const fetchComments = (songId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/songs/${songId}/comments`);
-    if (res.ok) {
-        const data = await res.json();
-        const comments = data.Comments;
-        let commentsObj = {};
-        comments.forEach((el) => {
-          commentsObj[el.id] = el;
-        });
-        await dispatch(getComments(commentsObj));
-        return commentsObj;
-    }
-}
+  const res = await csrfFetch(`/api/songs/${songId}/comments`);
+  if (res.ok) {
+    const data = await res.json();
+    const comments = data.Comments;
+    let commentsObj = {};
+    comments.forEach((el) => {
+      commentsObj[el.id] = el;
+    });
+    await dispatch(getComments(commentsObj));
+    return commentsObj;
+  }
+};
 
+export const fetchAddComment = (songId, comment) => async (dispatch) => {
+  const commentObj = {body: comment}
+  const res = await csrfFetch(`/api/songs/${songId}/comments`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(commentObj)
+  });
+  if (res.ok) {
+    await dispatch(fetchComments(songId));
+  }
+};
 
 const initialState = {};
 
