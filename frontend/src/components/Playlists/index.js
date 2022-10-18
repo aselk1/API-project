@@ -17,7 +17,7 @@ function Playlists({ isLoaded }) {
 
   const playlistDetails = async (id) => {
     await dispatch(playlistDetailsActions.fetchPlaylistDetails(id));
-    history.push("/profile/playlistDetails");
+    history.push(`/profile/playlistDetails/${id}`);
   };
 
   return (

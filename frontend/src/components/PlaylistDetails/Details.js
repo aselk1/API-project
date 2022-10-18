@@ -1,18 +1,24 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 
 import EditPlaylistFormModal from "../EditPlaylistFormModal";
 import "./Details.css";
 import * as playlistsActions from "../../store/playlists";
 import * as songDetailsActions from "../../store/songDetails";
+import * as currentSongActions from "../../store/currentSong";
+import * as commentsActions from "../../store/comments";
+import * as playlistDetailsActions from "../../store/playlistDetails";
 import AddSongToPlaylistFormModal from "../AddSongToPlaylistFormModal";
 
-function Details() {
+function Details({isLoaded}) {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user);
   const history = useHistory();
   const playlist = useSelector((state) => state.playlistDetails);
-  if (!playlist.id) return <Redirect to="/profile" />;
+  const playlistId = Number(useLocation().pathname.split('/')[3])
+  let songs;
+  // if (!playlist.id) return <Redirect to="/profile" />;
   const {
     id,
     title,
@@ -24,7 +30,8 @@ function Details() {
     Artist,
     albumId,
   } = playlist;
-  const songs = Object.values(playlist.Songs);
+
+  if (playlist.Songs) songs = Object.values(playlist.Songs);
 
   const deletePlaylist = async (id) => {
     await dispatch(playlistsActions.fetchDeletePlaylist(id));
@@ -33,11 +40,21 @@ function Details() {
   const playSong = async (id) => {
     await dispatch(songDetailsActions.fetchSongDetails(id));
   };
+  const songDetails = async (id) => {
+    await dispatch(currentSongActions.fetchCurrentSong(id));
+    await dispatch(commentsActions.fetchComments(id));
+    history.push(`/profile/songDetails/${id}`);
+  };
+
+  useEffect( () => {
+    dispatch(playlistDetailsActions.fetchPlaylistDetails(playlistId));
+    dispatch(playlistsActions.fetchUserPlaylists());
+  },[dispatch, playlistId])
 
   return (
     <div>
       <div id="songDetails">
-        <h2 className= 'pageTitle'>Playlist Details</h2>
+        <h2 className="pageTitle">Playlist Details</h2>
         <button
           className="button"
           id="delete"
@@ -48,12 +65,19 @@ function Details() {
         <EditPlaylistFormModal />
       </div>
       <div id="songDetails">
-        <h3 className = 'pageTitle'>{playlist.name}</h3>
+        <h3 className="pageTitle">{playlist.name}</h3>
       </div>
       <ul id="songsList">
-        {songs.map((el) => (
+        {songs?.map((el) => (
           <li className="songs" key={el.id}>
             <div className="outerContainer">
+              <div className={isLoaded ? "addContainer2" : "addContainer3"}>
+                {user && <AddSongToPlaylistFormModal songId={el.id} />}
+                <i
+                  className="fa-solid fa-circle-info"
+                  onClick={() => songDetails(el.id)}
+                ></i>
+              </div>
               <img
                 className="songImage"
                 src={el.imageUrl}

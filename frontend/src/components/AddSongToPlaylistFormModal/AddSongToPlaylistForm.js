@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import * as playlistDetailsActions from "../../store/playlistDetails";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 import "./AddSongToPlaylistForm.css";
 
 function AddSongToPlaylistForm({ setShowModal, songId }) {
   const dispatch = useDispatch();
+  const currentPlaylist =  Number(useLocation().pathname.split('/')[3])
   // const playlist = useSelector((state) => state.playlistDetails);
   const playlists = Object.values(useSelector((state) => state.playlists));
   const [errors, setErrors] = useState([]);
@@ -22,7 +23,7 @@ function AddSongToPlaylistForm({ setShowModal, songId }) {
       dispatch(
         playlistDetailsActions.fetchAddSong(
           songId
-        , playlistId)
+        , playlistId, currentPlaylist)
       )
         //catch res and or errors
         .catch(async (res) => {

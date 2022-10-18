@@ -29,7 +29,7 @@ function PlaylistDetails({ isLoaded, id }) {
               <Navigation isLoaded={isLoaded} />
             </div> */}
           {/* </div> */}
-          <Details id={id}/>
+          <Details id={id} isLoaded={isLoaded}/>
         </div>
       </div>
     </div>
