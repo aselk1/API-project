@@ -44,9 +44,6 @@ input {
     cursor: pointer;
 }
 
-i.fa-duotone.fa-x {
-    width: 50px;
-}
 
 #openLogin {
     background-color: black;

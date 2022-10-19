@@ -9,9 +9,8 @@
 }
 
 .commentsList {
-    padding-right: 80px;
     padding-left: 80px;
-    width: fit-content;
+    width: 600px;
 }
 
 .commentUser {
@@ -25,16 +24,20 @@
 }
 
 .commentContainer {
-    padding: 10px;
+    /* padding: 10px; */
+    margin: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    border-right: solid 1px #f2f2f2;
+    border-left: solid 1px #f2f2f2;
 }
 
 .profilePhoto {
     width: 40px;
     margin-right: 20px;
     border-radius: 50%;
+    margin-left: 10px;
 }
 
 .profilePhotoSquare {
@@ -63,5 +66,29 @@
     margin-bottom: 8px;
     margin-right: 8px;
     width: 595px;
+    font-size: 15px;
+}
+
+#delete2 {
+  height: fit-content;
+  width: fit-content;
+  padding: 0px;
+  margin-left: 15px;
+  background: none;
+  border: none;
+  color: black;
+}
+
+#delete2:hover {
+    color: orangered;
+}
+
+.commentButtons {
+    position: absolute;
+    right: 500px;
+}
+
+#deleteComment {
+    width: fit-content;
     font-size: 15px;
 }

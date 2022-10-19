@@ -37,6 +37,15 @@ export const fetchAddComment = (songId, comment) => async (dispatch) => {
   }
 };
 
+export const fetchDeleteComment = (songId, commentId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/comments/${commentId}`,{
+    method: 'DELETE'
+  });
+  if (res.ok) {
+    await dispatch(fetchComments(songId))
+  }
+}
+
 const initialState = {};
 
 const commentsReducer = (state = initialState, action) => {
