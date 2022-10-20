@@ -92,7 +92,7 @@
 }
 
 .commentContainer2 {
-    width: 500px
+    width: 495px
 }
 
 #deleteComment {
@@ -117,4 +117,10 @@
 
 #editComment {
     font-size: 15px;
+}
+
+.edit {
+    width: 488px;
+    height: fit-content;
+    resize: none;
 }

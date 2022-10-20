@@ -1,14 +1,21 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAddComment, fetchComments, fetchDeleteComment } from "../../store/comments";
+import {
+  fetchAddComment,
+  fetchComments,
+  fetchDeleteComment,
+  fetchEditComment,
+} from "../../store/comments";
 import "./Comments.css";
 
-function Comments({isLoaded}) {
-  const dispatch = useDispatch()
+function Comments({ isLoaded }) {
+  const dispatch = useDispatch();
   const comments = useSelector((state) => state.comments);
   const user = useSelector((state) => state.session.user);
-  const currentSong = useSelector((state) => state.currentSong)
+  const currentSong = useSelector((state) => state.currentSong);
   const [newComment, setNewComment] = useState("");
+  const [editCommentId, setEditCommentId] = useState(-1);
+  const [editComment, setEditComment] = useState("");
   const commentsArray = Object.values(comments);
   let sessionId;
   if (user) {
@@ -16,22 +23,22 @@ function Comments({isLoaded}) {
   }
 
   const submit = async (e) => {
-    e.preventDefault()
-    console.log(newComment)
+    e.preventDefault();
     if (newComment) {
-      await dispatch(fetchAddComment(currentSong.id, newComment))
+      await dispatch(fetchAddComment(currentSong.id, newComment));
     }
     setNewComment("");
-  }
+  };
 
   const deleteComment = async (commentId) => {
-    await dispatch(fetchDeleteComment(currentSong.id, commentId))
-  }
+    await dispatch(fetchDeleteComment(currentSong.id, commentId));
+  };
 
-  const editSong = async () => {
-
-  }
-
+  const editNewComment = async (commentId, comment, songId) => {
+    await dispatch(fetchEditComment(commentId, comment, songId));
+    setEditCommentId(-1);
+    setEditComment("");
+  };
   return (
     <div>
       {isLoaded && (
@@ -63,7 +70,23 @@ function Comments({isLoaded}) {
             ></img>
             <div className="commentContainer2">
               <div className="commentUser">{el.User.username}</div>
-              <div className="comment">{el.body}</div>
+              {editCommentId !== el.id && (
+                <div className="comment">{el.body}</div>
+              )}
+              {editCommentId === el.id && (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    editNewComment(editCommentId, editComment, currentSong.id);
+                  }}
+                >
+                  <input
+                    className="comment edit"
+                    value={editComment}
+                    onChange={(e) => setEditComment(e.target.value)}
+                  ></input>
+                </form>
+              )}
             </div>
             <div className="commentButtons">
               {sessionId === el.userId && (
@@ -79,9 +102,20 @@ function Comments({isLoaded}) {
                 <button
                   className="button"
                   id="openEditComment"
-                  onClick={() => editSong(true)}
+                  onClick={() => {
+                    if (editCommentId === el.id) {
+                      setEditCommentId(-1);
+                      setEditComment("");
+                      return;
+                    }
+                    setEditCommentId(el.id);
+                    setEditComment(el.body);
+                  }}
                 >
-                  <i className="fa-regular fa-pen-to-square" id="editComment"></i>
+                  <i
+                    className="fa-regular fa-pen-to-square"
+                    id="editComment"
+                  ></i>
                 </button>
               )}
             </div>
