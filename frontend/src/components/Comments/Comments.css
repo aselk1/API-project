@@ -85,8 +85,9 @@
 
 .commentButtons {
     display: flex;
+    height: 40px;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .commentContainer2 {
