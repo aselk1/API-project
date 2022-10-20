@@ -43,7 +43,7 @@ function SignupForm({setShowModal}) {
             }
           })
       );
-    }
+    } else setErrors(["Password field do not match."]);
   };
 
   return (
