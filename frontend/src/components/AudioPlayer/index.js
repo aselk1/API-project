@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 function SongPlayer() {
     const songDetails = useSelector((state) => state.songDetails);
+    // const playlist = useSelector((state) => state.playlistDetails.Songs)
+
     const player = useRef();
     if (!songDetails.id) {
         if (player.current) player.current.audio.current.pause();
