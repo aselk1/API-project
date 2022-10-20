@@ -10,7 +10,7 @@
 
 .commentsList {
     padding-left: 80px;
-    width: 600px;
+    width: 615px;
 }
 
 .commentUser {
@@ -31,6 +31,7 @@
     align-items: center;
     border-right: solid 1px #f2f2f2;
     border-left: solid 1px #f2f2f2;
+    width: 600px;
 }
 
 .profilePhoto {
@@ -96,5 +97,24 @@
 
 #deleteComment {
     width: fit-content;
+    font-size: 15px;
+}
+
+#openEditComment {
+    height: fit-content;
+    width: fit-content;
+    padding: 0px;
+    margin-left: 5px;
+    margin-top: 2px;
+    background: none;
+    border: none;
+    color: black;
+}
+
+#openEditComment:hover {
+    color: orangered;
+}
+
+#editComment {
     font-size: 15px;
 }

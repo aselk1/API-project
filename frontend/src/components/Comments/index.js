@@ -28,6 +28,10 @@ function Comments({isLoaded}) {
     await dispatch(fetchDeleteComment(currentSong.id, commentId))
   }
 
+  const editSong = async () => {
+
+  }
+
   return (
     <div>
       {isLoaded && (
@@ -61,17 +65,25 @@ function Comments({isLoaded}) {
               <div className="commentUser">{el.User.username}</div>
               <div className="comment">{el.body}</div>
             </div>
-            <div className='commentButtons'>
+            <div className="commentButtons">
               {sessionId === el.userId && (
                 <button
                   className="button"
                   id="delete2"
                   onClick={() => deleteComment(el.id)}
                 >
-                  <i className="fa-duotone fa-x" id='deleteComment'></i>
+                  <i className="fa-duotone fa-x" id="deleteComment"></i>
                 </button>
               )}
-              {sessionId === el.userId}
+              {sessionId === el.userId && (
+                <button
+                  className="button"
+                  id="openEditComment"
+                  onClick={() => editSong(true)}
+                >
+                  <i className="fa-regular fa-pen-to-square" id="editComment"></i>
+                </button>
+              )}
             </div>
           </li>
         ))}

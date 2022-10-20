@@ -11,10 +11,6 @@
     color: orangered;
 }
 
-i.fa-regular.fa-pen-to-square {
-    font-size: 20px;
-}
-
 #songDetails {
     display: flex;
     flex-direction: row;
