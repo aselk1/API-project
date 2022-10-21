@@ -1,0 +1,9 @@
+.queueButton {
+    border: none;
+    background-color: white;
+    padding-top: 10px;
+}
+
+.fa-solid.fa-music {
+    font-size: 20px;
+}
