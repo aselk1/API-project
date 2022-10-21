@@ -110,6 +110,7 @@ Shound Cloud is a user friendly website where you can listen to music and create
 2) Clone the project and npm install in both the "frontend" and "backend" directories.
 3) Run "npm start" in two separate terminals. One for the frontend and one for the backend.
 4) Navigate to localhost:3000 to use the application locally.
+5) Note: this project requires an AWS S3 bucket to be fully functional.
 
 <!-- * [![Next][Next.js]][Next-url] -->
 <!-- * [![React][React.js]][React-url] -->
