@@ -2,16 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
 import { useDispatch, useSelector } from "react-redux";
 
-function Queue() {
-  const [showQueue, setShowQueue] = useState(false);
-  const openQueue = async () => {
-    if (showQueue) return;
-    await setShowQueue(true);
-  };
+function Queue({setShowQueue}) {
 
   useEffect(() => {
     //if menu is closed, return
-    if (!showQueue) return;
+    // if (!showQueue) return;
 
     //if menu if open, close it
     const closeQueue = () => {
@@ -22,9 +17,13 @@ function Queue() {
     document.addEventListener("click", closeQueue);
     //clean up function to remove the event listener
     return () => document.removeEventListener("click", closeQueue);
-  }, [showQueue]);
+  }, [setShowQueue]);
 
-  return <div>Hi</div>;
+  return (
+    <div>
+        Hi
+    </div>
+  );
 }
 
 export default Queue;

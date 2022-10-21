@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
 import { useDispatch, useSelector } from "react-redux";
 
+import Queue from './Queue';
+
 import * as queueActions from "../../store/queue";
 import './AudioPlayer.css'
 
@@ -22,10 +24,9 @@ function SongPlayer() {
   }
 
   const openQueue = async () => {
-    console.log(showQueue)
-    if (showQueue) return;
+    console.log('click');
     await setShowQueue(true);
-    console.log(showQueue)
+    // else await setShowQueue(false);
   }
   useEffect(() => {
     const queue = JSON.parse(localStorage.getItem("queue"));
@@ -39,24 +40,10 @@ function SongPlayer() {
     }
   }, [dispatch]);
 
-  useEffect(() => {
-    //if menu is closed, return
-    if (!showQueue) return;
-
-    //if menu if open, close it
-    const closeQueue = () => {
-      setShowQueue(false);
-    };
-
-    //add event listener for closeMenu
-    document.addEventListener("click", closeQueue);
-    //clean up function to remove the event listener
-    return () => document.removeEventListener("click", closeQueue);
-  }, [showQueue]);
 
   return (
     <div className="audioPlayer">
-      {showQueue && <div>Menu</div>}
+      {showQueue && <Queue setShowQueue={setShowQueue}/>}
       <AudioPlayer
         src={playingSong}
         ref={player}
