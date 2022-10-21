@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, useHistory } from "react-router-dom";
 import * as songsActions from "../../store/songs";
 import * as songDetailsActions from "../../store/songDetails";
-import * as currentSongActions from '../../store/currentSong';
+import * as currentSongActions from "../../store/currentSong";
 import * as commentsActions from "../../store/comments";
+import * as queueActions from "../../store/queue";
 import SongDetails from "../SongDetails";
 import AddSongToPlaylistFormModal from "../AddSongToPlaylistFormModal";
 import "./Songs.css";
@@ -27,7 +28,18 @@ function Songs({ isLoaded }) {
   };
 
   const playSong = async (id) => {
-    await dispatch(songDetailsActions.fetchSongDetails(id));
+    await dispatch(queueActions.fetchPlaySong(id));
+  };
+
+  const addSongToQueue = async (id) => {
+    const song = await dispatch(queueActions.fetchAddSongToQueue(id));
+    const queue = JSON.parse(localStorage.getItem('queue'));
+    if (queue) {
+      queue.push(song);
+      localStorage.setItem('queue', JSON.stringify(queue));
+    } else {
+      localStorage.setItem("queue", JSON.stringify([song]));
+    }
   };
 
   return (
@@ -38,8 +50,11 @@ function Songs({ isLoaded }) {
           {songsArray.map((el) => (
             <li className="songs" key={el.id}>
               <div className="outerContainer">
-                <div className={isLoaded? "addContainer2" : "addContainer3"}>
+                <div className={isLoaded ? "addContainer2" : "addContainer3"}>
                   {user && <AddSongToPlaylistFormModal songId={el.id} />}
+                  <button onClick={() => addSongToQueue(el.id)}>
+                    Add to Queue
+                  </button>
                   <i
                     className="fa-solid fa-circle-info"
                     onClick={() => songDetails(el.id)}

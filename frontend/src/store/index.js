@@ -13,6 +13,7 @@ import playlistsReducer from "./playlists";
 import playlistDetailsReducer from "./playlistDetails";
 import currentSongReducer from "./currentSong";
 import commentsReducer from "./comments";
+import queueReducer from "./queue";
 
 //combine all reducers
 const rootReducer = combineReducers({
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   playlists: playlistsReducer,
   playlistDetails: playlistDetailsReducer,
   currentSong: currentSongReducer,
-  comments: commentsReducer
+  comments: commentsReducer,
+  queue: queueReducer
 });
 
 //set up enhancer for production vs. development
