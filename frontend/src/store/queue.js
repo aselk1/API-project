@@ -2,8 +2,9 @@ import { csrfFetch } from "./csrf";
 
 const ADD_SONG = "/queue/addSong";
 const PLAY_SONG = "/queue/playSong";
-const CLEAR_QUEUE = '/queue/clear';
-const ADD_QUEUE = '/queue/add';
+const CLEAR_QUEUE = "/queue/clear";
+const ADD_QUEUE = "/queue/add";
+const DELETE_SONG = "/queue/deleteSong";
 
 const addSong = (song) => {
   return {
@@ -20,17 +21,24 @@ const playSong = (song) => {
 };
 
 export const clearQueue = () => {
-    return {
-        type: CLEAR_QUEUE
-    }
+  return {
+    type: CLEAR_QUEUE,
+  };
 };
 
 export const addQueue = (queue) => {
-    return {
-        type: ADD_QUEUE,
-        payload: queue
-    }
-}
+  return {
+    type: ADD_QUEUE,
+    payload: queue,
+  };
+};
+
+export const deleteSong = (songId) => {
+  return {
+    type: DELETE_SONG,
+    payload: songId,
+  };
+};
 
 export const fetchAddSongToQueue = (songId) => async (dispatch) => {
   const response = await csrfFetch(`/api/songs/${songId}`);
@@ -50,9 +58,7 @@ export const fetchPlaySong = (songId) => async (dispatch) => {
   }
 };
 
-export const fetchAddQueue = (queue) => async (dispatch) => {
-
-}
+export const fetchAddQueue = (queue) => async (dispatch) => {};
 
 const initialState = [];
 
@@ -68,10 +74,19 @@ const queueReducer = (state = initialState, action) => {
       newState.unshift(action.payload);
       return newState;
     case CLEAR_QUEUE:
-        return [];
+      return [];
     case ADD_QUEUE:
-        newState = action.payload;
-        return newState;
+      newState = action.payload;
+      return newState;
+    case DELETE_SONG:
+      newState = [...state];
+      for (let i = 0; i < newState.length; i++) {
+        if (newState[i].id === action.payload) {
+          newState.splice(i, 1);
+          break;
+        }
+      }
+      return newState;
     // case EDIT_SONG:
     //   newState = Object.assign({}, state);
     //   newState = action.payload;

@@ -19,9 +19,12 @@ function SongPlayer() {
   }
 
   const player = useRef();
-  if (!songDetails.id) {
-    if (player.current) player.current.audio.current.pause();
-  }
+  // if (!songDetails.id) {
+  //   if (player.current && showQueue){
+  //     console.log("Running");
+  //     player.current.audio.current.pause();
+  //   }
+  // }
 
   const openQueue = async () => {
     console.log('click');

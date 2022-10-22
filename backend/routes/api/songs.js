@@ -89,7 +89,7 @@ router.post(
       err.status = 400;
       return next(err);
     }
-    if (req.file.type.split("/")[0] !== "audio") {
+    if (req.file.mimetype.split("/")[0] !== "audio") {
       const err = new Error("File must be an audio file.");
       err.status = 400;
       return next(err);

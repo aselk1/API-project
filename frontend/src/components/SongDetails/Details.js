@@ -5,6 +5,7 @@ import * as songActions from '../../store/songs';
 import * as songDetailsActions from '../../store/songDetails';
 import * as currentSongActions from "../../store/currentSong";
 import * as commentsActions from '../../store/comments';
+import * as queueActions from '../../store/queue';
 import EditSongFormModal from "../EditSongFormModal";
 import './Details.css'
 
@@ -32,7 +33,20 @@ function Details({id2}) {
 
     const deleteSong = async (id) => {
         await dispatch(songActions.fetchDeleteSong(id));
-        if (id === song.id) await dispatch(songDetailsActions.deleteSong(id));
+        // if (id === song.id) await dispatch(songDetailsActions.deleteSong(id));
+        if (id === song.id) {
+          await dispatch(queueActions.deleteSong(id))
+          let queue = await JSON.parse(localStorage.getItem('queue'));
+          console.log(queue)
+          for (let i = 0; i < queue.length; i++) {
+            if (queue[i].id === id) {
+              queue.splice(i, 1);
+              break;
+            }
+          }
+          localStorage.setItem('queue', JSON.stringify(queue));
+        };
+
         return history.push('/profile')
     }
 

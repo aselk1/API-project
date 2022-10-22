@@ -33,7 +33,7 @@ function Songs({ isLoaded }) {
 
   const addSongToQueue = async (id) => {
     const song = await dispatch(queueActions.fetchAddSongToQueue(id));
-    const queue = JSON.parse(localStorage.getItem('queue'));
+    const queue = await JSON.parse(localStorage.getItem('queue'));
     if (queue) {
       queue.push(song);
       localStorage.setItem('queue', JSON.stringify(queue));
