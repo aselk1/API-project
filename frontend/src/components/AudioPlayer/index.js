@@ -27,7 +27,6 @@ function SongPlayer() {
   // }
 
   const openQueue = async () => {
-    console.log('click');
     await setShowQueue(true);
     // else await setShowQueue(false);
   }
@@ -50,6 +49,7 @@ function SongPlayer() {
       <AudioPlayer
         src={playingSong}
         ref={player}
+        autoPlay={false}
         showSkipControls
         customAdditionalControls={[
           <button className="queueButton" onClick={openQueue}>

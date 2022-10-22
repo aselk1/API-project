@@ -37,11 +37,10 @@ function Details({id2}) {
         if (id === song.id) {
           await dispatch(queueActions.deleteSong(id))
           let queue = await JSON.parse(localStorage.getItem('queue'));
-          console.log(queue)
           for (let i = 0; i < queue.length; i++) {
             if (queue[i].id === id) {
               queue.splice(i, 1);
-              break;
+              i--;
             }
           }
           localStorage.setItem('queue', JSON.stringify(queue));

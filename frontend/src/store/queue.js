@@ -80,11 +80,16 @@ const queueReducer = (state = initialState, action) => {
       return newState;
     case DELETE_SONG:
       newState = [...state];
-      for (let i = 0; i < newState.length; i++) {
+      let i = 0;
+      while (i < newState.length) {
+        console.log(i)
         if (newState[i].id === action.payload) {
           newState.splice(i, 1);
-          break;
+          i--;
+          console.log(i);
         }
+        i++
+        console.log(i)
       }
       return newState;
     // case EDIT_SONG:
