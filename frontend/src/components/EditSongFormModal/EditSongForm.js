@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as songDetailsActions from "../../store/songDetails";
 import * as currentSongActions from "../../store/currentSong";
+import * as queueActions from "../../store/queue";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import "./EditSongForm.css";
@@ -18,23 +19,28 @@ function EditSongForm({ setShowModal }) {
 
   // if (sessionUser) return <Redirect to="/" />;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setShowModal(false);
     //reset errors array
     setErrors([]);
     //return dispatch of addSong thunk
     const songObj = { title, description, file, imageUrl, oldUrl };
-    return (
-      dispatch(currentSongActions.fetchEditCurrentSong(songObj, song.id))
-        //catch res and or errors
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) {
-            setErrors(Object.values(data.errors));
-          }
-        })
-    );
+    const res = await dispatch(currentSongActions.fetchEditCurrentSong(songObj, song.id));
+    //catch res and or errors
+    const data = await res.json();
+    if (data && data.errors) {
+      setErrors(Object.values(data.errors));
+    } else {
+      let data = await dispatch(queueActions.fetchEditSong(song.id));
+      let queue = await JSON.parse(localStorage.getItem("queue"));
+      for (let i = 0; i < queue.length; i++) {
+        if (queue[i].id === song.id) {
+          queue[i] = data;
+        }
+      }
+      localStorage.setItem("queue", JSON.stringify(queue));
+    }
   };
 
   const updateFile = (e) => {

@@ -5,6 +5,7 @@ const PLAY_SONG = "/queue/playSong";
 const CLEAR_QUEUE = "/queue/clear";
 const ADD_QUEUE = "/queue/add";
 const DELETE_SONG = "/queue/deleteSong";
+const EDIT_SONG = 'queue/editSong';
 
 const addSong = (song) => {
   return {
@@ -40,6 +41,14 @@ export const deleteSong = (songId) => {
   };
 };
 
+export const editSong = (song) => {
+  return {
+    type: EDIT_SONG,
+    payload: song,
+  };
+};
+
+
 export const fetchAddSongToQueue = (songId) => async (dispatch) => {
   const response = await csrfFetch(`/api/songs/${songId}`);
   if (response.ok) {
@@ -58,12 +67,20 @@ export const fetchPlaySong = (songId) => async (dispatch) => {
   }
 };
 
-export const fetchAddQueue = (queue) => async (dispatch) => {};
+export const fetchEditSong = (songId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/songs/${songId}`);
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(editSong(data));
+    return data
+  }
+}
 
 const initialState = [];
 
 const queueReducer = (state = initialState, action) => {
   let newState;
+  let i;
   switch (action.type) {
     case ADD_SONG:
       newState = [...state];
@@ -80,22 +97,25 @@ const queueReducer = (state = initialState, action) => {
       return newState;
     case DELETE_SONG:
       newState = [...state];
-      let i = 0;
+      i = 0;
       while (i < newState.length) {
-        console.log(i)
         if (newState[i].id === action.payload) {
           newState.splice(i, 1);
           i--;
-          console.log(i);
         }
         i++
-        console.log(i)
       }
       return newState;
-    // case EDIT_SONG:
-    //   newState = Object.assign({}, state);
-    //   newState = action.payload;
-    //   return newState;
+    case EDIT_SONG:
+      newState = [...state];
+      i = 0;
+      while (i < newState.length) {
+        if (newState[i].id === action.payload.id) {
+          newState[i] = action.payload;
+        }
+        i++;
+      }
+      return newState;
     // case DELETE_SONG:
     //   newState = {};
     //   return newState;
