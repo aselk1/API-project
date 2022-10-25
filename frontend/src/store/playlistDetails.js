@@ -70,7 +70,7 @@ export const fetchEditPlaylist = (playlist, id) => async (dispatch) => {
 //   }
 // };
 
-export const fetchAddSong = (song, playlistId) => async (dispatch) => {
+export const fetchAddSong = (song, playlistId, currentPlaylist) => async (dispatch) => {
   const response = await csrfFetch(`/api/playlists/${playlistId}/songs`, {
     method: "POST",
     headers: {
@@ -79,7 +79,8 @@ export const fetchAddSong = (song, playlistId) => async (dispatch) => {
     body: JSON.stringify(song),
   });
   if (response.ok) {
-    dispatch(fetchPlaylistDetails(playlistId))
+    if (currentPlaylist) dispatch(fetchPlaylistDetails(currentPlaylist))
+    else dispatch(fetchPlaylistDetails(playlistId));
     return response;
   }
 };

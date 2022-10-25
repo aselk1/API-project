@@ -1,0 +1,126 @@
+.commentsTitle {
+    border-bottom: solid lightgrey;
+    color: #999999;
+    margin-right: 40px;
+    margin-left: 40px;
+    margin-top: 25px;
+    font-size: 14px;
+    width: 652px;
+}
+
+.commentsList {
+    padding-left: 80px;
+    width: 615px;
+}
+
+.commentUser {
+    color: #999999;
+    font-size: 12px;
+}
+
+.comment {
+    color: #333333;
+    font-size: 12px;
+}
+
+.commentContainer {
+    /* padding: 10px; */
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-right: solid 1px #f2f2f2;
+    border-left: solid 1px #f2f2f2;
+    width: 600px;
+}
+
+.profilePhoto {
+    width: 40px;
+    margin-right: 20px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.profilePhotoSquare {
+    width: 40px;
+    margin-right: 5px;
+}
+
+.createComment {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #f2f2f2;
+    width: 658px;
+    height: 40px;
+    margin-left: 40px;
+    margin-top: 20px;
+    border: solid 1px lightgray;
+    border-radius: 2px;
+
+}
+
+.inputComment {
+    height: 24px;
+    padding: 0px 0px 0px 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    width: 595px;
+    font-size: 15px;
+}
+
+#delete2 {
+  height: fit-content;
+  width: fit-content;
+  padding: 0px;
+  margin-right: 5px;
+  background: none;
+  border: none;
+  color: black;
+}
+
+#delete2:hover {
+    color: orangered;
+}
+
+.commentButtons {
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.commentContainer2 {
+    width: 495px
+}
+
+#deleteComment {
+    width: fit-content;
+    font-size: 15px;
+}
+
+#openEditComment {
+    height: fit-content;
+    width: fit-content;
+    padding: 0px;
+    margin-left: 5px;
+    margin-top: 2px;
+    background: none;
+    border: none;
+    color: black;
+}
+
+#openEditComment:hover {
+    color: orangered;
+}
+
+#editComment {
+    font-size: 15px;
+}
+
+.edit {
+    width: 488px;
+    height: fit-content;
+    resize: none;
+}

@@ -27,7 +27,7 @@ function Navigation({ isLoaded }) {
   }
   return (
     <div>
-        {isLoaded && sessionLinks}
+        {sessionLinks}
     </div>
   );
 }

@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Switch, Route, useHistory } from "react-router-dom";
 import * as songsActions from "../../store/songs";
 import * as songDetailsActions from "../../store/songDetails";
+import * as currentSongActions from '../../store/currentSong';
+import * as commentsActions from '../../store/comments';
 import AddSongFormModal from "../AddSongFormModal";
 import AddSongToPlaylistFormModal from "../AddSongToPlaylistFormModal";
 import SongDetails from "../SongDetails";
@@ -14,32 +16,46 @@ function UserSongs({ isLoaded }) {
   const user = useSelector((state) => state.session.user);
   const songs = useSelector((state) => state.songs);
   const songsArray = Object.values(songs);
-  const id = Number(user.id);
+  let id;
+  if (user) {
+    id = Number(user.id);
+  }
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(songsActions.fetchUserSongs(id));
   }, [dispatch, id]);
 
   const songDetails = async (id) => {
+    await dispatch(currentSongActions.fetchCurrentSong(id));
+    await dispatch(commentsActions.fetchComments(id));
+    history.push(`/profile/songDetails/${id}`);
+  };
+
+  const playSong = async (id) => {
     await dispatch(songDetailsActions.fetchSongDetails(id));
-    history.push(`/profile/songDetails`);
   };
 
   return (
     <div>
       <div>
         <div id="mySongs">
-          <h2 className= 'pageTitle'>My Songs</h2>
+          <h2 className="pageTitle">My Songs</h2>
           <AddSongFormModal />
         </div>
         <ul id="songsList">
           {songsArray.map((el) => (
             <li className="songs" key={el.id}>
               <div className="outerContainer">
-                <AddSongToPlaylistFormModal songId={el.id} />
-                <img src={el.imageUrl} onClick={() => songDetails(el.id)}></img>
-                <div className="overlay" onClick={() => songDetails(el.id)}>
-                  <i class="fa-sharp fa-solid fa-circle-play"></i>
+                <div className="addContainer2">
+                  <AddSongToPlaylistFormModal songId={el.id} />
+                  <i
+                    className="fa-solid fa-circle-info"
+                    onClick={() => songDetails(el.id)}
+                  ></i>
+                </div>
+                <img src={el.imageUrl}></img>
+                <div className="overlay" onClick={() => playSong(el.id)}>
+                  <i className="fa-sharp fa-solid fa-circle-play"></i>
                 </div>
               </div>
               <div>{el.title}</div>

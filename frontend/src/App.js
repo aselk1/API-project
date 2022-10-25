@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import AudioPlayer from 'react-h5-audio-player';
 import Navigation from "./components/Navigation";
 import Profile from "./components/ProfilePage";
 import SongDetails from './components/SongDetails'
+import SongPlayer from "./components/AudioPlayer";
 import * as sessionActions from "./store/session";
 import * as songDetailsActions from './store/songDetails';
 import Home from "./components/HomePage";
 import "react-h5-audio-player/lib/styles.css";
 
 function App() {
-  const state = useSelector((state) => state)
+  const user = useSelector((state) => state.session.user)
   // const pageUrl = useLocation().pathname;
   // let songs;
   // if (state.playlistDetails.Songs) {
@@ -36,15 +37,23 @@ function App() {
 
   useEffect(() => {
     //async with .then chains
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(sessionActions.restoreUser())
+    .then(() => {
+      if (user) setIsLoaded(true)
+    });
   }, [dispatch]);
+
+  useEffect(() => {
+    if (user) setIsLoaded(true);
+    else setIsLoaded(false);
+  }, [dispatch, user]);
+
 
 
 
   return (
     <div>
       {/* <Navigation isLoaded={isLoaded} /> */}
-      {isLoaded && (
         <Switch>
           <Route exact path="/">
             <Home isLoaded={isLoaded} />
@@ -54,15 +63,15 @@ function App() {
           </Route>
           <Route>404 Page Not Found</Route>
         </Switch>
-      )}
       <div className="audioPlayerContainer">
-        <AudioPlayer
+        {/* <AudioPlayer
           src={state.songDetails.url}
           className="audioPlayer"
           // showSkipControls
           // onClickNext={next}
           // onClickPrevious={prev}
-        />
+        /> */}
+        <SongPlayer />
       </div>
     </div>
   );

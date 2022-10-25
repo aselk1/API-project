@@ -16,7 +16,7 @@ function Home({ isLoaded }) {
   };
 
   useEffect(()=> {
-    dispatch(playlistsActions.fetchUserPlaylists());
+    if (user) dispatch(playlistsActions.fetchUserPlaylists());
   },[dispatch,user])
 
   return (
@@ -40,7 +40,7 @@ function Home({ isLoaded }) {
           </div>
         </div>
         </div>
-        <Songs />
+        <Songs isLoaded={isLoaded}/>
       </div>
       </div>
       {isLoaded && (

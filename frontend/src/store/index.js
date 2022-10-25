@@ -7,18 +7,24 @@ import {
 import thunk from "redux-thunk";
 
 import sessionReducer from "./session";
-import songsDetailsReducer from "./songDetails";
+// import songsDetailsReducer from "./songDetails";
 import songsReducer from "./songs";
 import playlistsReducer from "./playlists";
 import playlistDetailsReducer from "./playlistDetails";
+import currentSongReducer from "./currentSong";
+import commentsReducer from "./comments";
+import queueReducer from "./queue";
 
 //combine all reducers
 const rootReducer = combineReducers({
   session: sessionReducer,
   songs: songsReducer,
-  songDetails: songsDetailsReducer,
+  // songDetails: songsDetailsReducer,
   playlists: playlistsReducer,
-  playlistDetails: playlistDetailsReducer
+  playlistDetails: playlistDetailsReducer,
+  currentSong: currentSongReducer,
+  comments: commentsReducer,
+  queue: queueReducer
 });
 
 //set up enhancer for production vs. development

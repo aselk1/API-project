@@ -5,21 +5,31 @@ import {
   useLocation,
   Redirect,
 } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import Navigation from "../Navigation";
 import Songs from "../Songs";
 import UserSongs from "../Songs/MySongs";
 import SongDetails from "../SongDetails";
 import PlaylistDetails from '../PlaylistDetails'
 import Playlists from "../Playlists";
+import * as currentSongActions from '../../store/currentSong';
 
-function Profile({ isLoaded, songId }) {
+function Profile({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
   const history = useHistory();
   const location = useLocation();
   const path = location.pathname.split("/");
+  const urlId = path[3]
+  const songId = useSelector((state) => state.currentSong.id)
+  const currentSong = useSelector((state) => state.currentSong)
+  const dispatch = useDispatch();
 
-  if (!sessionUser) return <Redirect to="/" />;
+  useEffect(() => {
+    if (urlId !== 'undefined' && urlId !== undefined) dispatch(currentSongActions.fetchCurrentSong(Number(urlId)));
+  }, [dispatch, urlId]);
+
+  // if (!sessionUser) return <Redirect to={`/profile/songDetails/${songId}`} />;
 
   let songs;
   let playlists;
