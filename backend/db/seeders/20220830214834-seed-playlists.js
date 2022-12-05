@@ -1,8 +1,14 @@
 'use strict';
 
+let options = {};
+if (process.env.NODE_ENV === "production") {
+  options.schema = process.env.SCHEMA; // define your schema in options object
+}
+
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert("Playlists", [
+    options.tableName = "Playlists";
+    return await queryInterface.bulkInsert(options, [
       {
         name: "Playlist1",
         imageUrl:
@@ -25,8 +31,9 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
+    options.tableName = "Playlists";
     const Op = Sequelize.Op;
-    await queryInterface.bulkDelete('Playlists', {
+    return await queryInterface.bulkDelete(options, {
       name: { [Op.in]: ['Playlist1', 'Playlist2', 'Playlist3'] }
     }, { // to fix auto increment
       truncate: true,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
@@ -14,6 +14,8 @@ function SignupForm({setShowModal}) {
   const [lastName, setLastName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+
+
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -34,7 +36,7 @@ function SignupForm({setShowModal}) {
             firstName,
             lastName,
           })
-        )
+          )
           //catch res and or errors
           .catch(async (res) => {
             const data = await res.json();
@@ -42,9 +44,9 @@ function SignupForm({setShowModal}) {
               setErrors(Object.values(data.errors));
             }
           })
-      );
-    } else setErrors(["Password fields do not match."])
-  };
+          );
+        } else setErrors(["Password fields do not match."])
+      };
 
   return (
     <div className="formContainer">
