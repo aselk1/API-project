@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
 import { useDispatch, useSelector } from "react-redux";
 
-import Queue from './Queue';
+import Queue from "./Queue";
 
 import * as queueActions from "../../store/queue";
-import './AudioPlayer.css'
+import "./AudioPlayer.css";
 
 function SongPlayer() {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ function SongPlayer() {
   const openQueue = async () => {
     await setShowQueue(true);
     // else await setShowQueue(false);
-  }
+  };
   useEffect(() => {
     const queue = JSON.parse(localStorage.getItem("queue"));
     if (queue) {
@@ -42,13 +42,13 @@ function SongPlayer() {
     }
   }, [dispatch]);
 
-
   return (
     <div className="audioPlayer">
-      {showQueue && <Queue setShowQueue={setShowQueue}/>}
+      {showQueue && <Queue setShowQueue={setShowQueue} />}
       <AudioPlayer
         src={playingSong}
         ref={player}
+        autoPlayAfterSrcChange={false}
         autoPlay={false}
         showSkipControls
         customAdditionalControls={[
@@ -57,16 +57,23 @@ function SongPlayer() {
           </button>,
           RHAP_UI.LOOP,
         ]}
-        onClickNext={() => {
-          if (currentQueue.length !== currentSong + 1)
-            setCurrentSong(currentSong + 1);
+        onClickNext={async () => {
+          if (currentQueue.length !== currentSong + 1) {
+            await setCurrentSong(currentSong + 1);
+            player.current.audio.current.play()
+          }
         }}
-        onClickPrevious={() => {
-          if (currentSong > 0) setCurrentSong(currentSong - 1);
+        onClickPrevious={async() => {
+          if (currentSong > 0) {
+            await setCurrentSong(currentSong - 1);
+            player.current.audio.current.play();
+          }
         }}
-        onEnded={() => {
-          if (currentQueue.length > currentSong + 1)
-            setCurrentSong(currentSong + 1);
+        onEnded={async() => {
+          if (currentQueue.length > currentSong + 1) {
+            await setCurrentSong(currentSong + 1);
+            player.current.audio.current.play();
+          }
         }}
       />
     </div>
