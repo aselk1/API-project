@@ -34,10 +34,10 @@ export const addQueue = (queue) => {
   };
 };
 
-export const deleteSong = (songId) => {
+export const deleteSongFromQueue = (queueId) => {
   return {
     type: DELETE_SONG,
-    payload: songId,
+    payload: queueId,
   };
 };
 
@@ -76,6 +76,8 @@ export const fetchEditSong = (songId) => async (dispatch) => {
   }
 }
 
+// export const fetchDeleteSong
+
 const initialState = [];
 
 const queueReducer = (state = initialState, action) => {
@@ -99,9 +101,9 @@ const queueReducer = (state = initialState, action) => {
       newState = [...state];
       i = 0;
       while (i < newState.length) {
-        if (newState[i].id === action.payload) {
+        if (newState[i].queueId === action.payload) {
           newState.splice(i, 1);
-          i--;
+          break;
         }
         i++
       }

@@ -7,3 +7,32 @@
 .fa-solid.fa-music {
     font-size: 20px;
 }
+
+.queuePopup {
+    width: 150px;
+    height: 300px;
+    background-color: #cfcece;
+    position: fixed;
+    bottom: 89px;
+    border-radius: 3px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.queueSong {
+    font-size: 12px;
+
+}
+
+.queueTitle {
+    padding-bottom: 40px;
+}
+
+i#queue {
+    width: fit-content;
+    font-size: 13px;
+}
+i#queue:hover {
+    cursor: pointer;
+    color: red;
+}

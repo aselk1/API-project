@@ -27,8 +27,10 @@ function SongPlayer() {
   // }
 
   const openQueue = async () => {
-    await setShowQueue(true);
-    // else await setShowQueue(false);
+    if (!showQueue) {
+      await setShowQueue(true);
+    }
+    else await setShowQueue(false);
   };
   useEffect(() => {
     const queue = JSON.parse(localStorage.getItem("queue"));
@@ -44,7 +46,9 @@ function SongPlayer() {
 
   return (
     <div className="audioPlayer">
-      {showQueue && <Queue setShowQueue={setShowQueue} />}
+      {showQueue && (
+        <Queue setShowQueue={setShowQueue} currentQueue={currentQueue} />
+      )}
       <AudioPlayer
         src={playingSong}
         ref={player}
@@ -60,16 +64,16 @@ function SongPlayer() {
         onClickNext={async () => {
           if (currentQueue.length !== currentSong + 1) {
             await setCurrentSong(currentSong + 1);
-            player.current.audio.current.play()
+            player.current.audio.current.play();
           }
         }}
-        onClickPrevious={async() => {
+        onClickPrevious={async () => {
           if (currentSong > 0) {
             await setCurrentSong(currentSong - 1);
             player.current.audio.current.play();
           }
         }}
-        onEnded={async() => {
+        onEnded={async () => {
           if (currentQueue.length > currentSong + 1) {
             await setCurrentSong(currentSong + 1);
             player.current.audio.current.play();
