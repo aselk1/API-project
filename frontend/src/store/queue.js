@@ -49,10 +49,15 @@ export const editSong = (song) => {
 };
 
 
-export const fetchAddSongToQueue = (songId) => async (dispatch) => {
+export const fetchAddSongToQueue = (songId, queue) => async (dispatch) => {
   const response = await csrfFetch(`/api/songs/${songId}`);
   if (response.ok) {
     const data = await response.json();
+    if (queue) {
+      data["queueId"] = queue.length;
+    } else {
+      data["queueId"] = 0;
+    }
     dispatch(addSong(data));
     return data;
   }
@@ -103,6 +108,9 @@ const queueReducer = (state = initialState, action) => {
       while (i < newState.length) {
         if (newState[i].queueId === action.payload) {
           newState.splice(i, 1);
+          for (let j = i; j < newState.length; j++) {
+            newState[j].queueId = newState[j].queueId - 1;
+          }
           break;
         }
         i++

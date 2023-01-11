@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as queueActions from "../../store/queue";
 
 function Queue({ setShowQueue, currentQueue }) {
+  const dispatch = useDispatch();
   const deleteSong = async (queueId) => {
     console.log("working")
     let queue = await JSON.parse(localStorage.getItem("queue"));
@@ -17,7 +18,7 @@ function Queue({ setShowQueue, currentQueue }) {
       }
     }
     localStorage.setItem("queue", JSON.stringify(queue));
-    await queueActions.deleteSongFromQueue(queueId)
+    await dispatch(queueActions.deleteSongFromQueue(queueId))
   }
   // useEffect(() => {
   //   //if menu is closed, return
