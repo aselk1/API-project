@@ -66,6 +66,19 @@ function Details({isLoaded}) {
     dispatch(playlistsActions.fetchUserPlaylists());
   },[dispatch, playlistId])
 
+  const addSongToQueue = async (id) => {
+    const queue = await JSON.parse(localStorage.getItem("queue"));
+    const song = await dispatch(queueActions.fetchAddSongToQueue(id, queue));
+    if (queue) {
+      song["queueId"] = queue.length;
+      queue.push(song);
+      localStorage.setItem("queue", JSON.stringify(queue));
+    } else {
+      song["queueId"] = 0;
+      localStorage.setItem("queue", JSON.stringify([song]));
+    }
+  };
+
   return (
     <div>
       <div id="songDetails">
@@ -88,6 +101,9 @@ function Details({isLoaded}) {
             <div className="outerContainer">
               <div className={isLoaded ? "addContainer2" : "addContainer3"}>
                 {user && <AddSongToPlaylistFormModal songId={el.id} />}
+                <button onClick={() => addSongToQueue(el.id)}>
+                  Add to Queue
+                </button>
                 <i
                   className="fa-solid fa-circle-info"
                   onClick={() => songDetails(el.id)}
@@ -95,6 +111,7 @@ function Details({isLoaded}) {
               </div>
               <img
                 className="songImage"
+                alt={el.name}
                 src={el.imageUrl}
                 onClick={() => playSong(el.id)}
               />
