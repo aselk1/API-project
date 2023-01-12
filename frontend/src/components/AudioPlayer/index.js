@@ -53,7 +53,7 @@ function SongPlayer() {
         src={playingSong}
         ref={player}
         autoPlayAfterSrcChange={false}
-        autoPlay={false}
+        autoPlay={true}
         showSkipControls
         customAdditionalControls={[
           <button className="queueButton" onClick={openQueue}>

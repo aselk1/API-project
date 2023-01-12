@@ -28,7 +28,21 @@ function Songs({ isLoaded }) {
   };
 
   const playSong = async (id) => {
-    await dispatch(queueActions.fetchPlaySong(id));
+    const song = await dispatch(queueActions.fetchPlaySong(id));
+    const queue = await JSON.parse(localStorage.getItem("queue"));
+    if (queue) {
+      song["queueId"] = 0;
+      let i = 1;
+      while (i < queue.length) {
+          queue[i].queueId = queue[i].queueId + 1;
+          i++
+      }
+      queue.unshift(song);
+      localStorage.setItem("queue", JSON.stringify(queue));
+    } else {
+      song["queueId"] = 0;
+      localStorage.setItem("queue", JSON.stringify([song]));
+    }
   };
 
   const addSongToQueue = async (id) => {

@@ -67,6 +67,7 @@ export const fetchPlaySong = (songId) => async (dispatch) => {
   const response = await csrfFetch(`/api/songs/${songId}`);
   if (response.ok) {
     const data = await response.json();
+    data["queueId"] = 0;
     dispatch(playSong(data));
     return data;
   }
@@ -96,6 +97,11 @@ const queueReducer = (state = initialState, action) => {
     case PLAY_SONG:
       newState = [...state];
       newState.unshift(action.payload);
+      i = 1;
+      while (i < newState.length) {
+        newState[i].queueId = newState[i].queueId + 1;
+        i++;
+      }
       return newState;
     case CLEAR_QUEUE:
       return [];
