@@ -10,6 +10,7 @@ import * as currentSongActions from "../../store/currentSong";
 import * as commentsActions from "../../store/comments";
 import * as playlistDetailsActions from "../../store/playlistDetails";
 import AddSongToPlaylistFormModal from "../AddSongToPlaylistFormModal";
+import * as queueActions from "../../store/queue";
 
 function Details({isLoaded}) {
   const dispatch = useDispatch();
@@ -38,7 +39,21 @@ function Details({isLoaded}) {
     return history.push("/profile");
   };
   const playSong = async (id) => {
-    await dispatch(songDetailsActions.fetchSongDetails(id));
+    const song = await dispatch(queueActions.fetchPlaySong(id));
+    const queue = await JSON.parse(localStorage.getItem("queue"));
+    if (queue) {
+      song["queueId"] = 0;
+      let i = 1;
+      while (i < queue.length) {
+        queue[i].queueId = queue[i].queueId + 1;
+        i++;
+      }
+      queue.unshift(song);
+      localStorage.setItem("queue", JSON.stringify(queue));
+    } else {
+      song["queueId"] = 0;
+      localStorage.setItem("queue", JSON.stringify([song]));
+    }
   };
   const songDetails = async (id) => {
     await dispatch(currentSongActions.fetchCurrentSong(id));

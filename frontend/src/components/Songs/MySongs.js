@@ -8,6 +8,7 @@ import * as commentsActions from '../../store/comments';
 import AddSongFormModal from "../AddSongFormModal";
 import AddSongToPlaylistFormModal from "../AddSongToPlaylistFormModal";
 import SongDetails from "../SongDetails";
+import * as queueActions from "../../store/queue";
 
 import "./Songs.css";
 
@@ -32,7 +33,21 @@ function UserSongs({ isLoaded }) {
   };
 
   const playSong = async (id) => {
-    await dispatch(songDetailsActions.fetchSongDetails(id));
+    const song = await dispatch(queueActions.fetchPlaySong(id));
+    const queue = await JSON.parse(localStorage.getItem("queue"));
+    if (queue) {
+      song["queueId"] = 0;
+      let i = 1;
+      while (i < queue.length) {
+        queue[i].queueId = queue[i].queueId + 1;
+        i++;
+      }
+      queue.unshift(song);
+      localStorage.setItem("queue", JSON.stringify(queue));
+    } else {
+      song["queueId"] = 0;
+      localStorage.setItem("queue", JSON.stringify([song]));
+    }
   };
 
   return (
