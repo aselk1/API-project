@@ -9,23 +9,22 @@
 }
 
 .queuePopup {
-    width: 150px;
+    width: 170px;
     height: 300px;
     background-color: #cfcece;
     position: fixed;
     bottom: 89px;
     border-radius: 3px;
     padding-left: 20px;
-    padding-right: 20px;
 }
 
 .queueSong {
     font-size: 12px;
-
 }
 
 .queueTitle {
-    padding-bottom: 40px;
+    padding-top: 20px;
+    padding-bottom: 30px;
 }
 
 i#queue {
@@ -35,4 +34,22 @@ i#queue {
 i#queue:hover {
     cursor: pointer;
     color: red;
+}
+
+.bottomBorder {
+    border-bottom: 1px solid black;
+}
+
+.overflow {
+    overflow-y: scroll;
+}
+
+.queueSongs {
+    height: 238px;
+    padding-right: 15px;
+}
+
+.queueLogo {
+    width: 25px;
+    margin-right: 15px;
 }
