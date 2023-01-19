@@ -19,12 +19,6 @@ function SongPlayer() {
   }
 
   const player = useRef();
-  // if (!songDetails.id) {
-  //   if (player.current && showQueue){
-  //     console.log("Running");
-  //     player.current.audio.current.pause();
-  //   }
-  // }
 
   const openQueue = async () => {
     if (!showQueue) {
@@ -47,7 +41,7 @@ function SongPlayer() {
   return (
     <div className="audioPlayer">
       {showQueue && (
-        <Queue setShowQueue={setShowQueue} currentQueue={currentQueue} />
+        <Queue setShowQueue={setShowQueue} currentQueue={currentQueue} currentSong={currentSong} setCurrentSong={setCurrentSong} />
       )}
       <AudioPlayer
         src={playingSong}
@@ -62,7 +56,7 @@ function SongPlayer() {
           RHAP_UI.LOOP,
         ]}
         onClickNext={async () => {
-          if (currentQueue.length !== currentSong + 1) {
+          if (currentQueue.length > currentSong + 1) {
             await setCurrentSong(currentSong + 1);
             player.current.audio.current.play();
           }
