@@ -12,8 +12,10 @@ function SongPlayer() {
   const songDetails = useSelector((state) => state.songDetails);
   const currentQueue = useSelector((state) => state.queue);
   const [currentSong, setCurrentSong] = useState(0);
+  // const [playingSong, setPlayingSong] = useState(currentQueue[currentSong].url);
   const [showQueue, setShowQueue] = useState(false);
   let playingSong;
+  console.log('reset')
   if (currentQueue[currentSong]) {
     playingSong = currentQueue[currentSong].url;
   }

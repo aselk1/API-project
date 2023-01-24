@@ -8,13 +8,13 @@ function Queue({ setShowQueue, currentQueue, currentSong, setCurrentSong }) {
   const dispatch = useDispatch();
   const deleteSong = async (queueId) => {
     let queue = await JSON.parse(localStorage.getItem("queue"));
+    queue.splice(queueId, 1);
+    localStorage.setItem("queue", JSON.stringify(queue));
     if (queueId === queue.length - 1) {
       setCurrentSong(currentSong - 1);
     } else if (queueId < currentSong) {
       setCurrentSong(currentSong - 1);
     }
-    queue.splice(queueId, 1);
-    localStorage.setItem("queue", JSON.stringify(queue));
     await dispatch(queueActions.deleteSongFromQueue(queueId));
   };
 
