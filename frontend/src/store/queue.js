@@ -5,7 +5,7 @@ const PLAY_SONG = "/queue/playSong";
 const CLEAR_QUEUE = "/queue/clear";
 const ADD_QUEUE = "/queue/add";
 const DELETE_SONG = "/queue/deleteSong";
-const EDIT_SONG = 'queue/editSong';
+const EDIT_SONG = "queue/editSong";
 
 const addSong = (song) => {
   return {
@@ -48,16 +48,10 @@ export const editSong = (song) => {
   };
 };
 
-
 export const fetchAddSongToQueue = (songId, queue) => async (dispatch) => {
   const response = await csrfFetch(`/api/songs/${songId}`);
   if (response.ok) {
     const data = await response.json();
-    if (queue) {
-      data["queueId"] = queue.length;
-    } else {
-      data["queueId"] = 0;
-    }
     dispatch(addSong(data));
     return data;
   }
@@ -67,7 +61,6 @@ export const fetchPlaySong = (songId) => async (dispatch) => {
   const response = await csrfFetch(`/api/songs/${songId}`);
   if (response.ok) {
     const data = await response.json();
-    data["queueId"] = 0;
     dispatch(playSong(data));
     return data;
   }
@@ -78,9 +71,9 @@ export const fetchEditSong = (songId) => async (dispatch) => {
   if (res.ok) {
     const data = await res.json();
     dispatch(editSong(data));
-    return data
+    return data;
   }
-}
+};
 
 // export const fetchDeleteSong
 
@@ -97,11 +90,6 @@ const queueReducer = (state = initialState, action) => {
     case PLAY_SONG:
       newState = [...state];
       newState.unshift(action.payload);
-      i = 1;
-      while (i < newState.length) {
-        newState[i].queueId = newState[i].queueId + 1;
-        i++;
-      }
       return newState;
     case CLEAR_QUEUE:
       return [];
@@ -110,17 +98,7 @@ const queueReducer = (state = initialState, action) => {
       return newState;
     case DELETE_SONG:
       newState = [...state];
-      i = 0;
-      while (i < newState.length) {
-        if (newState[i].queueId === action.payload) {
-          newState.splice(i, 1);
-          for (let j = i; j < newState.length; j++) {
-            newState[j].queueId = newState[j].queueId - 1;
-          }
-          break;
-        }
-        i++
-      }
+      newState.splice(action.payload, 1);
       return newState;
     case EDIT_SONG:
       newState = [...state];

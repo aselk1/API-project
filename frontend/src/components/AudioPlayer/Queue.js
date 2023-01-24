@@ -7,23 +7,13 @@ import * as queueActions from "../../store/queue";
 function Queue({ setShowQueue, currentQueue, currentSong, setCurrentSong }) {
   const dispatch = useDispatch();
   const deleteSong = async (queueId) => {
-    console.log("working");
     let queue = await JSON.parse(localStorage.getItem("queue"));
-    if (queueId === queue.length-1) {
+    if (queueId === queue.length - 1) {
+      setCurrentSong(currentSong - 1);
+    } else if (queueId < currentSong) {
       setCurrentSong(currentSong - 1);
     }
-    else if (queueId < currentSong) {
-      setCurrentSong(currentSong - 1)
-    }
-    for (let i = 0; i < queue.length; i++) {
-      if (queue[i].queueId === queueId) {
-        queue.splice(i, 1);
-        for (let j = i; j < queue.length; j++) {
-          queue[j].queueId = queue[j].queueId - 1;
-        }
-        break;
-      }
-    }
+    queue.splice(queueId, 1);
     localStorage.setItem("queue", JSON.stringify(queue));
     await dispatch(queueActions.deleteSongFromQueue(queueId));
   };
@@ -42,7 +32,9 @@ function Queue({ setShowQueue, currentQueue, currentSong, setCurrentSong }) {
                 <div className="queueSong orange">{song.title}</div>
               </div>
             )}
-            {currentSong !== i && <div className="queueSong white">{song.title}</div>}
+            {currentSong !== i && (
+              <div className="queueSong white">{song.title}</div>
+            )}
             <div className="flexRow">
               {currentSong === i && (
                 <div className="smallPlay">
@@ -52,7 +44,7 @@ function Queue({ setShowQueue, currentQueue, currentSong, setCurrentSong }) {
               <i
                 className="fa-duotone fa-x white"
                 id="queue"
-                onClick={() => deleteSong(song.queueId)}
+                onClick={() => deleteSong(i)}
               ></i>
             </div>
           </div>
