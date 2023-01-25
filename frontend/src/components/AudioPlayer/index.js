@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
 import { useDispatch, useSelector } from "react-redux";
+import queuePhoto from '../../images/queue.png'
 
 import Queue from "./Queue";
 
@@ -53,7 +54,8 @@ function SongPlayer() {
         showSkipControls
         customAdditionalControls={[
           <button className="queueButton" onClick={openQueue}>
-            <i className="fa-solid fa-music"></i>
+            {/* <i className="fa-solid fa-music"></i> */}
+            <img className="queuePhoto" src={queuePhoto}></img>
           </button>,
           RHAP_UI.LOOP,
         ]}
