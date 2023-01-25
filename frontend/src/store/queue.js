@@ -5,7 +5,7 @@ const PLAY_SONG = "/queue/playSong";
 const CLEAR_QUEUE = "/queue/clear";
 const ADD_QUEUE = "/queue/add";
 const DELETE_SONG = "/queue/deleteSong";
-const EDIT_SONG = 'queue/editSong';
+const EDIT_SONG = "queue/editSong";
 
 const addSong = (song) => {
   return {
@@ -34,10 +34,10 @@ export const addQueue = (queue) => {
   };
 };
 
-export const deleteSong = (songId) => {
+export const deleteSongFromQueue = (queueId) => {
   return {
     type: DELETE_SONG,
-    payload: songId,
+    payload: queueId,
   };
 };
 
@@ -48,8 +48,7 @@ export const editSong = (song) => {
   };
 };
 
-
-export const fetchAddSongToQueue = (songId) => async (dispatch) => {
+export const fetchAddSongToQueue = (songId, queue) => async (dispatch) => {
   const response = await csrfFetch(`/api/songs/${songId}`);
   if (response.ok) {
     const data = await response.json();
@@ -72,9 +71,11 @@ export const fetchEditSong = (songId) => async (dispatch) => {
   if (res.ok) {
     const data = await res.json();
     dispatch(editSong(data));
-    return data
+    return data;
   }
-}
+};
+
+// export const fetchDeleteSong
 
 const initialState = [];
 
@@ -97,14 +98,7 @@ const queueReducer = (state = initialState, action) => {
       return newState;
     case DELETE_SONG:
       newState = [...state];
-      i = 0;
-      while (i < newState.length) {
-        if (newState[i].id === action.payload) {
-          newState.splice(i, 1);
-          i--;
-        }
-        i++
-      }
+      newState.splice(action.payload, 1);
       return newState;
     case EDIT_SONG:
       newState = [...state];

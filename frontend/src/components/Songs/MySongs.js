@@ -8,6 +8,7 @@ import * as commentsActions from '../../store/comments';
 import AddSongFormModal from "../AddSongFormModal";
 import AddSongToPlaylistFormModal from "../AddSongToPlaylistFormModal";
 import SongDetails from "../SongDetails";
+import * as queueActions from "../../store/queue";
 
 import "./Songs.css";
 
@@ -32,7 +33,25 @@ function UserSongs({ isLoaded }) {
   };
 
   const playSong = async (id) => {
-    await dispatch(songDetailsActions.fetchSongDetails(id));
+    const song = await dispatch(queueActions.fetchPlaySong(id));
+    const queue = await JSON.parse(localStorage.getItem("queue"));
+    if (queue) {
+      queue.unshift(song);
+      localStorage.setItem("queue", JSON.stringify(queue));
+    } else {
+      localStorage.setItem("queue", JSON.stringify([song]));
+    }
+  };
+
+  const addSongToQueue = async (id) => {
+    const queue = await JSON.parse(localStorage.getItem("queue"));
+    const song = await dispatch(queueActions.fetchAddSongToQueue(id, queue));
+    if (queue) {
+      queue.push(song);
+      localStorage.setItem("queue", JSON.stringify(queue));
+    } else {
+      localStorage.setItem("queue", JSON.stringify([song]));
+    }
   };
 
   return (
@@ -48,12 +67,21 @@ function UserSongs({ isLoaded }) {
               <div className="outerContainer">
                 <div className="addContainer2">
                   <AddSongToPlaylistFormModal songId={el.id} />
+                  <button onClick={() => addSongToQueue(el.id)}>
+                    Add to Queue
+                  </button>
                   <i
                     className="fa-solid fa-circle-info"
                     onClick={() => songDetails(el.id)}
                   ></i>
                 </div>
-                <img src={el.imageUrl}></img>
+                {/* <img src={el.imageUrl}></img> */}
+                <img
+                  className="songImage"
+                  alt={el.name}
+                  src={el.imageUrl}
+                  onClick={() => playSong(el.id)}
+                />
                 <div className="overlay" onClick={() => playSong(el.id)}>
                   <i className="fa-sharp fa-solid fa-circle-play"></i>
                 </div>

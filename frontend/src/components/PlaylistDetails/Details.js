@@ -10,6 +10,7 @@ import * as currentSongActions from "../../store/currentSong";
 import * as commentsActions from "../../store/comments";
 import * as playlistDetailsActions from "../../store/playlistDetails";
 import AddSongToPlaylistFormModal from "../AddSongToPlaylistFormModal";
+import * as queueActions from "../../store/queue";
 
 function Details({isLoaded}) {
   const dispatch = useDispatch();
@@ -38,7 +39,14 @@ function Details({isLoaded}) {
     return history.push("/profile");
   };
   const playSong = async (id) => {
-    await dispatch(songDetailsActions.fetchSongDetails(id));
+    const song = await dispatch(queueActions.fetchPlaySong(id));
+    const queue = await JSON.parse(localStorage.getItem("queue"));
+    if (queue) {
+      queue.unshift(song);
+      localStorage.setItem("queue", JSON.stringify(queue));
+    } else {
+      localStorage.setItem("queue", JSON.stringify([song]));
+    }
   };
   const songDetails = async (id) => {
     await dispatch(currentSongActions.fetchCurrentSong(id));
@@ -50,6 +58,17 @@ function Details({isLoaded}) {
     dispatch(playlistDetailsActions.fetchPlaylistDetails(playlistId));
     dispatch(playlistsActions.fetchUserPlaylists());
   },[dispatch, playlistId])
+
+  const addSongToQueue = async (id) => {
+    const queue = await JSON.parse(localStorage.getItem("queue"));
+    const song = await dispatch(queueActions.fetchAddSongToQueue(id, queue));
+    if (queue) {
+      queue.push(song);
+      localStorage.setItem("queue", JSON.stringify(queue));
+    } else {
+      localStorage.setItem("queue", JSON.stringify([song]));
+    }
+  };
 
   return (
     <div>
@@ -73,6 +92,9 @@ function Details({isLoaded}) {
             <div className="outerContainer">
               <div className={isLoaded ? "addContainer2" : "addContainer3"}>
                 {user && <AddSongToPlaylistFormModal songId={el.id} />}
+                <button onClick={() => addSongToQueue(el.id)}>
+                  Add to Queue
+                </button>
                 <i
                   className="fa-solid fa-circle-info"
                   onClick={() => songDetails(el.id)}
@@ -80,6 +102,7 @@ function Details({isLoaded}) {
               </div>
               <img
                 className="songImage"
+                alt={el.name}
                 src={el.imageUrl}
                 onClick={() => playSong(el.id)}
               />

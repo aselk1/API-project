@@ -35,7 +35,7 @@ function Details({id2}) {
         await dispatch(songActions.fetchDeleteSong(id));
         // if (id === song.id) await dispatch(songDetailsActions.deleteSong(id));
         if (id === song.id) {
-          await dispatch(queueActions.deleteSong(id))
+          await dispatch(queueActions.deleteSongFromQueue(id))
           let queue = await JSON.parse(localStorage.getItem('queue'));
           for (let i = 0; i < queue.length; i++) {
             if (queue[i].id === id) {

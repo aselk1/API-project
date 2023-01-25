@@ -12,23 +12,21 @@ function SongPlayer() {
   const songDetails = useSelector((state) => state.songDetails);
   const currentQueue = useSelector((state) => state.queue);
   const [currentSong, setCurrentSong] = useState(0);
+  // const [playingSong, setPlayingSong] = useState(currentQueue[currentSong].url);
   const [showQueue, setShowQueue] = useState(false);
   let playingSong;
+  console.log('reset')
   if (currentQueue[currentSong]) {
     playingSong = currentQueue[currentSong].url;
   }
 
   const player = useRef();
-  // if (!songDetails.id) {
-  //   if (player.current && showQueue){
-  //     console.log("Running");
-  //     player.current.audio.current.pause();
-  //   }
-  // }
 
   const openQueue = async () => {
-    await setShowQueue(true);
-    // else await setShowQueue(false);
+    if (!showQueue) {
+      await setShowQueue(true);
+    }
+    else await setShowQueue(false);
   };
   useEffect(() => {
     const queue = JSON.parse(localStorage.getItem("queue"));
@@ -44,12 +42,14 @@ function SongPlayer() {
 
   return (
     <div className="audioPlayer">
-      {showQueue && <Queue setShowQueue={setShowQueue} />}
+      {showQueue && (
+        <Queue setShowQueue={setShowQueue} currentQueue={currentQueue} currentSong={currentSong} setCurrentSong={setCurrentSong} />
+      )}
       <AudioPlayer
         src={playingSong}
         ref={player}
         autoPlayAfterSrcChange={false}
-        autoPlay={false}
+        autoPlay={true}
         showSkipControls
         customAdditionalControls={[
           <button className="queueButton" onClick={openQueue}>
@@ -58,18 +58,18 @@ function SongPlayer() {
           RHAP_UI.LOOP,
         ]}
         onClickNext={async () => {
-          if (currentQueue.length !== currentSong + 1) {
+          if (currentQueue.length > currentSong + 1) {
             await setCurrentSong(currentSong + 1);
-            player.current.audio.current.play()
+            player.current.audio.current.play();
           }
         }}
-        onClickPrevious={async() => {
+        onClickPrevious={async () => {
           if (currentSong > 0) {
             await setCurrentSong(currentSong - 1);
             player.current.audio.current.play();
           }
         }}
-        onEnded={async() => {
+        onEnded={async () => {
           if (currentQueue.length > currentSong + 1) {
             await setCurrentSong(currentSong + 1);
             player.current.audio.current.play();

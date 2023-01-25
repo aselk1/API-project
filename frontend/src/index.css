@@ -46,3 +46,12 @@ input {
 #modal {
     z-index: 2;
 }
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.flexSpread {
+    justify-content: space-between;
+}
