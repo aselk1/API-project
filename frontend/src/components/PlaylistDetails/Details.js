@@ -92,7 +92,10 @@ function Details({isLoaded}) {
             <div className="outerContainer">
               <div className={isLoaded ? "addContainer2" : "addContainer3"}>
                 {user && <AddSongToPlaylistFormModal songId={el.id} />}
-                <button onClick={() => addSongToQueue(el.id)}>
+                <button
+                  className="addSongToQueue"
+                  onClick={() => addSongToQueue(el.id)}
+                >
                   Add to Queue
                 </button>
                 <i

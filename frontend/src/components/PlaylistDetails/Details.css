@@ -16,3 +16,15 @@
     flex-direction: row;
     align-items: center;
 }
+
+.addSongToQueue {
+  color: black;
+  background-color: orange;
+  border: 2px black solid;
+}
+
+.addSongToQueue:hover {
+  color: white;
+  /* border-color: white; */
+  background-color: orangered;
+}
