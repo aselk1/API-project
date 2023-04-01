@@ -39,11 +39,11 @@ function Songs({ isLoaded }) {
   };
 
   const addSongToQueue = async (id) => {
-    const queue = await JSON.parse(localStorage.getItem('queue'));
+    const queue = await JSON.parse(localStorage.getItem("queue"));
     const song = await dispatch(queueActions.fetchAddSongToQueue(id, queue));
     if (queue) {
       queue.push(song);
-      localStorage.setItem('queue', JSON.stringify(queue));
+      localStorage.setItem("queue", JSON.stringify(queue));
     } else {
       localStorage.setItem("queue", JSON.stringify([song]));
     }
@@ -57,9 +57,13 @@ function Songs({ isLoaded }) {
           {songsArray.map((el) => (
             <li className="songs" key={el.id}>
               <div className="outerContainer">
-                <div className={isLoaded ? "addContainer2" : "addContainer3"}>
+                <div className="addContainer2">
                   {user && <AddSongToPlaylistFormModal songId={el.id} />}
-                  <button onClick={() => addSongToQueue(el.id)}>
+                  {!user && <div className="addContainer"></div>}
+                  <button
+                    className="addSongToQueue"
+                    onClick={() => addSongToQueue(el.id)}
+                  >
                     Add to Queue
                   </button>
                   <i

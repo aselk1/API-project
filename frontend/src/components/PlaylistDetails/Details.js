@@ -90,9 +90,13 @@ function Details({isLoaded}) {
         {songs?.map((el) => (
           <li className="songs" key={el.id}>
             <div className="outerContainer">
-              <div className={isLoaded ? "addContainer2" : "addContainer3"}>
+              <div className="addContainer2">
                 {user && <AddSongToPlaylistFormModal songId={el.id} />}
-                <button onClick={() => addSongToQueue(el.id)}>
+                {!user && <div className="addContainer"></div>}
+                <button
+                  className="addSongToQueue"
+                  onClick={() => addSongToQueue(el.id)}
+                >
                   Add to Queue
                 </button>
                 <i

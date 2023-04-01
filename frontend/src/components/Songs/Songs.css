@@ -29,6 +29,7 @@ div.outerContainer > img:hover {
 
 .outerContainer {
     display: flex;
+    flex-direction: column;
 }
 
 

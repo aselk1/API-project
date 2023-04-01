@@ -67,7 +67,10 @@ function UserSongs({ isLoaded }) {
               <div className="outerContainer">
                 <div className="addContainer2">
                   <AddSongToPlaylistFormModal songId={el.id} />
-                  <button onClick={() => addSongToQueue(el.id)}>
+                  <button
+                    className="addSongToQueue"
+                    onClick={() => addSongToQueue(el.id)}
+                  >
                     Add to Queue
                   </button>
                   <i
